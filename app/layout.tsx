@@ -4,7 +4,7 @@ import { SITE_URL } from "./siteConfig";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "お得な支払い方法チェッカー",
+  title: "お支払いナビ",
   description: "店舗を選ぶと一番お得な支払い方法が分かります",
   // Google Search Consoleの所有権確認用（HTMLタグ方式）。
   verification: {

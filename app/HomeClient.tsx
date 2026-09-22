@@ -110,7 +110,7 @@ export default function HomeClient() {
         </section>
       )}
 
-      <h1>お得な支払い方法チェッカー</h1>
+      <h1>お支払いナビ</h1>
 
       <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
 
