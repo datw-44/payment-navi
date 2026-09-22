@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { categoryOrder, paymentData } from "./data";
+import { getCategoryColor } from "./categoryTheme";
 import { getStoreId } from "./storeIds";
 import {
   findTodaysDeals,
@@ -110,7 +111,12 @@ export default function HomeClient() {
         </section>
       )}
 
-      <h1>お支払いナビ</h1>
+      <header className="site-header">
+        <p className="site-header-name">お支払いナビ</p>
+        <p className="site-header-tagline">
+          いつもの買い物、一番お得な払い方がすぐわかる
+        </p>
+      </header>
 
       <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
 
@@ -133,7 +139,13 @@ export default function HomeClient() {
 
       {groupedStores.map((group) => (
         <div className="store-category" key={group.category}>
-          <p className="store-category-label">{group.category}</p>
+          <p className="store-category-label">
+            <span
+              className="category-dot"
+              style={{ backgroundColor: getCategoryColor(group.category) }}
+            />
+            {group.category}
+          </p>
           <div className="store-selector">
             {group.stores.map((store) => {
               const storeId = getStoreId(store);

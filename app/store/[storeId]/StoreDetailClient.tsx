@@ -297,6 +297,16 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         </button>
       )}
 
+      {/* 4. 解説文（ランキングの下） */}
+      {store.解説 && (
+        <section className="store-commentary">
+          <h2 className="store-commentary-heading">
+            {store.店舗}で一番お得な払い方
+          </h2>
+          <p className="store-commentary-text">{store.解説}</p>
+        </section>
+      )}
+
       <p className="footer-note">
         情報は2026年9月時点のものです。最新の条件は
         各カード会社の公式サイトをご確認ください
