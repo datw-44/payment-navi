@@ -1,0 +1,822 @@
+:root {
+  --bg: #f5f6f8;
+  --card-bg: #ffffff;
+  --accent: #e60027;
+  --accent-bright: #ff1744;
+  --gold-bg: linear-gradient(135deg, #ffe27a, #f0b429);
+  --gold-text: #6b4a00;
+  --silver-bg: linear-gradient(135deg, #eef0f2, #b9bfc6);
+  --silver-text: #3d4247;
+  --text-main: #1a1a1a;
+  --text-sub: #6b6b6b;
+  --border: #e5e5e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 20px 52px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin: 4px 0 24px;
+  letter-spacing: 0.01em;
+}
+
+.today-deals {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fff4d6, #ffe9e9);
+  border-radius: 16px;
+  border: 1px solid #f5ddb0;
+}
+
+.today-deals-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a5a00;
+  margin: 0 0 10px;
+}
+
+.today-deals-empty {
+  font-size: 12px;
+  color: #8a6a3a;
+  margin: 0;
+}
+
+.today-deals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.today-deal-card {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.today-deal-card:active {
+  transform: scale(0.99);
+}
+
+.today-deal-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-deal-logo-label {
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.today-deal-text {
+  font-size: 12px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.today-deal-rate {
+  color: var(--accent-bright);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-sub);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.back-link:active {
+  opacity: 0.7;
+}
+
+.my-cards-button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 13px;
+  background: var(--card-bg);
+  border: 1px dashed var(--accent);
+  border-radius: 12px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-cards-button:active {
+  transform: scale(0.99);
+}
+
+.store-search {
+  margin-bottom: 24px;
+}
+
+.store-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.store-search-input::placeholder {
+  color: var(--text-sub);
+}
+
+.store-search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.store-search-empty {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 13px;
+  padding: 20px 16px 4px;
+}
+
+.store-category {
+  margin-bottom: 28px;
+}
+
+.store-category-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-sub);
+  margin: 0 0 10px 2px;
+}
+
+.store-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.store-button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-main);
+  padding: 16px 6px;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.store-button:active {
+  transform: scale(0.98);
+}
+
+.store-button.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.store-button-name {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.store-points {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+}
+
+.point-icon {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.result-area {
+  flex: 1;
+}
+
+.placeholder {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 13px;
+  padding: 60px 16px;
+}
+
+/* 1. 店舗名（アイコン付き、中央揃え） */
+.store-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.store-header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.store-header-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* 2. 「貯まる・使えるポイント」の帯 */
+.point-band {
+  background: #eef0f2;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.point-band-label {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin: 0 0 10px;
+}
+
+.point-band-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+
+.point-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.point-chip-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.point-chip-name {
+  font-size: 12px;
+  color: var(--text-main);
+}
+
+/* 2.2 使えない決済手段の帯 */
+.unsupported-band {
+  background: #fdecea;
+  border: 1px solid #f3c3bd;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+}
+
+.unsupported-band-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #b23a2e;
+  margin: 0 0 8px;
+}
+
+.unsupported-band-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.unsupported-band-list li {
+  font-size: 11px;
+  color: #8a4038;
+  line-height: 1.6;
+}
+
+/* 2.5 マイリスト／すべて タブ */
+.result-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.result-tab {
+  appearance: none;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.result-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.my-list-empty {
+  text-align: center;
+  padding: 32px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+.my-list-empty-text {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.my-list-empty-button {
+  appearance: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-list-empty-button:active {
+  transform: scale(0.98);
+}
+
+/* マイカード登録モーダル */
+.my-cards-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 30, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.my-cards-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 85dvh;
+  background: var(--card-bg);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.my-cards-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.my-cards-modal-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.my-cards-modal-close {
+  appearance: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-sub);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.my-cards-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.my-cards-category {
+  margin-bottom: 20px;
+}
+
+.my-cards-category-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin: 0 0 8px;
+}
+
+.my-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.my-cards-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--bg);
+  cursor: pointer;
+}
+
+.my-cards-checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.my-cards-checkbox-name {
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.my-cards-modal-footer {
+  padding: 12px 20px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.my-cards-modal-done {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.my-cards-modal-done:active {
+  transform: scale(0.99);
+}
+
+/* 3. 支払い方法のランキング */
+.rank-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.rank-card {
+  position: relative;
+  grid-column: span 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(20, 20, 30, 0.06);
+  padding: 16px;
+}
+
+.rank-card.rank-first {
+  grid-column: 1 / -1;
+}
+
+.rank-badge {
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.rank-badge-gold {
+  background: var(--gold-bg);
+  color: var(--gold-text);
+  box-shadow: 0 2px 6px rgba(176, 130, 0, 0.35);
+}
+
+.rank-badge-silver {
+  background: var(--silver-bg);
+  color: var(--silver-text);
+  box-shadow: 0 2px 6px rgba(80, 90, 100, 0.3);
+}
+
+.rank-badge-bronze {
+  background: linear-gradient(135deg, #e6b48c, #b9713f);
+  color: #5a3018;
+  box-shadow: 0 2px 6px rgba(140, 90, 40, 0.35);
+}
+
+.rank-badge-gray {
+  background: #e7e7e9;
+  color: var(--text-sub);
+}
+
+.rank-card-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+  min-width: 0;
+}
+
+.rank-first .rank-card-main {
+  margin-top: 8px;
+}
+
+.rank-card-logo {
+  width: 44px;
+  aspect-ratio: 1.586;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.rank-first .rank-card-logo {
+  width: 60px;
+  border-radius: 8px;
+}
+
+.rank-card-logo-photo {
+  object-fit: cover;
+}
+
+.rank-card-logo-label {
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.rank-first .rank-card-logo-label {
+  font-size: 9px;
+}
+
+.rank-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.rank-card-name {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 4px;
+}
+
+.rank-first .rank-card-name {
+  font-size: 14px;
+}
+
+.rank-card-condition-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 8px;
+  margin: 0 0 6px;
+}
+
+.rank-card-condition {
+  font-size: 10px;
+  color: var(--text-sub);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.rank-first .rank-card-condition {
+  font-size: 11px;
+}
+
+.rank-card-toggle {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rank-first .rank-card-toggle {
+  font-size: 11px;
+}
+
+.rank-card-expanded {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 0 0 10px;
+}
+
+.rank-card-expanded-text {
+  font-size: 10px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rank-card-expanded-text + .rank-card-expanded-text {
+  margin-top: 6px;
+}
+
+.rank-first .rank-card-expanded-text {
+  font-size: 11px;
+}
+
+.rank-card-rate {
+  display: block;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-bright);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.rank-first .rank-card-rate {
+  font-size: 24px;
+}
+
+.rank-card-detail {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.rank-card-note {
+  font-size: 10px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rank-card-note + .rank-card-note {
+  margin-top: 4px;
+}
+
+.rank-first .rank-card-note {
+  font-size: 11px;
+}
+
+/* アフィリエイトのカード発行ボタン（発行リンクが設定された候補のみ表示） */
+.rank-card-affiliate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.rank-card-pr-badge {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.rank-card-affiliate-button {
+  flex: 1;
+  text-align: center;
+  appearance: none;
+  padding: 9px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rank-card-affiliate-button:active {
+  transform: scale(0.98);
+}
+
+.rank-more-button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 13px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rank-more-button:active {
+  transform: scale(0.99);
+}
+
+.not-ready {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 14px;
+  padding: 60px 16px;
+  background: var(--card-bg);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+}
+
+.footer-note {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 10px;
+  color: #999;
+  line-height: 1.7;
+}
