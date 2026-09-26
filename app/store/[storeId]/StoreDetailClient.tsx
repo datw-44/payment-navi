@@ -6,6 +6,7 @@ import type { StorePayments } from "../../data";
 import { candidateMatchesMyCards } from "../../myCards";
 import {
   formatRateHeadline,
+  formatRewardPer1000,
   getBrandChip,
   getInitial,
   getPointStyle,
@@ -62,6 +63,11 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
     [store]
   );
 
+  // 結論ブロックは、マイリストの絞り込みに関わらず、データ上の1位を表示する。
+  const topCandidate = sortedCandidates[0];
+  const topChip = topCandidate ? getBrandChip(topCandidate.カード) : null;
+  const topRewardText = topCandidate ? formatRewardPer1000(topCandidate.還元率) : "";
+
   const myCandidates = useMemo(() => {
     if (!myCardIds) return [];
     return sortedCandidates.filter((candidate) =>
@@ -95,30 +101,44 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         <p className="store-header-name">{store.店舗}</p>
       </div>
 
-      {/* 2. 「貯まる・使えるポイント」の帯（レジ提示で貯まる共通ポイントのみ） */}
-      {store.共通ポイント.length > 0 && (
-        <div className="point-band">
-          <p className="point-band-label">貯まる・使えるポイント</p>
-          <div className="point-band-list">
-            {store.共通ポイント.map((token) => {
-              const style = getPointStyle(token);
-              return (
-                <span className="point-chip" key={token}>
-                  <span
-                    className="point-chip-dot"
-                    style={{
-                      backgroundColor: style.bg,
-                      color: style.text,
-                    }}
-                  >
-                    {style.label}
-                  </span>
-                  <span className="point-chip-name">{token}</span>
-                </span>
-              );
-            })}
+      {/* 2. 結論ブロック（データ上の1位） */}
+      {topCandidate && (
+        <section className="conclusion">
+          <h2 className="conclusion-heading">
+            {store.店舗}なら、これで払うのが一番お得
+          </h2>
+          <div className="conclusion-main">
+            <div
+              className="conclusion-logo"
+              style={{ backgroundColor: topChip?.bg }}
+            >
+              <span className="conclusion-logo-label">
+                {topChip ? shortChipLabel(topChip.label) : ""}
+              </span>
+            </div>
+            <div className="conclusion-body">
+              <p className="conclusion-card-name">{topCandidate.カード}</p>
+              <p className="conclusion-condition">{topCandidate.条件要約}</p>
+            </div>
           </div>
-        </div>
+          <div className="conclusion-rate-row">
+            <p className="conclusion-rate">
+              {formatRateHeadline(topCandidate.還元率)}
+            </p>
+            <p className="conclusion-reward">{topRewardText}</p>
+          </div>
+          {!isSimpleRate(topCandidate.還元率) && (
+            <p className="conclusion-note">
+              還元率の詳細: {topCandidate.還元率}
+            </p>
+          )}
+          {topCandidate.特定日限定 && topCandidate.対象日条件 && (
+            <p className="conclusion-note">
+              対象日：{topCandidate.対象日条件}
+            </p>
+          )}
+          <p className="conclusion-note">※{topCandidate.注意}</p>
+        </section>
       )}
 
       {/* 2.2 使えない決済手段（コストコ等、対応が限定的な店舗のみ表示） */}
@@ -135,9 +155,22 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         </div>
       )}
 
+      {/* 3. 解説文 */}
+      {store.解説 && (
+        <section className="store-commentary">
+          <h2 className="store-commentary-heading">
+            {store.店舗}で一番お得な払い方
+          </h2>
+          <p className="store-commentary-text">{store.解説}</p>
+        </section>
+      )}
+
+      {/* 4. ランキング */}
+      <h2 className="section-heading">支払い方法ランキング</h2>
+
       <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
 
-      {/* 2.5 マイリスト／すべて タブ */}
+      {/* マイリスト／すべて タブ */}
       <div className="result-tabs">
         <button
           type="button"
@@ -297,14 +330,30 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         </button>
       )}
 
-      {/* 4. 解説文（ランキングの下） */}
-      {store.解説 && (
-        <section className="store-commentary">
-          <h2 className="store-commentary-heading">
-            {store.店舗}で一番お得な払い方
-          </h2>
-          <p className="store-commentary-text">{store.解説}</p>
-        </section>
+      {/* 5. 「貯まる・使えるポイント」の帯（レジ提示で貯まる共通ポイントのみ） */}
+      {store.共通ポイント.length > 0 && (
+        <div className="point-band">
+          <p className="point-band-label">貯まる・使えるポイント</p>
+          <div className="point-band-list">
+            {store.共通ポイント.map((token) => {
+              const style = getPointStyle(token);
+              return (
+                <span className="point-chip" key={token}>
+                  <span
+                    className="point-chip-dot"
+                    style={{
+                      backgroundColor: style.bg,
+                      color: style.text,
+                    }}
+                  >
+                    {style.label}
+                  </span>
+                  <span className="point-chip-name">{token}</span>
+                </span>
+              );
+            })}
+          </div>
+        </div>
       )}
 
       <p className="footer-note">

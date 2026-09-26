@@ -42,6 +42,11 @@ export const myCardRegistry: MyCardDef[] = [
   { id: "view_card", name: "ビューカード", category: "クレジットカード", keyword: "ビューカード" },
   { id: "ana_card", name: "ANAカード", category: "クレジットカード", keyword: "ANAカード" },
   { id: "jal_card", name: "JALカード", category: "クレジットカード", keyword: "JALカード" },
+  { id: "mitsui_gold", name: "三井住友カード ゴールド（NL）", category: "クレジットカード", keyword: "三井住友カード ゴールド" },
+  { id: "dcard_gold", name: "dカード GOLD", category: "クレジットカード", keyword: "dカード GOLD" },
+  { id: "au_pay_card", name: "au PAYカード", category: "クレジットカード", keyword: "au PAYカード" },
+  { id: "aeon_select", name: "イオンカードセレクト", category: "クレジットカード", keyword: "イオンカードセレクト" },
+  { id: "rakuten_debit", name: "楽天銀行デビットカード", category: "クレジットカード", keyword: "楽天銀行デビット" },
 
   // QR決済
   { id: "paypay_app", name: "PayPay（残高・あと払い）", category: "QR決済", keyword: "PayPay" },
@@ -90,6 +95,23 @@ export const myCardRegistry: MyCardDef[] = [
   { id: "pecoma", name: "ペコマカード（セイコーマート）", category: "店舗独自カード", keyword: "ペコマ" },
   { id: "maruetsu_card", name: "マルエツカード", category: "店舗独自カード", keyword: "マルエツカード" },
   { id: "sugi_pay", name: "スギPay", category: "店舗独自カード", keyword: "スギPay" },
+  { id: "comeka", name: "コメカ（コメダ珈琲店）", category: "店舗独自カード", keyword: "コメカ" },
+  { id: "cainz_pay", name: "CAINZセゾンカード（CAINZ Pay）", category: "店舗独自カード", keyword: "CAINZセゾンカード" },
+  { id: "cainz_card", name: "カインズカード", category: "店舗独自カード", keyword: "カインズカード" },
+  { id: "komeri_card", name: "コメリカード", category: "店舗独自カード", keyword: "コメリカード" },
+  { id: "dcm_myboo", name: "DCMマイボカード", category: "店舗独自カード", keyword: "DCMマイボカード" },
+  { id: "kohnan_card", name: "コーナンカード", category: "店舗独自カード", keyword: "コーナンカード" },
+  { id: "edion_card", name: "エディオンカード", category: "店舗独自カード", keyword: "エディオンカード" },
+  { id: "joshin_card", name: "ジョーシンカード", category: "店舗独自カード", keyword: "ジョーシンカード" },
+  { id: "shimamura_park", name: "しまむらパーク", category: "店舗独自カード", keyword: "しまむらパーク" },
+  { id: "gu_app", name: "GUアプリ", category: "店舗独自カード", keyword: "GUアプリ" },
+  { id: "lopita", name: "ロピタ（ロピア）", category: "店舗独自カード", keyword: "ロピタ" },
+  { id: "okclub", name: "オーケークラブ会員カード", category: "店舗独自カード", keyword: "オーケークラブ" },
+  { id: "summit_card", name: "サミットカード", category: "店舗独自カード", keyword: "サミットカード" },
+  { id: "yaoko_card", name: "ヤオコーカード", category: "店舗独自カード", keyword: "ヤオコーカード" },
+  { id: "yaoko_pay", name: "ヤオコーPay", category: "店舗独自カード", keyword: "ヤオコーPay" },
+  { id: "create_sd_card", name: "クリエイトSDポイントカード", category: "店舗独自カード", keyword: "クリエイトSDポイントカード" },
+  { id: "kawachi_card", name: "カワチポイントカード", category: "店舗独自カード", keyword: "カワチポイントカード" },
 ];
 
 // 候補名（カード欄）に含まれるキーワードから、必要なマイカードIDの一覧を求める。
@@ -119,11 +141,25 @@ export function candidateMatchesMyCards(
 ): boolean {
   const required = getRequiredCardIds(cardName);
   if (required.length === 0) return false;
+  // 上位カードは、対応する基本カードの特典も使えるものとして扱う
+  // （ゴールドNL＝NLと同じ7%対象、dカード GOLD＝dカードと同じ基本還元率、
+  //   イオンカードセレクト＝イオンカードと同じ特典）。
+  const owned = new Set(ownedIds);
+  for (const [upper, base] of IMPLIED_CARD_IDS) {
+    if (owned.has(upper)) owned.add(base);
+  }
+  ownedIds = owned;
   if (cardName.includes("／")) {
     return required.some((id) => ownedIds.has(id));
   }
   return required.every((id) => ownedIds.has(id));
 }
+
+const IMPLIED_CARD_IDS: [string, string][] = [
+  ["mitsui_gold", "mitsui"],
+  ["dcard_gold", "dcard"],
+  ["aeon_select", "aeon_card"],
+];
 
 const STORAGE_KEY = "otoku-my-cards-v1";
 

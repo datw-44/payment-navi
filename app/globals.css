@@ -395,7 +395,113 @@ h1 {
   background: #eef0f2;
   border-radius: var(--radius-lg);
   padding: var(--space-md);
+  margin-top: var(--space-xl);
+  margin-bottom: 0;
+}
+
+/* 結論ブロック（店舗ページの最上部） */
+.conclusion {
+  background: linear-gradient(160deg, #fff4f5 0%, #fffaf3 100%);
+  border: 1px solid #f6c9d0;
+  border-radius: var(--radius-xl);
+  padding: var(--space-md) var(--space-md) 14px;
   margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.conclusion-heading {
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+  color: var(--accent);
+  margin: 0 0 var(--space-sm);
+  line-height: 1.5;
+}
+
+.conclusion-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.conclusion-logo {
+  width: 56px;
+  aspect-ratio: 1.586;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.conclusion-logo-label {
+  color: #fff;
+  font-size: 9px;
+  font-weight: var(--fw-heading);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.conclusion-body {
+  min-width: 0;
+}
+
+.conclusion-card-name {
+  font-size: 15px;
+  font-weight: var(--fw-heading);
+  line-height: 1.5;
+  margin: 0 0 2px;
+}
+
+.conclusion-condition {
+  font-size: 12px;
+  font-weight: var(--fw-body);
+  color: var(--text-sub);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.conclusion-rate-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: var(--space-sm) 0 6px;
+  padding-top: var(--space-sm);
+  border-top: 1px dashed #f0c3cb;
+}
+
+.conclusion-rate {
+  font-size: 30px;
+  font-weight: var(--fw-heading);
+  color: var(--accent-bright);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.conclusion-reward {
+  font-size: 12px;
+  font-weight: var(--fw-body);
+  color: var(--text-main);
+  margin: 0;
+}
+
+.conclusion-note {
+  font-size: 11px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin: 2px 0 0;
+}
+
+.section-heading {
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+  margin: var(--space-xl) 0 var(--space-sm);
 }
 
 .point-band-label {
@@ -676,6 +782,12 @@ h1 {
   box-shadow: var(--shadow-md);
 }
 
+/* スマホにはホバーがないため、タップ中にも軽く浮かせる */
+.rank-card:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
 /* 1位カードだけ、ほんのり光るようなアクセントをつける */
 .rank-card.rank-first {
   grid-column: 1 / -1;
@@ -950,7 +1062,7 @@ h1 {
 
 /* 4. 解説文 */
 .store-commentary {
-  margin-top: 28px;
+  margin-top: 0;
   padding: 18px var(--space-md);
   background: var(--card-bg);
   border: 1px solid var(--border);

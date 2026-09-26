@@ -31,6 +31,22 @@ export type ChipStyle = { bg: string; label: string };
 // ブランド名の一部を含むカード名を判定し、固定の色・ロゴ風ラベルを割り当てる。
 // 上から順に判定するので、より具体的なキーワードを先に置く。
 const BRAND_STYLES: { keyword: string; bg: string; label: string }[] = [
+  { keyword: "CAINZ", bg: "#F58220", label: "CAINZ" },
+  { keyword: "カインズ", bg: "#F58220", label: "CAINZ" },
+  { keyword: "コメリ", bg: "#0B7F3E", label: "KOMERI" },
+  { keyword: "DCM", bg: "#E60012", label: "DCM" },
+  { keyword: "コーナン", bg: "#F39800", label: "KOHNAN" },
+  { keyword: "エディオン", bg: "#E60012", label: "EDION" },
+  { keyword: "ジョーシン", bg: "#E60012", label: "JOSHIN" },
+  { keyword: "GUアプリ", bg: "#0056A8", label: "GU" },
+  { keyword: "しまむら", bg: "#D6006C", label: "SHIMAMURA" },
+  { keyword: "ロピタ", bg: "#E60012", label: "LOPIA" },
+  { keyword: "オーケークラブ", bg: "#0056A8", label: "OK" },
+  { keyword: "サミット", bg: "#E60012", label: "SUMMIT" },
+  { keyword: "ヤオコー", bg: "#E60012", label: "YAOKO" },
+  { keyword: "クリエイトSD", bg: "#0EA5E9", label: "CREATE SD" },
+  { keyword: "カワチ", bg: "#F39800", label: "KAWACHI" },
+  { keyword: "コメカ", bg: "#7B3F00", label: "KOMEDA" },
   { keyword: "Olive", bg: "#6B7A2B", label: "OLIVE" },
   { keyword: "三井住友", bg: "#1B5E3A", label: "MITSUI SUMITOMO" },
   { keyword: "セブンカード", bg: "#F2811D", label: "SEVEN CARD" },
@@ -151,6 +167,17 @@ export function getPointStyle(token: string): PointChipStyle {
 // 還元率の見出し表示用に「7.0 %」の形へ整形する（内部の数値抽出はparseRateValueと同じ）。
 export function formatRateHeadline(rate: string): string {
   return `${parseRateValue(rate).toFixed(1)} %`;
+}
+
+// 「1,000円払った場合にいくら戻るか」を表示用の文言にする。
+// 数値はparseRateValue（見出しの還元率と同じ値）から計算し、
+// 「割引」表記ならポイント還元ではなく「◯円引き」と書く。
+export function formatRewardPer1000(rate: string): string {
+  const amount = Number(((parseRateValue(rate) * 1000) / 100).toFixed(1));
+  if (amount === 0) return "1,000円のお支払いでの還元はありません";
+  const prefix = rate.includes("最大") ? "最大" : "";
+  const unit = rate.includes("割引") ? "円引き" : "円分の還元";
+  return `1,000円のお支払いで ${prefix}${amount}${unit}`;
 }
 
 // 還元率欄が「7%」のような単一の数値だけかどうかを判定する。

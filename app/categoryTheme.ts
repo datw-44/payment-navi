@@ -6,6 +6,8 @@ export const CATEGORY_COLORS: Record<string, string> = {
   スーパー: "#EA580C",
   ファストフード: "#DC2626",
   家電量販店: "#0891B2",
+  ホームセンター: "#65A30D",
+  アパレル: "#DB2777",
   カフェ: "#92400E",
   飲食チェーン: "#C026D3",
   その他: "#7C3AED",
