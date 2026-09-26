@@ -68,6 +68,8 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
   const topChip = topCandidate ? getBrandChip(topCandidate.カード) : null;
   const topRewardText = topCandidate ? formatRewardPer1000(topCandidate.還元率) : "";
 
+  const hasAffiliateLink = store.候補.some((c) => Boolean(c.発行リンク));
+
   const myCandidates = useMemo(() => {
     if (!myCardIds) return [];
     return sortedCandidates.filter((candidate) =>
@@ -100,6 +102,13 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         </span>
         <p className="store-header-name">{store.店舗}</p>
       </div>
+
+      {/* 1.5 PR表記（広告リンクがあるページのみ） */}
+      {hasAffiliateLink && (
+        <p className="pr-notice">
+          本ページには広告（アフィリエイトリンク）が含まれます
+        </p>
+      )}
 
       {/* 2. 結論ブロック（データ上の1位） */}
       {topCandidate && (
@@ -302,14 +311,13 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
 
                   {candidate.発行リンク && (
                     <div className="rank-card-affiliate">
-                      <span className="rank-card-pr-badge">PR</span>
                       <a
                         href={candidate.発行リンク}
                         target="_blank"
                         rel="noopener noreferrer sponsored"
                         className="rank-card-affiliate-button"
                       >
-                        このカードを発行する
+                        公式サイトで申し込む
                       </a>
                     </div>
                   )}

@@ -57,13 +57,17 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
     "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
   max-width: 480px;
   margin: 0 auto;
-  padding: 28px 20px 52px;
-  min-height: 100dvh;
+  width: 100%;
+  padding: 28px 20px 40px;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -1006,27 +1010,17 @@ h1 {
   margin-top: 10px;
 }
 
-.rank-card-pr-badge {
-  flex-shrink: 0;
-  font-size: 9px;
-  font-weight: var(--fw-heading);
-  color: var(--text-sub);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1px 5px;
-}
-
 .rank-card-affiliate-button {
-  flex: 1;
+  display: block;
+  width: 100%;
   text-align: center;
-  appearance: none;
-  padding: 9px;
+  padding: 8px;
   border-radius: var(--radius-sm);
-  border: none;
-  background: var(--accent);
-  color: #fff;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-sub);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--fw-body);
   text-decoration: none;
   transition: transform var(--transition-fast);
 }
@@ -1103,4 +1097,111 @@ h1 {
   font-weight: var(--fw-note);
   color: #999;
   line-height: 1.7;
+}
+
+/* PR表記 */
+.pr-notice {
+  margin: 0 0 var(--space-sm);
+  text-align: center;
+  font-size: 10px;
+  font-weight: var(--fw-note);
+  color: var(--text-faint);
+}
+
+/* 全ページ共通フッター */
+.site-footer {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-md) 20px var(--space-lg);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.site-footer-links a {
+  font-size: 11px;
+  font-weight: var(--fw-body);
+  color: var(--text-sub);
+  text-decoration: none;
+}
+
+.site-footer-copy {
+  margin: var(--space-sm) 0 0;
+  font-size: 10px;
+  font-weight: var(--fw-note);
+  color: var(--text-faint);
+}
+
+/* 規約系ページ（プライバシー・運営者情報・お問い合わせ） */
+.legal-title {
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.legal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.legal-body section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+}
+
+.legal-body h2 {
+  margin: 0 0 var(--space-xs);
+  font-size: 14px;
+  font-weight: var(--fw-heading);
+}
+
+.legal-body p {
+  margin: 0 0 var(--space-xs);
+  font-size: 12px;
+  font-weight: var(--fw-body);
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.legal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-body a {
+  color: var(--accent);
+}
+
+.legal-body .legal-small {
+  font-size: 11px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+}
+
+.legal-contact {
+  margin: var(--space-xs) 0 0;
+  font-size: 12px;
+}
+
+.legal-contact dt {
+  font-weight: var(--fw-heading);
+  color: var(--text-sub);
+  font-size: 11px;
+  margin-top: var(--space-xs);
+}
+
+.legal-contact dd {
+  margin: 2px 0 0;
+  min-height: 1.6em;
+  padding-bottom: 2px;
+  border-bottom: 1px dashed var(--border);
+  font-weight: var(--fw-body);
 }

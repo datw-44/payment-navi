@@ -15,5 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [{ url: `${SITE_URL}/`, lastModified: now }, ...storeUrls];
+  const pageUrls: MetadataRoute.Sitemap = ["privacy", "about", "contact"].map(
+    (path) => ({ url: `${SITE_URL}/${path}/`, lastModified: now })
+  );
+
+  return [{ url: `${SITE_URL}/`, lastModified: now }, ...storeUrls, ...pageUrls];
 }
