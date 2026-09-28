@@ -6,4 +6,4 @@ export const SITE_NAME = "お支払いナビ";
 export const OPERATOR_NAME = "Tidbits";
 
 // お問い合わせ用メールアドレス。取得後にここへ入れると /contact に表示される（空のときは「準備中」）。
-export const CONTACT_EMAIL = "";
+export const CONTACT_EMAIL = "tidbits.work.contact@gmail.com";
