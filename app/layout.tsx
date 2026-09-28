@@ -25,6 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        {/* Google AdSense 審査用コード。next/scriptだと静的HTMLに実タグが出ないため、素のscriptタグで全ページのheadに出力する */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4177347832172841"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         {children}
         <Footer />
