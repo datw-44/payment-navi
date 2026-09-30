@@ -18,6 +18,7 @@ import {
 } from "../../utils";
 import MyCardsButton from "../../components/MyCardsButton";
 import MyCardsModal from "../../components/MyCardsModal";
+import AdUnit from "../../components/AdUnit";
 import { useMyCards } from "../../hooks/useMyCards";
 
 const VISIBLE_RANK_COUNT = 5;
@@ -173,6 +174,9 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
           <p className="store-commentary-text">{store.解説}</p>
         </section>
       )}
+
+      {/* 解説文の下の広告（1ページ1箇所のみ） */}
+      {store.解説 && <AdUnit />}
 
       {/* 4. ランキング */}
       <h2 className="section-heading">支払い方法ランキング</h2>
