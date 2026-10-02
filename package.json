@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "check:data": "node scripts/check-data.js",
+    "prebuild": "node scripts/check-data.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
