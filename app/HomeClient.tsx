@@ -18,6 +18,7 @@ import {
 import MyCardsButton from "./components/MyCardsButton";
 import MyCardsModal from "./components/MyCardsModal";
 import { useMyCards } from "./hooks/useMyCards";
+import GuideList from "./guide/GuideList";
 
 export default function HomeClient() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -181,6 +182,11 @@ export default function HomeClient() {
           </div>
         </div>
       ))}
+
+      <section className="guide-home">
+        <h2 className="section-heading">お得ガイド</h2>
+        <GuideList />
+      </section>
 
       <p className="footer-note">
         情報は2026年9月時点のものです。最新の条件は

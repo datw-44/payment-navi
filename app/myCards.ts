@@ -112,6 +112,8 @@ export const myCardRegistry: MyCardDef[] = [
   { id: "yaoko_pay", name: "ヤオコーPay", category: "店舗独自カード", keyword: "ヤオコーPay" },
   { id: "create_sd_card", name: "クリエイトSDポイントカード", category: "店舗独自カード", keyword: "クリエイトSDポイントカード" },
   { id: "kawachi_card", name: "カワチポイントカード", category: "店舗独自カード", keyword: "カワチポイントカード" },
+  { id: "ing_fan_card", name: "ing・fanVカード（いなげや）", category: "店舗独自カード", keyword: "ing・fanVカード" },
+  { id: "tokyu_point_card", name: "TOKYU POINTカード", category: "店舗独自カード", keyword: "TOKYU POINTカード" },
 ];
 
 // 候補名（カード欄）に含まれるキーワードから、必要なマイカードIDの一覧を求める。

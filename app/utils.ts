@@ -31,6 +31,21 @@ export type ChipStyle = { bg: string; label: string };
 // ブランド名の一部を含むカード名を判定し、固定の色・ロゴ風ラベルを割り当てる。
 // 上から順に判定するので、より具体的なキーワードを先に置く。
 const BRAND_STYLES: { keyword: string; bg: string; label: string }[] = [
+  { keyword: "ing・fanVカード", bg: "#00A651", label: "ing・fan" },
+  { keyword: "TOKYU POINT", bg: "#0089CF", label: "TOKYU STORE" },
+  { keyword: "サニー", bg: "#C71B1B", label: "SUNNY" },
+  { keyword: "ぱぱす", bg: "#D6006C", label: "PAPASU" },
+  { keyword: "トモズ", bg: "#0068B7", label: "TOMOD'S" },
+  { keyword: "セガミ", bg: "#F39800", label: "SEGAMI" },
+  { keyword: "ゼッテリア", bg: "#E2001A", label: "ZETTERIA" },
+  { keyword: "エクセルシオール", bg: "#A6332E", label: "EXCELSIOR" },
+  { keyword: "星乃珈琲店", bg: "#7B3F00", label: "HOSHINO" },
+  { keyword: "すかいらーくアプリ", bg: "#EE7B00", label: "SKYLARK" },
+  { keyword: "なか卯", bg: "#E60012", label: "NAKAU" },
+  { keyword: "My HottoMotto", bg: "#F39800", label: "HOTTO MOTTO" },
+  { keyword: "TSUTAYA", bg: "#1B4A9C", label: "TSUTAYA" },
+  { keyword: "apollostation", bg: "#00A0E9", label: "IDEMITSU" },
+  { keyword: "KYGNUS", bg: "#0068B7", label: "KYGNUS" },
   { keyword: "CAINZ", bg: "#F58220", label: "CAINZ" },
   { keyword: "カインズ", bg: "#F58220", label: "CAINZ" },
   { keyword: "コメリ", bg: "#0B7F3E", label: "KOMERI" },

@@ -1212,3 +1212,302 @@ h1 {
   border-bottom: 1px dashed var(--border);
   font-weight: var(--fw-body);
 }
+
+/* お得ガイド：記事一覧カード（トップ・店舗ページ・記事末尾で共通） */
+.guide-home,
+.related-guides {
+  margin-top: var(--space-xl);
+}
+
+.guide-home .section-heading,
+.related-guides .section-heading {
+  margin-top: 0;
+}
+
+.guide-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-md);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.guide-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.guide-card:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.guide-card-title {
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+.guide-card-summary {
+  font-size: 11px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+/* お得ガイド：記事ページ */
+.guide-article {
+  margin-top: var(--space-xs);
+}
+
+.guide-title {
+  margin: 0 0 var(--space-lg);
+  font-size: 19px;
+  font-weight: var(--fw-heading);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.guide-section {
+  margin-bottom: var(--space-lg);
+}
+
+.guide-h2 {
+  margin: 0 0 var(--space-sm);
+  padding-left: 10px;
+  border-left: 4px solid var(--accent);
+  font-size: 15px;
+  font-weight: var(--fw-heading);
+  line-height: 1.5;
+}
+
+.guide-h3 {
+  margin: var(--space-md) 0 var(--space-xs);
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+}
+
+.guide-p {
+  margin: 0 0 var(--space-sm);
+  font-size: 13px;
+  font-weight: var(--fw-body);
+  line-height: 1.95;
+}
+
+.guide-article a {
+  color: var(--accent);
+}
+
+.guide-list {
+  margin: 0 0 var(--space-sm);
+  padding-left: 1.4em;
+  font-size: 13px;
+  font-weight: var(--fw-body);
+  line-height: 1.9;
+}
+
+.guide-list li + li {
+  margin-top: 6px;
+}
+
+.guide-note {
+  margin: 0 0 var(--space-sm);
+  padding: 10px var(--space-sm);
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+  line-height: 1.8;
+}
+
+.guide-disclaimer {
+  margin: var(--space-lg) 0 0;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+/* お得ガイド：対象店舗一覧（タッチ決済の記事） */
+.guide-store-group-label {
+  margin: var(--space-md) 0 var(--space-xs);
+  font-size: 12px;
+  font-weight: var(--fw-heading);
+  color: var(--text-sub);
+}
+
+.guide-store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+  list-style: none;
+}
+
+.guide-store-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: var(--fw-body);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.guide-store-rate {
+  font-size: 10px;
+  font-weight: var(--fw-heading);
+  color: var(--accent);
+}
+
+/* お得ガイド：お得な日カレンダー */
+.calendar-today {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, #fff4f5 0%, #fffaf3 100%);
+  border: 1px solid #f6c9d0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-today-label {
+  margin: 0 0 var(--space-xs);
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+}
+
+.calendar-today-empty {
+  margin: 0;
+  font-size: 12px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+}
+
+.calendar-today-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calendar-today-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--card-bg);
+  border: 1px solid #f6c9d0;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.calendar-today-rate {
+  font-size: 12px;
+  font-weight: var(--fw-heading);
+  color: var(--accent);
+}
+
+.calendar-group {
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-group-today {
+  border-color: #f6c9d0;
+  background: #fffafa;
+  box-shadow: var(--shadow-md);
+}
+
+.calendar-group-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-xs);
+  font-size: 14px;
+  font-weight: var(--fw-heading);
+}
+
+.calendar-today-badge {
+  padding: 2px 8px;
+  background: var(--accent);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: var(--fw-heading);
+  color: #fff;
+}
+
+.calendar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calendar-entry {
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.calendar-entry:first-child {
+  border-top: none;
+}
+
+.calendar-entry-today .calendar-entry-store {
+  color: var(--accent);
+}
+
+.calendar-entry-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.calendar-entry-store {
+  font-size: 13px;
+  font-weight: var(--fw-heading);
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.calendar-entry-rate {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: var(--fw-heading);
+  color: var(--accent);
+}
+
+.calendar-entry-sub {
+  margin: 2px 0 0;
+  font-size: 11px;
+  font-weight: var(--fw-note);
+  color: var(--text-sub);
+  line-height: 1.6;
+}

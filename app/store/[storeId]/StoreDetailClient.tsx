@@ -19,6 +19,9 @@ import {
 import MyCardsButton from "../../components/MyCardsButton";
 import MyCardsModal from "../../components/MyCardsModal";
 import AdUnit from "../../components/AdUnit";
+import GuideList from "../../guide/GuideList";
+import { GUIDE_ARTICLES } from "../../guide/articles";
+import { getRelatedGuideIds } from "../../guide/related";
 import { useMyCards } from "../../hooks/useMyCards";
 
 const VISIBLE_RANK_COUNT = 5;
@@ -80,6 +83,9 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
 
   const sourceCandidates =
     activeTab === "mine" && hasMyCards ? myCandidates : sortedCandidates;
+
+  const relatedGuideIds = getRelatedGuideIds(store);
+  const relatedGuides = GUIDE_ARTICLES.filter((a) => relatedGuideIds.includes(a.id));
 
   const hiddenCount = Math.max(sourceCandidates.length - VISIBLE_RANK_COUNT, 0);
   const visibleCandidates =
@@ -366,6 +372,13 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
             })}
           </div>
         </div>
+      )}
+
+      {relatedGuides.length > 0 && (
+        <section className="related-guides">
+          <h2 className="section-heading">関連するお得ガイド</h2>
+          <GuideList articles={relatedGuides} />
+        </section>
       )}
 
       <p className="footer-note">
