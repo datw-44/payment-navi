@@ -57,6 +57,38 @@ paymentData.forEach((store) => {
   });
 });
 
+// acceptance.ts（店舗ごとの「使える支払い方法」）の検査
+const accPath = path.join(__dirname, "..", "app", "acceptance.ts");
+if (fs.existsSync(accPath)) {
+  const accOut = ts.transpileModule(fs.readFileSync(accPath, "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2019 },
+  }).outputText;
+  const am = new Module(accPath);
+  am.filename = accPath;
+  am._compile(accOut, accPath);
+  const { acceptance, ACCEPTANCE_ITEMS } = am.exports;
+  const storeNames = new Set(paymentData.filter((st) => st.カテゴリ).map((st) => st.店舗));
+  scan(acceptance, "acceptance.ts");
+  for (const [name, data] of Object.entries(acceptance)) {
+    if (!storeNames.has(name)) errors.push(`acceptance.ts: 存在しない店舗「${name}」`);
+    for (const [group, value] of Object.entries(data)) {
+      const ok = value.使える || [];
+      const ng = value.使えない || [];
+      const dup = ok.filter((x) => ng.includes(x));
+      if (dup.length) errors.push(`acceptance.ts: [${name}].${group}: 「${dup.join("・")}」が使える・使えない両方に入っています`);
+      if (group !== "その他") {
+        const allowed = ACCEPTANCE_ITEMS[group];
+        if (!allowed) errors.push(`acceptance.ts: [${name}] 不明な項目グループ「${group}」`);
+        else for (const item of [...ok, ...ng]) {
+          if (!allowed.includes(item)) errors.push(`acceptance.ts: [${name}].${group}: 「${item}」は表示項目にありません（${allowed.join("／")}）`);
+        }
+      }
+    }
+  }
+  const noData = [...storeNames].filter((n) => !acceptance[n]);
+  if (noData.length) warnings.push(`acceptance.ts: 使える支払い方法が未登録の店舗: ${noData.join("、")}`);
+}
+
 // dataMemos.ts：存在しない店舗・候補を指していないか（古いメモの残り）を検査する
 const memoPath = path.join(__dirname, "..", "app", "dataMemos.ts");
 if (fs.existsSync(memoPath)) {

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { StorePayments } from "../../data";
 import { candidateMatchesMyCards } from "../../myCards";
 import {
@@ -28,7 +29,13 @@ const VISIBLE_RANK_COUNT = 5;
 
 type ResultTab = "mine" | "all";
 
-export default function StoreDetailClient({ store }: { store: StorePayments }) {
+export default function StoreDetailClient({
+  store,
+  acceptance,
+}: {
+  store: StorePayments;
+  acceptance?: ReactNode;
+}) {
   const {
     myCardIds,
     hasMyCards,
@@ -157,19 +164,8 @@ export default function StoreDetailClient({ store }: { store: StorePayments }) {
         </section>
       )}
 
-      {/* 2.2 使えない決済手段（コストコ等、対応が限定的な店舗のみ表示） */}
-      {store.非対応決済 && store.非対応決済.length > 0 && (
-        <div className="unsupported-band">
-          <p className="unsupported-band-label">
-            ✕ この店舗で使えない決済手段
-          </p>
-          <ul className="unsupported-band-list">
-            {store.非対応決済.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* 2.2 使える支払い方法（サーバー側で作った表示を受け取る） */}
+      {acceptance}
 
       {/* 3. 解説文 */}
       {store.解説 && (
