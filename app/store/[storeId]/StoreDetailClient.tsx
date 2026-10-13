@@ -378,7 +378,7 @@ export default function StoreDetailClient({
       )}
 
       <p className="footer-note">
-        情報は2026年9月時点のものです。最新の条件は
+        情報は2026年10月時点のものです。最新の条件は
         各カード会社の公式サイトをご確認ください
       </p>
 
