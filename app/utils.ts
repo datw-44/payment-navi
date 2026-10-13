@@ -92,7 +92,7 @@ const BRAND_STYLES: { keyword: string; bg: string; label: string }[] = [
   { keyword: "MUJI", bg: "#C1272D", label: "MUJI" },
   { keyword: "ニトリ", bg: "#EE7B10", label: "NITORI" },
   { keyword: "松屋", bg: "#E60012", label: "MATSUYA" },
-  { keyword: "まいどポイント", bg: "#F39800", label: "SUSHIRO" },
+  { keyword: "スシローポイント", bg: "#F39800", label: "SUSHIRO" },
   { keyword: "CooCa", bg: "#E2001A", label: "HAMAZUSHI" },
   { keyword: "ペコマ", bg: "#0086D1", label: "SEICOMART" },
   { keyword: "マルエツ", bg: "#EE1C25", label: "MARUETSU" },

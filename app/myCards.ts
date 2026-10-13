@@ -90,7 +90,7 @@ export const myCardRegistry: MyCardDef[] = [
   { id: "muji_card", name: "MUJI Card（無印良品）", category: "店舗独自カード", keyword: "MUJI" },
   { id: "nitori_app", name: "ニトリアプリ", category: "店舗独自カード", keyword: "ニトリ" },
   { id: "matsuya_app", name: "松屋フーズ公式アプリ", category: "店舗独自カード", keyword: "松屋アプリ" },
-  { id: "sushiro_maido_point", name: "まいどポイント（スシロー）", category: "店舗独自カード", keyword: "まいどポイント" },
+  { id: "sushiro_maido_point", name: "スシローポイント（スシロー）", category: "店舗独自カード", keyword: "スシローポイント" },
   { id: "hamazushi_cooca", name: "ZENSHO CooCa（はま寿司）", category: "店舗独自カード", keyword: "CooCa" },
   { id: "pecoma", name: "ペコマカード（セイコーマート）", category: "店舗独自カード", keyword: "ペコマ" },
   { id: "maruetsu_card", name: "マルエツカード", category: "店舗独自カード", keyword: "マルエツカード" },
