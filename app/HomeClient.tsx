@@ -188,6 +188,34 @@ export default function HomeClient() {
         <GuideList />
       </section>
 
+      <section className="feedback-section">
+        <h2 className="section-heading">ご意見・ご要望はこちら</h2>
+        <p className="feedback-lead">
+          追加してほしい店舗・カードや、サイトの改善点があればお気軽にどうぞ
+        </p>
+        <div className="feedback-frame-wrap">
+          <iframe
+            src="https://forms.gle/xrAa6keaBCLRghSF7"
+            className="feedback-frame"
+            title="ご意見・ご要望フォーム"
+            loading="lazy"
+          >
+            読み込み中...
+          </iframe>
+        </div>
+        <p className="feedback-fallback">
+          フォームが表示されない場合は
+          <a
+            href="https://forms.gle/xrAa6keaBCLRghSF7"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            こちら
+          </a>
+          から直接ご入力ください。
+        </p>
+      </section>
+
       <p className="footer-note">
         情報は2026年10月時点のものです。最新の条件は
         各カード会社の公式サイトをご確認ください
