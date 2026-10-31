@@ -1,22 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { StorePayments } from "../../data";
 import { candidateMatchesMyCards } from "../../myCards";
 import {
-  formatRateHeadline,
-  formatRewardPer1000,
   getBrandChip,
   getInitial,
   getPointStyle,
   getRankTier,
   getStoreIconColor,
-  isSimpleRate,
   parseRateValue,
   shortChipLabel,
 } from "../../utils";
+import RateDisplay from "../../components/RateDisplay";
 import MyCardsButton from "../../components/MyCardsButton";
 import MyCardsModal from "../../components/MyCardsModal";
 import AdUnit from "../../components/AdUnit";
@@ -45,14 +43,10 @@ export default function StoreDetailClient({
     toggleMyCard,
   } = useMyCards();
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<ResultTab>("all");
+  const [selectedTab, setSelectedTab] = useState<ResultTab | null>(null);
+  const activeTab = selectedTab ?? (hasMyCards ? "mine" : "all");
+  const isLoading = myCardIds === null;
   const [showAll, setShowAll] = useState(false);
-
-  // 登録済みカードがあれば「マイリスト」、なければ「すべて」をデフォルトタブにする。
-  useEffect(() => {
-    if (myCardIds === null) return;
-    setActiveTab(myCardIds.size > 0 ? "mine" : "all");
-  }, [myCardIds]);
 
   const toggleExpanded = (key: string) => {
     setExpandedCards((prev) => {
@@ -74,11 +68,6 @@ export default function StoreDetailClient({
     [store]
   );
 
-  // 結論ブロックは、マイリストの絞り込みに関わらず、データ上の1位を表示する。
-  const topCandidate = sortedCandidates[0];
-  const topChip = topCandidate ? getBrandChip(topCandidate.カード) : null;
-  const topRewardText = topCandidate ? formatRewardPer1000(topCandidate.還元率) : "";
-
   const hasAffiliateLink = store.候補.some((c) => Boolean(c.発行リンク));
 
   const myCandidates = useMemo(() => {
@@ -89,7 +78,9 @@ export default function StoreDetailClient({
   }, [sortedCandidates, myCardIds]);
 
   const sourceCandidates =
-    activeTab === "mine" && hasMyCards ? myCandidates : sortedCandidates;
+    isLoading ? [] : activeTab === "mine" ? myCandidates : sortedCandidates;
+  const topCandidate = sourceCandidates[0];
+  const topChip = topCandidate ? getBrandChip(topCandidate.カード) : null;
 
   const relatedGuideIds = getRelatedGuideIds(store);
   const relatedGuides = GUIDE_ARTICLES.filter((a) => relatedGuideIds.includes(a.id));
@@ -124,11 +115,28 @@ export default function StoreDetailClient({
         </p>
       )}
 
-      {/* 2. 結論ブロック（データ上の1位） */}
-      {topCandidate && (
+      <section className="comparison-controls" aria-label="比較する支払い方法">
+        <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
+        <div className="result-tabs" aria-label="比較対象">
+          <button type="button" className={`result-tab${activeTab === "all" ? " active" : ""}`}
+            aria-pressed={activeTab === "all"} disabled={isLoading}
+            onClick={() => { setSelectedTab("all"); setShowAll(false); }}>すべて</button>
+          <button type="button" className={`result-tab${activeTab === "mine" ? " active" : ""}`}
+            aria-pressed={activeTab === "mine"} disabled={isLoading}
+            onClick={() => { setSelectedTab("mine"); setShowAll(false); }}>マイリスト</button>
+        </div>
+        <p className="comparison-note">条件付きの最大還元率で比較しています。特定日特典・割引を含み、条件の達成状況は判定していません。</p>
+        {activeTab === "mine" && !isLoading && (
+          <p className="comparison-note">登録した支払い方法で絞り込んでいます。特典の達成条件は別途ご確認ください。</p>
+        )}
+      </section>
+
+      {isLoading ? (
+        <p className="comparison-status" role="status">登録した支払い方法を読み込んでいます…</p>
+      ) : topCandidate ? (
         <section className="conclusion">
           <h2 className="conclusion-heading">
-            {store.店舗}なら、これで払うのが一番お得
+            {activeTab === "mine" ? "登録した支払い方法でのおすすめ" : "すべての支払い方法からのおすすめ"}
           </h2>
           <div className="conclusion-main">
             <div
@@ -141,27 +149,22 @@ export default function StoreDetailClient({
             </div>
             <div className="conclusion-body">
               <p className="conclusion-card-name">{topCandidate.カード}</p>
-              <p className="conclusion-condition">{topCandidate.条件要約}</p>
             </div>
           </div>
-          <div className="conclusion-rate-row">
-            <p className="conclusion-rate">
-              {formatRateHeadline(topCandidate.還元率)}
-            </p>
-            <p className="conclusion-reward">{topRewardText}</p>
-          </div>
-          {!isSimpleRate(topCandidate.還元率) && (
-            <p className="conclusion-note">
-              還元率の詳細: {topCandidate.還元率}
-            </p>
-          )}
-          {topCandidate.特定日限定 && topCandidate.対象日条件 && (
-            <p className="conclusion-note">
-              対象日：{topCandidate.対象日条件}
-            </p>
-          )}
+          <RateDisplay candidate={topCandidate} />
           <p className="conclusion-note">※{topCandidate.注意}</p>
         </section>
+      ) : (
+        <div className="my-list-empty" role="status">
+          <p className="my-list-empty-text">
+            {activeTab === "mine" && !hasMyCards
+              ? "支払い方法を登録すると、登録内容に合う候補を比較できます"
+              : "登録した支払い方法に一致する候補がありません"}
+          </p>
+          <button type="button" className="my-list-empty-button" onClick={openModal}>支払い方法を登録・変更する</button>
+          <button type="button" className="my-list-empty-button"
+            onClick={() => { setSelectedTab("all"); setShowAll(false); }}>すべての候補を見る</button>
+        </div>
       )}
 
       {/* 2.2 使える支払い方法（サーバー側で作った表示を受け取る） */}
@@ -171,7 +174,7 @@ export default function StoreDetailClient({
       {store.解説 && (
         <section className="store-commentary">
           <h2 className="store-commentary-heading">
-            {store.店舗}で一番お得な払い方
+            {store.店舗}の支払い方法について（店舗全体の解説）
           </h2>
           <p className="store-commentary-text">{store.解説}</p>
         </section>
@@ -180,64 +183,10 @@ export default function StoreDetailClient({
       {/* 解説文の下の広告（1ページ1箇所のみ） */}
       {store.解説 && <AdUnit />}
 
-      {/* 4. ランキング */}
-      <h2 className="section-heading">支払い方法ランキング</h2>
-
-      <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
-
-      {/* マイリスト／すべて タブ */}
-      <div className="result-tabs">
-        <button
-          type="button"
-          className={`result-tab${activeTab === "mine" ? " active" : ""}`}
-          onClick={() => {
-            setActiveTab("mine");
-            setShowAll(false);
-          }}
-        >
-          マイリスト
-        </button>
-        <button
-          type="button"
-          className={`result-tab${activeTab === "all" ? " active" : ""}`}
-          onClick={() => {
-            setActiveTab("all");
-            setShowAll(false);
-          }}
-        >
-          すべて
-        </button>
-      </div>
-
-      {activeTab === "mine" && !hasMyCards && (
-        <div className="my-list-empty">
-          <p className="my-list-empty-text">
-            支払い方法を登録すると、あなたが使えるカードだけで比較できます
-          </p>
-          <button
-            type="button"
-            className="my-list-empty-button"
-            onClick={openModal}
-          >
-            支払い方法を登録する
-          </button>
-        </div>
-      )}
-
-      {activeTab === "mine" && hasMyCards && sourceCandidates.length === 0 && (
-        <div className="my-list-empty">
-          <p className="my-list-empty-text">
-            登録した支払い方法では、このお店で使える候補がありません
-          </p>
-          <button
-            type="button"
-            className="my-list-empty-button"
-            onClick={() => setActiveTab("all")}
-          >
-            すべての候補を見る
-          </button>
-        </div>
-      )}
+      <h2 className="section-heading">
+        {activeTab === "mine" ? "登録した支払い方法のお得ランキング" : "支払い方法のお得ランキング"}
+      </h2>
+      <p className="comparison-note">条件付きの最大還元率で比較しています。</p>
 
       {/* 3. 支払い方法のランキング（デフォルトは上位5位まで） */}
       {sourceCandidates.length > 0 && (
@@ -279,36 +228,21 @@ export default function StoreDetailClient({
                   <div className="rank-card-body">
                     <p className="rank-card-name">{candidate.カード}</p>
 
-                    <div className="rank-card-condition-row">
-                      <p className="rank-card-condition">
-                        ※{candidate.条件要約}
-                      </p>
-                      <button
-                        type="button"
-                        className="rank-card-toggle"
-                        onClick={() => toggleExpanded(cardKey)}
-                        aria-expanded={isExpanded}
-                      >
-                        {isExpanded ? "閉じる" : "詳しい条件を見る"}
-                      </button>
-                    </div>
+                    <RateDisplay candidate={candidate} />
+                    <button type="button" className="rank-card-toggle"
+                      onClick={() => toggleExpanded(cardKey)} aria-expanded={isExpanded}>
+                      {isExpanded ? "閉じる" : "詳しい条件を見る"}
+                    </button>
 
                     {isExpanded && (
                       <div className="rank-card-expanded">
                         <p className="rank-card-expanded-text">
                           ※{candidate.条件}
                         </p>
-                        {!isSimpleRate(candidate.還元率) && (
-                          <p className="rank-card-expanded-text">
-                            還元率の詳細: {candidate.還元率}
-                          </p>
-                        )}
                       </div>
                     )}
 
-                    <p className="rank-card-rate">
-                      {formatRateHeadline(candidate.還元率)}
-                    </p>
+
                   </div>
                 </div>
 

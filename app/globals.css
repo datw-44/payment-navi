@@ -41,6 +41,79 @@
   --transition-fast: 0.2s ease;
 }
 
+/* おすすめとランキングで、還元率の意味と適用条件を共通表示する。 */
+.comparison-note,
+.comparison-status {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin: 8px 0 16px;
+}
+
+.comparison-controls .result-tab {
+  min-height: 44px;
+}
+
+.comparison-controls .result-tab:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.rate-display {
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.rate-display-value {
+  color: var(--accent);
+  font-size: 24px;
+  font-weight: var(--fw-heading);
+  line-height: 1.4;
+  margin: 0 0 4px;
+}
+
+.conclusion .rate-display-value {
+  font-size: 30px;
+}
+
+.rate-display .rate-display-value-complex {
+  font-size: 18px;
+}
+
+.rate-display-label,
+.rate-display-date,
+.rate-display-condition,
+.rate-display-estimate {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 4px 0;
+  color: var(--text-sub);
+}
+
+.rate-display-label,
+.rate-display-date {
+  color: var(--accent);
+  font-weight: var(--fw-heading);
+}
+
+.rank-card-body .rank-card-toggle {
+  font-size: 13px;
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 400px) {
+  main .rank-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rank-grid .rank-first {
+    grid-column: 1;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
