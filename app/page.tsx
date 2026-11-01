@@ -19,6 +19,6 @@ export default function Home() {
   }));
   const deals = entries.flatMap(({ store, storeId }) => store.候補
     .filter((candidate) => candidate.特定日限定 && candidate.対象日条件)
-    .map((candidate) => ({ store: store.店舗, storeId, card: candidate.カード, rate: candidate.還元率, dateCondition: candidate.対象日条件! })));
+    .map((candidate) => ({ store: store.店舗, storeId, card: candidate.カード, rate: candidate.還元率, dateCondition: candidate.対象日条件!, summary: candidate.条件要約, note: candidate.注意 })));
   return <div className={styles.shell}><HomeClient stores={stores} categories={[...categoryOrder]} deals={deals} /></div>;
 }

@@ -9,9 +9,10 @@ import MyCardsModal from "../components/MyCardsModal";
 import { PreviewHeader, PreviewFooter } from "./Chrome";
 import { CompassMark, ShopDrawing, Signpost, SearchIcon } from "./Graphics";
 import styles from "./preview.module.css";
+import TodayOffers, { type TodayDeal } from "./TodayOffers";
 
 type Store = { name: string; storeId: string; category: string; points: string[] };
-type Deal = { store: string; storeId: string; card: string; rate: string; dateCondition: string };
+type Deal = TodayDeal;
 const storeLink = (id: string) => `/store/${id}/`;
 
 export default function HomePreview({ stores, categories, deals }: { stores: Store[]; categories: string[]; deals: Deal[] }) {
@@ -54,13 +55,7 @@ export default function HomePreview({ stores, categories, deals }: { stores: Sto
         <div className={styles.heroArt}><Signpost/><span className={styles.artCaption}></span></div>
       </section>
 
-      <section className={styles.todayBand} aria-label="今日の特典">
-        <div className={styles.dateStamp}><span>{today ? `${today.month}/${today.day}` : "TODAY"}</span><small>今日の特典</small></div>
-        <div className={styles.todayContent}>{todaysDeals.length ? todaysDeals.map((deal) => <Link key={`${deal.store}::${deal.card}`} href={storeLink(deal.storeId)}>
-          <span>{deal.store}</span><strong>{deal.rate}</strong><small>{deal.dateCondition}・条件をご確認ください</small><span aria-hidden="true">↗</span>
-        </Link>) : <p>特典のある日を、カレンダーでチェック。</p>}</div>
-        <Link href="/guide/calendar/" className={styles.calendarLink}>カレンダーを見る <span aria-hidden="true">→</span></Link>
-      </section>
+      <TodayOffers today={today} deals={todaysDeals}/>
 
       <section className={styles.browse} id="stores" aria-labelledby="stores-title">
         <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>店舗を探す</p><h2 id="stores-title">条件からお店を探す</h2></div><span className={styles.resultCount} role="status">{query.trim() || browseAll ? count : stores.length}<small> 店舗</small></span></div>
