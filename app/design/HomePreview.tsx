@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { matchesStoreQuery } from "../storeSearch";
-import { getJstDate, isTodayWithinCondition, parseRateValue, type JstDate } from "../utils";
+import { parseRateValue } from "../utils";
 import { useMyCards } from "../hooks/useMyCards";
 import MyCardsModal from "../components/MyCardsModal";
 import { PreviewHeader, PreviewFooter } from "./Chrome";
 import { CompassMark, ShopDrawing, Signpost, SearchIcon } from "./Graphics";
 import styles from "./preview.module.css";
-import TodayOffers, { type TodayDeal } from "./TodayOffers";
+import TodayOffers, { type TodayDeal } from "./calendar/Today";
+import { useToday } from "./calendar/useToday";
+import { matchesDay } from "./calendar/model";
 
 type Store = { name: string; storeId: string; category: string; points: string[] };
 type Deal = TodayDeal;
@@ -20,13 +22,12 @@ export default function HomePreview({ stores, categories, deals }: { stores: Sto
   const [browseAll, setBrowseAll] = useState(false);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("すべて");
-  const [today, setToday] = useState<JstDate | null>(null);
+  const today = useToday();
   const inputRef = useRef<HTMLInputElement>(null);
   const cards = useMyCards();
-  useEffect(() => setToday(getJstDate()), []);
   const groups = useMemo(() => categories.map((name) => ({ name, stores: stores.filter((store) => store.category === name && matchesStoreQuery(store.name, store.storeId, query)) }))
     .filter((group) => group.stores.length && (query.trim() || category === "すべて" || category === group.name)), [stores, categories, category, query]);
-  const todaysDeals = useMemo(() => today ? deals.filter((deal) => isTodayWithinCondition(deal.dateCondition, today))
+  const todaysDeals = useMemo(() => today ? deals.filter((deal) => matchesDay(deal.dateCondition, today))
     .sort((a, b) => parseRateValue(b.rate) - parseRateValue(a.rate)) : [], [today, deals]);
   const count = groups.reduce((sum, group) => sum + group.stores.length, 0);
   const goToResults = () => document.getElementById("stores")?.scrollIntoView({ block: "start" });

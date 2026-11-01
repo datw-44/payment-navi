@@ -9,8 +9,11 @@ import {
   GUIDE_DISCLAIMER,
   getGuideArticle,
 } from "../articles";
-import { buildCalendarData } from "../calendar";
-import CalendarClient from "../CalendarClient";
+import Calendar from "../../design/calendar/Calendar";
+import { getOffers } from "../../design/calendar/data";
+import calendarStyles from "../../design/calendar/calendar.module.css";
+import JsonLd from "../../components/JsonLd";
+import { SITE_URL } from "../../siteConfig";
 import { TOUCH_PAYMENT_SECTIONS, WELCATSU_SECTIONS } from "../content";
 import GuideBody from "../GuideBody";
 import GuideList from "../GuideList";
@@ -42,6 +45,17 @@ export default async function GuidePage({
 
   const otherArticles = GUIDE_ARTICLES.filter((a) => a.id !== article.id);
 
+  if (article.id === "calendar") return <>
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "店舗一覧", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: article.title, item: `${SITE_URL}/guide/calendar/` },
+    ] }}/>
+    <Calendar offers={getOffers()} relatedGuides={<>
+      <section className={calendarStyles.relatedGuides}><h2>ほかのお得ガイド</h2><GuideList articles={otherArticles}/></section>
+      <AdUnit/>
+    </>}/>
+  </>;
+
   return (
     <main>
       <Breadcrumbs name={article.title} path={`/guide/${article.id}/`} />
@@ -55,17 +69,6 @@ export default async function GuidePage({
           <>
             <GuideBody sections={TOUCH_PAYMENT_SECTIONS} />
             <SmbcStoreList />
-          </>
-        )}
-
-        {article.id === "calendar" && (
-          <>
-            <p className="guide-p">
-              毎月・毎週の決まった日にお得になる店舗を、当サイトのデータから自動でまとめました。店名から各店舗のページに移動できます。今日が特典日の店舗は、上部と一覧の中で色を付けて表示します。特典日の考え方は{" "}
-              <Link href="/guide/welcatsu/">ウエル活のやり方</Link>
-              も参考にしてください。
-            </p>
-            <CalendarClient data={buildCalendarData()} />
           </>
         )}
 

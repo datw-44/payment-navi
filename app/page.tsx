@@ -4,6 +4,7 @@ import styles from "./design/preview.module.css";
 import { categoryOrder } from "./data";
 import { getAllStoreIdEntries } from "./storeIds";
 import { pageMetadata } from "./seo";
+import { getOffers } from "./design/calendar/data";
 
 export const metadata: Metadata = pageMetadata(
   "/",
@@ -17,8 +18,6 @@ export default function Home() {
   const stores = entries.map(({ store, storeId }) => ({
     name: store.店舗, storeId, category: store.カテゴリ, points: store.共通ポイント,
   }));
-  const deals = entries.flatMap(({ store, storeId }) => store.候補
-    .filter((candidate) => candidate.特定日限定 && candidate.対象日条件)
-    .map((candidate) => ({ store: store.店舗, storeId, card: candidate.カード, rate: candidate.還元率, dateCondition: candidate.対象日条件!, summary: candidate.条件要約, note: candidate.注意 })));
+  const deals = getOffers();
   return <div className={styles.shell}><HomeClient stores={stores} categories={[...categoryOrder]} deals={deals} /></div>;
 }
