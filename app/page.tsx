@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import HomeClient from "./HomeClient";
+import HomeClient from "./design/HomePreview";
+import styles from "./design/preview.module.css";
 import { categoryOrder } from "./data";
 import { getAllStoreIdEntries } from "./storeIds";
 import { pageMetadata } from "./seo";
@@ -18,10 +19,6 @@ export default function Home() {
   }));
   const deals = entries.flatMap(({ store, storeId }) => store.候補
     .filter((candidate) => candidate.特定日限定 && candidate.対象日条件)
-    .map((candidate) => ({
-      店舗: store.店舗,
-      storeId,
-      candidate: { カード: candidate.カード, 還元率: candidate.還元率, 対象日条件: candidate.対象日条件! },
-    })));
-  return <HomeClient stores={stores} categories={[...categoryOrder]} deals={deals} />;
+    .map((candidate) => ({ store: store.店舗, storeId, card: candidate.カード, rate: candidate.還元率, dateCondition: candidate.対象日条件! })));
+  return <div className={styles.shell}><HomeClient stores={stores} categories={[...categoryOrder]} deals={deals} /></div>;
 }

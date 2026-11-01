@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllStoreIdEntries, getStoreByStoreId } from "../../storeIds";
 import { pageMetadata } from "../../seo";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import StoreDetailClient from "./StoreDetailClient";
+import StoreDetailClient from "../../design/PaymentChoice";
+import styles from "../../design/preview.module.css";
 import AcceptanceSection from "../../components/AcceptanceSection";
 import { acceptance } from "../../acceptance";
 
@@ -48,10 +49,10 @@ export default async function StorePage({
   }
 
   return (
-    <StoreDetailClient
+    <div className={styles.shell}><StoreDetailClient
       store={store}
       breadcrumb={<Breadcrumbs name={store.店舗} path={`/store/${storeId}/`} />}
       acceptance={<AcceptanceSection storeName={store.店舗} />}
-    />
+    /></div>
   );
 }
