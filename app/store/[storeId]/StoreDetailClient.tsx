@@ -30,9 +30,11 @@ type ResultTab = "mine" | "all";
 export default function StoreDetailClient({
   store,
   acceptance,
+  breadcrumb,
 }: {
   store: StorePayments;
   acceptance?: ReactNode;
+  breadcrumb?: ReactNode;
 }) {
   const {
     myCardIds,
@@ -93,9 +95,7 @@ export default function StoreDetailClient({
 
   return (
     <main>
-      <Link href="/" className="back-link">
-        ← 店舗一覧に戻る
-      </Link>
+      {breadcrumb ?? <Link href="/" className="back-link">← 店舗一覧に戻る</Link>}
 
       {/* 1. 店舗名（アイコン付き、中央揃え） */}
       <div className="store-header">
@@ -105,7 +105,7 @@ export default function StoreDetailClient({
         >
           {getInitial(store.店舗)}
         </span>
-        <p className="store-header-name">{store.店舗}</p>
+        <h1 className="store-header-name">{store.店舗}の支払い方法・還元率比較</h1>
       </div>
 
       {/* 1.5 PR表記（広告リンクがあるページのみ） */}
@@ -113,6 +113,14 @@ export default function StoreDetailClient({
         <p className="pr-notice">
           本ページには広告（アフィリエイトリンク）が含まれます
         </p>
+      )}
+
+      {relatedGuides.length > 0 && (
+        <nav className="guide-shortcuts" aria-label="支払い条件や特典日を調べる">
+          {relatedGuides.map((article) => <Link key={article.id} href={`/guide/${article.id}/`}>
+            {article.id === "touch-payment" ? "スマホのタッチ決済の条件" : article.id === "calendar" ? "特典日をカレンダーで確認" : "ウエル活の手順と条件"}
+          </Link>)}
+        </nav>
       )}
 
       <section className="comparison-controls" aria-label="比較する支払い方法">

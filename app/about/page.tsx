@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../seo";
 import LegalPage from "../components/LegalPage";
 import { OPERATOR_NAME, SITE_NAME } from "../siteConfig";
 
-export const metadata: Metadata = {
-  title: `運営者情報｜${SITE_NAME}`,
-  description: `${SITE_NAME}の運営者、サイトの目的、情報の更新方針について`,
-};
+export const metadata: Metadata = pageMetadata("/about/", `運営者情報｜${SITE_NAME}`, `${SITE_NAME}の運営者、サイトの目的、情報の更新方針について`);
 
 export default function AboutPage() {
   return (

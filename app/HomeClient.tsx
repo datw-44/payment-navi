@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { categoryOrder, paymentData } from "./data";
 import { getCategoryColor } from "./categoryTheme";
-import { getStoreId } from "./storeIds";
+import { matchesStoreQuery } from "./storeSearch";
 import {
-  findTodaysDeals,
+  isTodayWithinCondition,
+  parseRateValue,
   formatJstDateLabel,
-  formatRateHeadline,
   getBrandChip,
   getJstDate,
   getPointStyle,
@@ -20,8 +19,14 @@ import MyCardsModal from "./components/MyCardsModal";
 import { useMyCards } from "./hooks/useMyCards";
 import GuideList from "./guide/GuideList";
 
-export default function HomeClient() {
+type HomeStore = { name: string; storeId: string; category: string; points: string[] };
+type HomeDeal = { 店舗: string; storeId: string; candidate: { カード: string; 還元率: string; 対象日条件: string } };
+
+export default function HomeClient({ stores, categories, deals }: {
+  stores: HomeStore[]; categories: string[]; deals: HomeDeal[];
+}) {
   const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
   const [today, setToday] = useState<JstDate | null>(null);
   const {
     myCardIds,
@@ -38,32 +43,23 @@ export default function HomeClient() {
   }, []);
 
   const todaysDeals = useMemo(
-    () => (today ? findTodaysDeals(paymentData, today) : []),
-    [today]
+    () => today ? deals.filter((deal) => isTodayWithinCondition(deal.candidate.対象日条件, today))
+      .sort((a, b) => parseRateValue(b.candidate.還元率) - parseRateValue(a.candidate.還元率)) : [],
+    [today, deals]
   );
-
-  // 店舗ボタンに並べるポイントアイコン用のマップ（店舗名→共通ポイントの配列）。
-  const storePointTypes = useMemo(() => {
-    const map: Record<string, string[]> = {};
-    paymentData.forEach((store) => {
-      map[store.店舗] = store.共通ポイント;
-    });
-    return map;
-  }, []);
 
   // カテゴリごとに、検索キーワードに一致する店舗だけをグループ化する。
   const groupedStores = useMemo(() => {
     const query = searchQuery.trim();
-    return categoryOrder
+    return categories
       .map((category) => ({
         category,
-        stores: paymentData
-          .filter((store) => store.カテゴリ === category)
-          .filter((store) => query === "" || store.店舗.includes(query))
-          .map((store) => store.店舗),
+        stores: stores
+          .filter((store) => store.category === category)
+          .filter((store) => matchesStoreQuery(store.name, store.storeId, query)),
       }))
       .filter((group) => group.stores.length > 0);
-  }, [searchQuery]);
+  }, [searchQuery, stores, categories]);
 
   return (
     <main>
@@ -73,14 +69,14 @@ export default function HomeClient() {
 
           {todaysDeals.length === 0 ? (
             <p className="today-deals-empty">
-              今日は特別な特典日はありません
+              掲載データに今日の特典はありません
             </p>
           ) : (
             <div className="today-deals-list">
               {todaysDeals.map((deal) => {
                 const chip = getBrandChip(deal.candidate.カード);
                 const dateLabel = formatJstDateLabel(today);
-                const storeId = getStoreId(deal.店舗);
+                const storeId = deal.storeId;
                 if (!storeId) return null;
                 return (
                   <Link
@@ -100,7 +96,7 @@ export default function HomeClient() {
                       {dateLabel}は
                       <strong>{deal.店舗}</strong>が
                       <strong className="today-deal-rate">
-                        {formatRateHeadline(deal.candidate.還元率)}
+                        {deal.candidate.還元率}
                       </strong>
                       お得
                     </span>
@@ -113,7 +109,7 @@ export default function HomeClient() {
       )}
 
       <header className="site-header">
-        <p className="site-header-name">お支払いナビ</p>
+        <h1 className="site-header-name">お支払いナビ</h1>
         <p className="site-header-tagline">
           いつもの買い物、一番お得な払い方がすぐわかる
         </p>
@@ -121,16 +117,22 @@ export default function HomeClient() {
 
       <MyCardsButton onClick={openModal} count={myCardIds?.size ?? 0} />
 
-      <div className="store-search">
-        <input
-          type="text"
-          inputMode="search"
-          className="store-search-input"
-          placeholder="店舗名で検索"
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
-        />
-      </div>
+      <section className="store-search" aria-labelledby="store-search-heading">
+        <h2 id="store-search-heading" className="section-heading">店舗名から支払い方法を探す</h2>
+        <label htmlFor="store-search-input" className="search-label">店舗名・略称で検索</label>
+        <div className="store-search-controls">
+          <input ref={searchRef} id="store-search-input" type="search" inputMode="search"
+            className="store-search-input" placeholder="例：セブン、まっく、ＫＦＣ"
+            aria-describedby="store-search-help" value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            onKeyDown={(event) => { if (event.key === "Escape" && !event.nativeEvent.isComposing) setSearchQuery(""); }} />
+          {searchQuery && <button type="button" className="search-clear" onClick={() => {
+            setSearchQuery(""); searchRef.current?.focus();
+          }}>検索をクリア</button>}
+        </div>
+        <p id="store-search-help" className="search-help">ひらがな・カタカナ・全角・半角に対応。一部の略称でも探せます。</p>
+        <p className="search-count" role="status">{groupedStores.reduce((sum, group) => sum + group.stores.length, 0)}店舗</p>
+      </section>
 
       {groupedStores.length === 0 && (
         <p className="store-search-empty">
@@ -140,26 +142,26 @@ export default function HomeClient() {
 
       {groupedStores.map((group) => (
         <div className="store-category" key={group.category}>
-          <p className="store-category-label">
+          <h3 className="store-category-label">
             <span
               className="category-dot"
               style={{ backgroundColor: getCategoryColor(group.category) }}
             />
             {group.category}
-          </p>
+          </h3>
           <div className="store-selector">
             {group.stores.map((store) => {
-              const storeId = getStoreId(store);
+              const storeId = store.storeId;
               if (!storeId) return null;
               return (
                 <Link
-                  key={store}
+                  key={storeId}
                   href={`/store/${storeId}/`}
                   className="store-button"
                 >
-                  <span className="store-button-name">{store}</span>
+                  <span className="store-button-name">{store.name}</span>
                   <span className="store-points">
-                    {(storePointTypes[store] ?? []).map((token) => {
+                    {store.points.map((token) => {
                       const style = getPointStyle(token);
                       return (
                         <span
@@ -170,6 +172,7 @@ export default function HomeClient() {
                             color: style.text,
                           }}
                           title={token}
+                          role="img" aria-label={token}
                         >
                           {style.label}
                         </span>

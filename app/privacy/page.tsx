@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../seo";
 import LegalPage from "../components/LegalPage";
 import { OPERATOR_NAME, SITE_NAME } from "../siteConfig";
 
-export const metadata: Metadata = {
-  title: `プライバシーポリシー｜${SITE_NAME}`,
-  description: `${SITE_NAME}のプライバシーポリシー（広告・Cookie・アクセス解析・個人情報の取り扱い）`,
-};
+export const metadata: Metadata = pageMetadata("/privacy/", `プライバシーポリシー｜${SITE_NAME}`, `${SITE_NAME}のプライバシーポリシー（広告・Cookie・アクセス解析・個人情報の取り扱い）`);
 
 export default function PrivacyPage() {
   return (

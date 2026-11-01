@@ -242,10 +242,9 @@ export const acceptance: Record<string, StoreAcceptance> = {
       その他: { 使えない: ["公式アプリのモバイルオーダーはクレジットカードのみで、電子マネー・QRコード決済は使えません", "PayPayは一部の店舗のみで利用できます"] },
     },
     "松屋": {
-      クレジットカード: { 使えない: ["Visa", "Mastercard", "JCB", "American Express", "Diners Club"] },
       QRコード決済: { 使える: ["PayPay", "d払い", "楽天ペイ", "au PAY"] },
       電子マネー: { 使える: ["交通系IC（Suica・PASMOなど）", "iD", "QUICPay", "nanaco", "楽天Edy"] },
-      その他: { 使えない: ["店内の券売機ではクレジットカードは使えません（松屋モバイルオーダーでは使えます）"] },
+      その他: { 使える: ["三菱UFJカード公式では、対象の店舗券売機・セルフレジでのクレジットカード決済・Apple Pay（QUICPay）、松屋モバイルオーダー等のカード決済を案内しています。一部対象外店舗があるため店舗で確認してください（この項目の情報は2026年11月時点）"] },
     },
     "はま寿司": {
       クレジットカード: { 使える: ["Visa", "Mastercard", "JCB", "American Express", "Diners Club"] },

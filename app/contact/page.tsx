@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../seo";
 import LegalPage from "../components/LegalPage";
 import { CONTACT_EMAIL, OPERATOR_NAME, SITE_NAME } from "../siteConfig";
 
-export const metadata: Metadata = {
-  title: `お問い合わせ｜${SITE_NAME}`,
-  description: `${SITE_NAME}へのお問い合わせ先`,
-};
+export const metadata: Metadata = pageMetadata("/contact/", `お問い合わせ｜${SITE_NAME}`, `${SITE_NAME}へのお問い合わせ先`);
 
 export default function ContactPage() {
   return (

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "../../seo";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import { notFound } from "next/navigation";
 import AdUnit from "../../components/AdUnit";
 import {
@@ -26,11 +28,7 @@ export async function generateMetadata({
   const { articleId } = await params;
   const article = getGuideArticle(articleId);
   if (!article) return { title: "記事が見つかりません" };
-  return {
-    title: article.title,
-    description: article.description,
-    openGraph: { title: article.title, description: article.description },
-  };
+  return pageMetadata(`/guide/${article.id}/`, article.title, article.description);
 }
 
 export default async function GuidePage({
@@ -46,9 +44,7 @@ export default async function GuidePage({
 
   return (
     <main>
-      <Link href="/" className="back-link">
-        ← 店舗一覧に戻る
-      </Link>
+      <Breadcrumbs name={article.title} path={`/guide/${article.id}/`} />
 
       <article className="guide-article">
         <h1 className="guide-title">{article.title}</h1>
