@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllStoreIdEntries, getStoreByStoreId } from "../../storeIds";
 import { pageMetadata } from "../../seo";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import StoreDetailClient from "../../design/PaymentChoice";
-import styles from "../../design/preview.module.css";
+import Link from "next/link";
+import { GUIDE_ARTICLES } from "../../guide/articles";
+import { getRelatedGuideIds } from "../../guide/related";
+import JsonLd from "../../components/JsonLd";
+import { SITE_URL } from "../../siteConfig";
+import StoreGuide from "../../design/store-guide/StoreGuide";
 import AcceptanceSection from "../../components/AcceptanceSection";
 import { acceptance } from "../../acceptance";
 
@@ -48,11 +51,24 @@ export default async function StorePage({
     notFound();
   }
 
-  return (
-    <div className={styles.shell}><StoreDetailClient
-      store={store}
-      breadcrumb={<Breadcrumbs name={store.店舗} path={`/store/${storeId}/`} />}
-      acceptance={<AcceptanceSection storeName={store.店舗} />}
-    /></div>
-  );
+  const relatedGuides = GUIDE_ARTICLES.filter((article) => getRelatedGuideIds(store).includes(article.id));
+  const support = acceptance[store.店舗];
+  const hasAcceptance = Boolean(support && Object.values(support).some((group) =>
+    (group?.使える?.length ?? 0) + (group?.使えない?.length ?? 0) > 0));
+
+  return <>
+    <JsonLd data={{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "店舗一覧", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: store.店舗, item: `${SITE_URL}/store/${storeId}/` },
+      ],
+    }}/>
+    <StoreGuide store={store} hasAcceptance={hasAcceptance}
+      acceptance={<AcceptanceSection storeName={store.店舗}/>}
+      relatedGuides={!!relatedGuides.length && <nav aria-label="関連ガイド">{relatedGuides.map((article) =>
+        <p key={article.id}><Link href={`/guide/${article.id}/`}>{article.title} ↗</Link></p>
+      )}</nav>}/>
+  </>;
 }
