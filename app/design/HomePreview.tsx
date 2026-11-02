@@ -9,6 +9,9 @@ import MyCardsModal from "../components/MyCardsModal";
 import { PreviewHeader, PreviewFooter } from "./Chrome";
 import { CompassMark, ShopDrawing, Signpost, SearchIcon } from "./Graphics";
 import styles from "./preview.module.css";
+import GuideLinks from "./guides/GuideLinks";
+import guideStyles from "./guides/editorial.module.css";
+import { GUIDE_ARTICLES } from "../guide/articles";
 import TodayOffers, { type TodayDeal } from "./calendar/Today";
 import { useToday } from "./calendar/useToday";
 import { matchesDay } from "./calendar/model";
@@ -76,7 +79,7 @@ export default function HomePreview({ stores, categories, deals }: { stores: Sto
           </div>
         </div>
       </section>
-      <section className={styles.guideBand} id="guides"><CompassMark/><div><p className={styles.eyebrow}>お得ガイド</p><h2>支払いの「なぜ？」を、<br/>わかりやすく。</h2></div><div><Link href="/guide/touch-payment/">スマホのタッチ決済の条件 <span>↗</span></Link><Link href="/guide/welcatsu/">ウエル活の準備と使い方 <span>↗</span></Link><Link href="/guide/calendar/">お得な日カレンダー <span>↗</span></Link></div></section>
+      <section className={guideStyles.related} id="guides"><p className={guideStyles.category}>お得ガイド</p><h2>支払いの「なぜ？」を、<br/>わかりやすく。</h2><GuideLinks articles={GUIDE_ARTICLES}/></section>
       <details className={styles.feedback}><summary>ご意見・ご要望を送る</summary><p>追加してほしい店舗・カードや改善点をお聞かせください。</p><iframe src="https://forms.gle/xrAa6keaBCLRghSF7" title="ご意見・ご要望フォーム" loading="lazy"/><a href="https://forms.gle/xrAa6keaBCLRghSF7" target="_blank" rel="noopener noreferrer">フォームを別の画面で開く ↗</a></details>
       <p className={styles.pageNote}>掲載情報の確認時点は、各店舗の注記をご覧ください。適用条件は各社の公式案内もご確認ください。</p>
     </main>
