@@ -1,0 +1,220 @@
+[
+  {
+    "storeId": "lawson",
+    "candidateName": "ローソンPontaプラス（通常時）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:59:32+09:00",
+    "urls": [
+      "https://www.lawsonbank.jp/creditcard/",
+      "https://www.lawson.co.jp/lab/app/art/1440190_8411.html",
+      "https://www.lawson.co.jp/ponta/",
+      "https://www.lawson.co.jp/lab/tsuushin/art/1529822_4659.html"
+    ],
+    "reason": "ローソン銀行はHTTP403のエラーページ。ローソン公式3ページはCONNECT 403。特典本文未取得。"
+  },
+  {
+    "storeId": "welcia",
+    "candidateName": "WAON POINT（20日お客様感謝デー）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.welcia-yakkyoku.co.jp/",
+      "https://www.waon.net/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "tsuruha-drug",
+    "candidateName": "ツルハグループポイントカード（1日・10日・20日お客様感謝デー）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.tsuruha.co.jp/service/",
+      "https://www.tsuruha-drug.co.jp/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "aeon",
+    "candidateName": "イオンカード等（20日・30日お客様感謝デー）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:50:52+09:00",
+    "urls": [
+      "https://www.aeon.co.jp/merit/thanks_day",
+      "https://www.aeonretail.jp/otoku/kansyaday.html",
+      "https://faq.aeon.co.jp/faq/show/732?site_domain=default"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "ito-yokado",
+    "candidateName": "イトーヨーカドーアプリ（8のつく日ハッピーデー）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.itoyokado.co.jp/special/happyday/",
+      "https://www.itoyokado.co.jp/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "seiyu",
+    "candidateName": "楽天ポイントカード（毎月15日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:59:30+09:00",
+    "urls": [
+      "https://www.seiyu.co.jp/campaign/",
+      "https://pointcard.rakuten.co.jp/",
+      "https://pay.rakuten.co.jp/campaign/",
+      "https://common-service.payment.rakuten.co.jp/campaigns/"
+    ],
+    "reason": "店舗・ポイント事業者はCONNECT 403。楽天ペイは公式転送案内のみ取得できたが、転送先はCONNECT 403。特典条件本文未取得。"
+  },
+  {
+    "storeId": "seiyu",
+    "candidateName": "西友アプリ＋楽天ポイント（月・土曜）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:59:30+09:00",
+    "urls": [
+      "https://www.seiyu.co.jp/campaign/",
+      "https://pointcard.rakuten.co.jp/",
+      "https://pay.rakuten.co.jp/campaign/",
+      "https://common-service.payment.rakuten.co.jp/campaigns/"
+    ],
+    "reason": "店舗・ポイント事業者はCONNECT 403。楽天ペイは公式転送案内のみ取得できたが、転送先はCONNECT 403。特典条件本文未取得。"
+  },
+  {
+    "storeId": "ministop",
+    "candidateName": "WAON払い（5日・15日・25日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.ministop.co.jp/service/waon.html",
+      "https://www.ministop.co.jp/",
+      "https://www.waon.net/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "life",
+    "candidateName": "LC JCBカード（7・17・27日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:49:17+09:00",
+    "urls": [
+      "https://www.lifecorp.jp/",
+      "https://www.lifefin.jp/",
+      "https://www.jcb.co.jp/ordercard/lineup/"
+    ],
+    "reason": "ライフ・発行者の探索先はCONNECT 403。JCB公式一覧と読み取り検索は取得できたが、LC JCBの7・17・27日の条件を確認できなかった。検索無該当を不存在の証拠にはしない。"
+  },
+  {
+    "storeId": "mos-burger",
+    "candidateName": "モスカードの日（毎月25〜27日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.mos.jp/mosca/",
+      "https://www.mos.jp/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "my-basket",
+    "candidateName": "イオンカードセレクト（20日・30日ポイント5倍）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.mybasket.co.jp/",
+      "https://www.waon.net/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "newdays",
+    "candidateName": "モバイルSuica（水曜・JRE POINT登録）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://retail.jr-cross.co.jp/newdays/",
+      "https://retail.jr-cross.co.jp/newdays/campaign/",
+      "https://www.jrepoint.jp/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "maxvalu",
+    "candidateName": "イオンマークのカード/AEON Pay（20日・30日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.mv-tokai.co.jp/",
+      "https://www.waon.net/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "daiei",
+    "candidateName": "イオンマークのカード/AEON Pay（20日・30日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.daiei.co.jp/",
+      "https://www.daiei.co.jp/topics/kansha-day/",
+      "https://www.waon.net/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "sunny",
+    "candidateName": "楽天ポイントカード提示（月・土曜）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:59:30+09:00",
+    "urls": [
+      "https://www.youme.co.jp/sunny/",
+      "https://www.youme.co.jp/",
+      "https://pointcard.rakuten.co.jp/",
+      "https://pay.rakuten.co.jp/campaign/",
+      "https://common-service.payment.rakuten.co.jp/campaigns/"
+    ],
+    "reason": "店舗・ポイント事業者はCONNECT 403。楽天ペイは公式転送案内のみ取得できたが、転送先はCONNECT 403。特典条件本文未取得。"
+  },
+  {
+    "storeId": "toho-cinemas",
+    "candidateName": "セゾンカード（セゾンの木曜日）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.saisoncard.co.jp/",
+      "https://www.tohotheater.jp/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  },
+  {
+    "storeId": "aeon-cinema",
+    "candidateName": "イオンカード等（20日・30日お客様感謝デー）",
+    "status": "unverified",
+    "verifiedAt": null,
+    "attemptedAt": "2026-11-16T21:45:45+09:00",
+    "urls": [
+      "https://www.aeoncinema.com/",
+      "https://www.aeon.co.jp/merit/cinema/"
+    ],
+    "reason": "公式本文へのCONNECT接続が403で拒否。特典の存在・適用範囲とも未確認。"
+  }
+]
