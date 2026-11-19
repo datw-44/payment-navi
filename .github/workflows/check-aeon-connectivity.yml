@@ -1,0 +1,82 @@
+name: AEON official page connectivity (validation only)
+
+on:
+  push:
+    branches:
+      - validation/benefit-monitor-aeon-20261119
+    paths:
+      - .github/workflows/check-aeon-connectivity.yml
+
+permissions:
+  contents: read
+
+jobs:
+  aeon-connectivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch AEON official page without publishing or updating data
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(mktemp)"
+          trap 'rm -f "$body"' EXIT
+          echo "Checking official AEON page from GitHub-hosted runner"
+          if ! result="$(curl --compressed --location --silent --show-error --connect-timeout 12 --max-time 40 \
+              --user-agent 'PaymentNavi-benefit-monitor-validation/1.0' \
+              --output "$body" \
+              --write-out '%{http_code}|%{size_download}|%{url_effective}' \
+              'https://www.aeon.co.jp/merit/thanks_day')"; then
+            echo "::error::Unable to retrieve official page (network or TLS error)."
+            exit 1
+          fi
+          IFS='|' read -r status bytes destination <<< "$result"
+          echo "HTTP status: $status"
+          echo "Downloaded bytes: $bytes"
+          echo "Final URL: $destination"
+          if [[ ! "$status" =~ ^2[0-9][0-9]$ ]]; then
+            echo "::error::Official page did not return HTTP 2xx."
+            exit 1
+          fi
+          if [[ "$bytes" -lt 1000 ]]; then
+            echo "::error::Unexpectedly short body; content retrieval not established."
+            exit 1
+          fi
+          python3 - "$body" <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+          import sys
+
+          class TextOnly(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.data = []
+                  self.skipping = 0
+              def handle_starttag(self, tag, attrs):
+                  if tag in ("script", "style"):
+                      self.skipping += 1
+              def handle_endtag(self, tag):
+                  if tag in ("script", "style") and self.skipping:
+                      self.skipping -= 1
+              def handle_data(self, data):
+                  if not self.skipping:
+                      self.data.append(data)
+
+          html = Path(sys.argv[1]).read_bytes().decode("utf-8", errors="replace")
+          parser = TextOnly()
+          parser.feed(html)
+          text = re.sub(r"\s+", " ", " ".join(parser.data))
+          markers = {
+              "thank_you_day_title": "お客さま感謝デー" in text,
+              "day_20": "20日" in text,
+              "day_30": "30日" in text,
+              "discount_5_percent": bool(re.search(r"5\s*[%％]", text)),
+              "maintenance_notice": "メンテナンス中" in text,
+          }
+          for name, found in markers.items():
+              print(f"Content marker {name}: {str(found).lower()}")
+          if not markers["thank_you_day_title"]:
+              print("::warning::HTTP 2xx but thank-you-day text was not found; manual content verification needed.")
+          print("This connectivity check does not validate eligibility conditions or modify published data.")
+          PY
