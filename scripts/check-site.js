@@ -28,7 +28,8 @@ function walk(dir) {
     return entry.isDirectory() ? walk(file) : [file];
   });
 }
-const pages = walk(out).filter((file) => file.endsWith("/index.html") &&
+// Windowsでは path.join が "\" で連結するため、区切り文字に依存しない判定にする。
+const pages = walk(out).filter((file) => path.basename(file) === "index.html" &&
   !["404", "_not-found"].includes(path.basename(path.dirname(file))));
 assert.ok(pages.length > 100, "店舗を含む静的ページが生成されていること");
 const urls = new Set();
