@@ -172,15 +172,38 @@
       "officialUrls": [
         "https://www.smbc-card.com/"
       ],
-      "checkedAt": "2026-11-20T02:00:00Z",
+      "checkedAt": "2026-11-20T09:20:00Z",
       "method": "none",
       "evidence": [],
       "notes": "関係する候補93件（うち店舗限定を含むもの56件）。コンビニ・飲食店の最大7%は店舗限定特典なので、カード自体の通常還元（0.5%）とは分けて確認する必要がある。",
       "fetchFailure": {
-        "reason": "www.smbc-card.com は curl・実ブラウザ（Chromium）のいずれでも Akamai が『Access Denied』を返す。データセンターIPからの遮断で、ブラウザ表示でも回避されない。制限の回避は行わない。",
-        "alternativeRoute": "人間が通常のブラウザで https://www.smbc-card.com/nyukai/merit/proper_p5.jsp を開き、(1) 対象のコンビニ・飲食店の一覧、(2) 還元率（7%）と内訳、(3) 対象となるタッチ決済の種類、(4) 上限、(5) 対象外条件 を確認する。この1ページで複数店舗の候補をまとめて検証できるため最優先。"
+        "reason": "smbc-card.com はパスを変えても、curl でも実ブラウザでも Akamai が403を返す。公式FAQのドメインはTLS検証が通らない。アクセス制限の回避は行っていない。",
+        "alternativeRoute": "通常のブラウザでの確認が必要。確認してほしい項目を audit/findings/pending/smbc-card.md に票として用意した。記入後、この issuers.json の smbc を更新すれば93候補の監査が進む。"
       },
-      "recheckAfter": null
+      "recheckAfter": null,
+      "attemptedRoutes": [
+        {
+          "route": "curl（www.smbc-card.com / proper_p5.jsp・hitotoki）",
+          "result": "Akamai が HTTP 403 Access Denied"
+        },
+        {
+          "route": "Chromium（実ブラウザ、同じ複数パス）",
+          "result": "同じく 403 Access Denied。ブラウザ表示でも回避されない"
+        },
+        {
+          "route": "WebFetch",
+          "result": "ドメインの名前解決に失敗"
+        },
+        {
+          "route": "qa.smbc-card.com（公式FAQ、curl / Chromium）",
+          "result": "TLSの検証が通らずプロキシが502。検証の無効化はしない"
+        },
+        {
+          "route": "Web検索",
+          "result": "第三者の解説記事が中心。抜粋だけでは確定させない方針のため採用しない"
+        }
+      ],
+      "humanVerificationForm": "audit/findings/pending/smbc-card.md"
     },
     "aeon": {
       "name": "イオンカード / AEON Pay / 電子マネーWAON",
