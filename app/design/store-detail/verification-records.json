@@ -78,7 +78,7 @@
   },
   {
     "storeId": "seiyu",
-    "candidateName": "西友アプリ＋楽天ポイント（月・土曜）",
+    "candidateName": "西友アプリ＋楽天ポイント（金・土・日・月）",
     "status": "unverified",
     "verifiedAt": null,
     "attemptedAt": "2026-11-16T21:59:30+09:00",
@@ -118,7 +118,7 @@
   },
   {
     "storeId": "mos-burger",
-    "candidateName": "モスカードの日（毎月25〜27日）",
+    "candidateName": "モスカードの日（毎月25〜29日・入金特典）",
     "status": "unverified",
     "verifiedAt": null,
     "attemptedAt": "2026-11-16T21:45:45+09:00",
@@ -180,7 +180,7 @@
   },
   {
     "storeId": "sunny",
-    "candidateName": "楽天ポイントカード提示（月・土曜）",
+    "candidateName": "楽天ポイントカード提示（土曜・増し増しデー）",
     "status": "unverified",
     "verifiedAt": null,
     "attemptedAt": "2026-11-16T21:59:30+09:00",
