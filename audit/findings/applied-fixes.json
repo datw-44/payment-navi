@@ -1,0 +1,66 @@
+{
+  "_note": "掲載データへ実際に適用した修正の記録。どの監査結果が反映済みかを示し、次回の重複作業を防ぐ。",
+  "appliedOn": "2026-11-20 (UTC)",
+  "branch": "claude/data-fix-20261120",
+  "commit": "02eb3ec",
+  "baseBranch": "main (1b62aac)",
+  "note": "本番公開はしていない。mainへのマージも未実施。",
+  "applied": {
+    "JCBオリジナルカード 14件": {
+      "items": "全店舗のJCBカードW",
+      "change": "ポイント種類 Oki Dokiポイント → J-POINT",
+      "source": "https://www.jcb.co.jp/point/ ・ https://www.jcb.co.jp/ordercard/kojin_card/os_card_w.html"
+    },
+    "スギ薬局・無印良品 4件": {
+      "items": "dカード／PayPayカード",
+      "change": "ポイント種類を店舗独自ポイントからカードのポイントへ",
+      "source": "発行元の公式（dpoint.docomo.ne.jp / paypay.ne.jp）"
+    },
+    "モスバーガー": {
+      "change": "対象日25〜27日→25〜29日、決済→入金（チャージ）、1,000円以上の条件と合算不可の注意を追記",
+      "source": "https://www.mos.jp/service/mosca/mpgm/"
+    },
+    "イトーヨーカドー": {
+      "change": "対象決済の限定、他社決済の対象外、2026年9月以降の店舗別変更、ネット通販除外を追記",
+      "source": "https://www.itoyokado.co.jp/special/happyday/"
+    },
+    "サニー": {
+      "change": "対象日を毎週土曜に修正、ゆめアプリ会員限定と運営会社を追記",
+      "source": "https://sunny.izumi.jp/information/shittokucalender2611/ ・ https://www.izumi.co.jp/corp/group/"
+    },
+    "ダイエー": {
+      "change": "ポイント種類を会計時割引に修正、対象決済と除外品を追記",
+      "source": "https://www.daiei.co.jp/okaidoku/"
+    },
+    "ローソン": {
+      "change": "アプリエントリー必須と日中の還元率を追記",
+      "source": "https://www.lawson.co.jp/ponta/"
+    },
+    "まいばすけっと": {
+      "change": "首都圏限定・WAON POINTカード提示・併用不可を追記",
+      "source": "https://www.mybasket.co.jp/service/point/"
+    },
+    "ツルハドラッグ": {
+      "change": "併用制限・対象外店舗・対象外商品を追記",
+      "source": "https://www.tsuruha.co.jp/service/point_appreciation_day/"
+    },
+    "西友（金・土・日・月）": {
+      "change": "対象日を金・土・日・月に修正",
+      "source": "https://www.seiyu.co.jp/assets/images/rakuten_pointprogram_title-mainvisual2611.png"
+    },
+    "確認記録の対応付け": {
+      "change": "候補名を変えた3件（西友・モスバーガー・サニー）のcandidateNameを更新。statusとdisplayApprovalは不変",
+      "reason": "対応が外れると読者向けの「未確認」注意書きがページから消えるため"
+    }
+  },
+  "heldBack": {
+    "マックスバリュ": "対象の運営会社が未確定で、照合先サイトも定まらない",
+    "西友（毎月15日）": "1か月分のカレンダーだけで特典の終了を断定しない",
+    "ライフ（7・17・27日）": "公式が何も述べていない。記載が無いことは存在しない証拠にならない",
+    "楽天カードのポイント種類（スギ薬局・無印良品）": "同じ問題があるが、楽天の公式サイトが到達できず確認できていない"
+  },
+  "newlyFound": {
+    "楽天カードのポイント種類": "スギ薬局・無印良品で、楽天カードのポイント種類も店舗独自ポイント（スギポイント／MUJIマイル）になっている。dカード・PayPayカードと同じ問題だが、楽天公式が取得できないため未修正",
+    "findingsの読み込み順": "audit/ledger/build.js は findings を名前順に読み、後のファイルが前を上書きする。lawson::JCBカードW は candidates-lawson.json の未確認が candidates-jcb.json の記録を上書きしていた。店舗別とカード別のファイルが重なる場合は統合が必要"
+  }
+}

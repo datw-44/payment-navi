@@ -180,4 +180,17 @@ test("対応決済は109店舗すべてに状態があり、未着手なら未�
     }
   }
 });
+
+
+test("複数の記録が同じ候補を扱うとき、根拠のある判定が未確認に上書きされない", () => {
+  // 店舗別ファイルとカード別ファイルが重なると、名前順で後のファイルが勝ってしまい、
+  // 調べ済みの判定が未確認に戻る事故が起きた。その再発を防ぐ。
+  const jcb = JSON.parse(fs.readFileSync(path.join(ROOT, "audit/findings/2026-11-candidates-jcb.json"), "utf8"));
+  const lawsonJcb = Object.keys(jcb.items).find((k) => k.startsWith("lawson::"));
+  assert.ok(lawsonJcb, "ローソンのJCB候補がJCBの記録にない");
+  const row = L.items[lawsonJcb];
+  assert.ok(row, `台帳に ${lawsonJcb} がない`);
+  assert.notEqual(row.audit.status, "未確認",
+    "JCBの記録で不一致と判定した候補が、店舗別ファイルの未確認で上書きされている");
+});
 console.log(`\n${passed} tests passed`);

@@ -50,11 +50,25 @@ function emptyAudit() {
 function loadFindings() {
   const merged = {};
   const sources = {};
+  const skipped = [];
+  const conflicts = [];
   if (!fs.existsSync(FINDINGS_DIR)) return { merged, sources, files: [] };
-  const files = fs.readdirSync(FINDINGS_DIR).filter((f) => f.endsWith(".json")).sort();  // issuers/ は別扱い
+  const files = fs.readdirSync(FINDINGS_DIR).filter((f) => f.endsWith(".json")).sort()  // issuers/ は別扱い
+    .filter((f) => { try { return Boolean(JSON.parse(fs.readFileSync(path.join(FINDINGS_DIR, f), "utf8")).items); } catch { return false; } });
   for (const f of files) {
     const doc = JSON.parse(fs.readFileSync(path.join(FINDINGS_DIR, f), "utf8"));
+    if (!doc.items) continue;   // 記録以外のファイル（適用履歴など）は読み飛ばす
     for (const [id, rec] of Object.entries(doc.items || {})) {
+      // 同じ候補を複数の findings が扱うことがある（店舗別ファイルとカード別ファイルなど）。
+      // 名前順で後のファイルが前を上書きすると、根拠のある判定が未確認で消される。
+      // 判定を持つ記録を優先し、両方が判定を持つ場合だけ警告する。
+      const prevRec = merged[id];
+      if (prevRec) {
+        const prevHas = prevRec.status && prevRec.status !== "未確認";
+        const thisHas = rec.status && rec.status !== "未確認";
+        if (prevHas && !thisHas) { skipped.push(`${id}（${f} の未確認より ${sources[id]} の${prevRec.status}を優先）`); continue; }
+        if (prevHas && thisHas) conflicts.push(`${id}（${sources[id]}=${prevRec.status} / ${f}=${rec.status}）`);
+      }
       const base = emptyAudit();
       const a = { ...base, ...rec };
       a.checks = { ...base.checks, ...(rec.checks || {}) };
@@ -70,7 +84,7 @@ function loadFindings() {
       sources[id] = f;
     }
   }
-  return { merged, sources, files };
+  return { merged, sources, files, skipped, conflicts };
 }
 
 
@@ -242,6 +256,14 @@ function build() {
   console.log(`  店舗 ${d.entries.length} / 支払い候補 ${candidates} / 定例特典 ${benefits} / 行数 ${candidates + benefits}`);
   console.log(`  既存の監査結果を引き継いだ行: ${carried}（うち掲載内容の変更で再確認が必要: ${resetBySignature}）`);
   console.log(`  findings から反映した行: ${Object.keys(findings.merged).length}（${findings.files.join(", ") || "なし"}）`);
+  if (findings.skipped.length) {
+    console.log(`  重複する記録のうち、根拠のある判定を優先した行: ${findings.skipped.length}`);
+    for (const x of findings.skipped) console.log(`    ${x}`);
+  }
+  if (findings.conflicts.length) {
+    console.log(`  判定が食い違う記録: ${findings.conflicts.length}（要確認）`);
+    for (const x of findings.conflicts) console.log(`    ${x}`);
+  }
   console.log(`  発行元の通常還元を再利用して照合した行: ${fromIssuer}`);
   const noChecks = Object.values(items).filter((it) => it.audit.checksDeclared === false).length;
   if (noChecks) console.log(`  条件項目の記入がない行（精査が必要）: ${noChecks}`);

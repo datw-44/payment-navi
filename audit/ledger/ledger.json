@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "お支払いナビ 監査台帳。本番表示の承認記録 (app/design/store-detail/verification-records.json) とは別物で、ここの内容は公開画面に影響しない。",
-  "generatedAt": "2026-11-20T10:39:06.108Z",
+  "generatedAt": "2026-11-20T13:48:37.335Z",
   "statuses": [
    "一致",
    "不一致",
@@ -1189,42 +1189,59 @@
    "issuerName": "JCBカード",
    "evidenceKind": "base",
    "phase": "調査済み",
-   "findingSource": "2026-11-candidates-lawson.json",
+   "findingSource": "2026-11-candidates-jcb.json",
    "audit": {
-    "status": "未確認",
+    "status": "不一致",
     "checks": {
-     "還元率": "未確認",
+     "還元率": "確認済み",
      "対象日": "未確認",
-     "対象決済": "未確認",
-     "ポイント種類": "未確認",
+     "対象決済": "確認済み",
+     "ポイント種類": "相違",
      "対象店舗": "未確認",
      "追加条件": "未確認",
      "上限": "未確認",
      "除外事項": "未確認"
     },
     "officialUrls": [
-     "https://www.jcb.co.jp/ordercard/kojin_card/jcb_cardw.html"
+     "https://www.jcb.co.jp/point/",
+     "https://www.jcb.co.jp/ordercard/kojin_card/os_card_w.html"
     ],
-    "checkedAt": "2026-11-20T01:52:00Z",
+    "checkedAt": "2026-11-20T10:15:00Z",
     "method": "html",
-    "evidence": [],
-    "confirmed": [],
-    "unconfirmed": [
-     "基本還元率1%（Oki Dokiポイント2倍）の根拠",
-     "ローソンがJCB優待店かどうか"
+    "evidence": [
+     "［JCB公式 ポイント案内］J-POINT 200円（税込）につき1ポイントたまり、1ポイント＝最大1円分で使える",
+     "［同］J-POINT誕生 2026年1月より、もっとためやすく、もっと使いやすいサービスへリニューアル。",
+     "［同］ご利用合計金額200円（税込）ごとに1ポイントが付与されます。",
+     "［同ページ全233行］「Oki Doki」「オキドキ」の記載は0件",
+     "［JCB CARD W 公式］ポイント J-POINT／毎月のご利用合計金額200円（税込）につき2ポイント",
+     "［同］常時ポイント 1.0％還元／還元率最大10.5％（優待店でさらに）",
+     "［同 meta］ポイント還元率最大10.5％！JCB カード Wはポイントがいつでも2倍以上、年会費永年無料のクレジットカードです。",
+     "［同］18～39歳入会限定"
     ],
-    "mismatches": [],
-    "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": {
-     "reason": "ページは HTTP 200 だが抽出できた本文が14行しかなく、内容がJavaScriptで描画されている可能性が高い。",
-     "alternativeRoute": "Playwright（audit/lib/render.js）で描画してから再抽出する。"
-    },
-    "checkNote": "公式根拠を取得できていないため全項目未確認。",
+    "confirmed": [
+     "JCBのポイント制度は2026年1月より J-POINT にリニューアル",
+     "JCB CARD W は200円（税込）につき2ポイント＝常時1.0%還元",
+     "1ポイント＝最大1円分（交換先により1円未満になる場合がある）",
+     "掲載の還元率1%は、JCB CARD W の常時1.0%還元と一致"
+    ],
+    "unconfirmed": [
+     "この店舗が優待店に含まれないこと（掲載は『対象として確認できず』としており、不在の確認ではない）",
+     "ポイントの交換価値（公式は『最大1円分』であり、交換先により1円未満になりうる）",
+     "上限・対象外条件"
+    ],
+    "mismatches": [
+     "掲載のポイント種類が「Oki Dokiポイント」だが、JCB公式は2026年1月より「J-POINT」にリニューアルしており、公式ページに Oki Doki の記載は無い。読者に存在しないポイント名を案内している。"
+    ],
+    "fixes": [
+     "ポイント種類: 「Oki Dokiポイント」→「J-POINT」に修正",
+     "注意: 1ポイント＝最大1円分であり交換先により価値が下がる旨の追記を検討",
+     "注意: JCB CARD W は18〜39歳入会限定である旨の追記を検討"
+    ],
+    "recheckAfter": "2027-02-20",
+    "fetchFailure": null,
+    "checkNote": "カード種別は全件 JCB CARD W（JCBオリジナルの個人カード）で、提携カードは混ざっていない。ポイント種類のみ相違を確認し、還元率は1%の候補のみ公式と一致。対象店舗・上限・対象外は未確認。",
+    "cardKind": "JCBオリジナル（JCB CARD W）。提携カードではない",
     "unconfirmedChecks": [
-     "還元率・割引率",
-     "対象となるカード・決済方法",
-     "付与されるポイントの種類",
      "その店舗が対象であること",
      "エントリー・提示・会員登録等",
      "付与上限・金額上限（任意）",
