@@ -21,7 +21,11 @@ const path = require("node:path");
 
 const ROOT = path.join(__dirname, "..");
 const CACHE = path.join(__dirname, "cache");
-const SNAP = path.join(CACHE, "page-snapshots.json");
+// 差分検出の基準はブランチに保存する（audit/cache/ は保存されないため、
+// 新しいセッションでは前回との比較ができなくなってしまう）。
+// 保存するのは URL・内容のハッシュ・行数・確認日時・取得状態だけで、
+// 公式ページの本文や画像は一切保存しない。
+const SNAP = path.join(__dirname, "ledger", "page-snapshots.json");
 const REPORTS = path.join(__dirname, "reports");
 const LEDGER = path.join(__dirname, "ledger/ledger.json");
 const ISSUERS = path.join(__dirname, "findings/issuers/2026-11-issuers.json");
@@ -49,14 +53,16 @@ async function main() {
   log("\n【2-3】公式ページの取得と前回との差分");
   const { fetchPage, verdict } = require("./lib/fetch.js");
   const { renderAll } = require("./lib/render.js");
-  const snapshots = fs.existsSync(SNAP) ? JSON.parse(fs.readFileSync(SNAP, "utf8")) : {};
+  const snapDoc = fs.existsSync(SNAP) ? JSON.parse(fs.readFileSync(SNAP, "utf8")) : {};
+  const snapshots = snapDoc.pages || {};
+  const baselineCount = Object.values(snapshots).filter((v) => v && v.hash).length;
   const ledger0 = JSON.parse(fs.readFileSync(LEDGER, "utf8"));
   const issuerDoc = JSON.parse(fs.readFileSync(ISSUERS, "utf8"));
   const urls = new Set();
   for (const it of Object.values(ledger0.items)) for (const u of it.audit.officialUrls || []) urls.add(u);
   for (const iss of Object.values(issuerDoc.issuers)) for (const u of iss.officialUrls || []) urls.add(u);
   const watched = [...urls].filter((u) => /^https?:\/\//.test(u));
-  log(`  監視対象の公式URL: ${watched.length}件`);
+  log(`  監視対象の公式URL: ${watched.length}件（比較基準を持つもの ${baselineCount}件）`);
 
   const changes = [], failures = [], unchanged = [];
   if (refetch) {
@@ -76,18 +82,32 @@ async function main() {
         v = verdict(r);
         if (r.extracted && /取得成功/.test(v)) text = r.extracted.text;
       }
-      if (!text) { failures.push({ url: u, verdict: v }); continue; }
+      if (!text) {
+        failures.push({ url: u, verdict: v });
+        const prev0 = snapshots[u];
+        snapshots[u] = { ...(prev0 || {}), lastResult: "取得失敗", lastVerdict: v, lastTriedAt: new Date().toISOString() };
+        continue;
+      }
       const lines = text.split("\n").length;
       const h = crypto.createHash("sha1").update(text).digest("hex").slice(0, 16);
       const prev = snapshots[u];
-      if (!prev) snapshots[u] = { hash: h, lines, seenAt: new Date().toISOString() };
-      else if (prev.hash !== h) {
+      const now = new Date().toISOString();
+      if (!prev || !prev.hash) {
+        snapshots[u] = { hash: h, lines, seenAt: now, lastResult: "取得成功", lastTriedAt: now, firstSeenAt: (prev && prev.firstSeenAt) || now };
+        if (prev && prev.hash === undefined && prev.lastResult === "取得失敗") unchanged.push(u); // 失敗から復帰
+      } else if (prev.hash !== h) {
         changes.push({ url: u, before: prev.lines, after: lines, lastSeen: prev.seenAt });
-        snapshots[u] = { hash: h, lines, seenAt: new Date().toISOString() };
-      } else unchanged.push(u);
+        snapshots[u] = { ...prev, hash: h, lines, seenAt: now, lastResult: "取得成功", lastTriedAt: now };
+      } else {
+        unchanged.push(u);
+        snapshots[u] = { ...prev, lastResult: "取得成功", lastTriedAt: now };
+      }
     }
-    fs.mkdirSync(CACHE, { recursive: true });
-    fs.writeFileSync(SNAP, JSON.stringify(snapshots, null, 1));
+    fs.writeFileSync(SNAP, JSON.stringify({
+      _note: "週次の差分検出に使う基準。公式ページの本文・画像は保存しない。URL・内容のハッシュ・行数・確認日時・取得状態のみ。",
+      updatedAt: new Date().toISOString(),
+      pages: snapshots,
+    }, null, 1) + "\n");
     log(`  取得成功 ${watched.length - failures.length} / 変化あり ${changes.length} / 変化なし ${unchanged.length} / 取得失敗 ${failures.length}`);
     for (const c of changes) log(`    変化: ${c.url}（${c.before}行 → ${c.after}行、前回 ${c.lastSeen}）`);
   } else {

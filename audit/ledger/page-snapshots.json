@@ -1,0 +1,326 @@
+{
+ "_note": "週次の差分検出に使う基準。公式ページの本文・画像は保存しない。URL・内容のハッシュ・行数・確認日時・取得状態のみ。",
+ "updatedAt": "2026-11-20T09:07:38.972Z",
+ "pages": {
+  "https://recruit-card.jp/": {
+   "hash": "b218c3c794f5e4ba",
+   "lines": 128,
+   "seenAt": "2026-11-20T08:50:50.227Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:02.318Z",
+   "firstSeenAt": "2026-11-20T08:50:50.227Z"
+  },
+  "https://www.lawson.co.jp/ponta/": {
+   "hash": "6cc849f4b5c49d83",
+   "lines": 440,
+   "seenAt": "2026-11-20T09:07:03.958Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:03.958Z",
+   "firstSeenAt": "2026-11-20T08:50:51.799Z"
+  },
+  "https://paypay.ne.jp/point/": {
+   "hash": "eb43ce698421b55b",
+   "lines": 320,
+   "seenAt": "2026-11-20T08:50:53.683Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:06.212Z",
+   "firstSeenAt": "2026-11-20T08:50:53.683Z"
+  },
+  "https://www.cr.mufg.jp/ja/point/index.html": {
+   "hash": "85a89979f74e0a26",
+   "lines": 298,
+   "seenAt": "2026-11-20T08:50:54.769Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:07.537Z",
+   "firstSeenAt": "2026-11-20T08:50:54.769Z"
+  },
+  "https://www.tsuruha.co.jp/service/point_appreciation_day/": {
+   "hash": "1640b14e122fd8e7",
+   "lines": 108,
+   "seenAt": "2026-11-20T08:52:36.905Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:08.595Z",
+   "firstSeenAt": "2026-11-20T08:52:36.905Z"
+  },
+  "https://www.itoyokado.co.jp/special/happyday/": {
+   "hash": "ebe7d0f39d73b193",
+   "lines": 117,
+   "seenAt": "2026-11-20T08:50:58.306Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:11.323Z",
+   "firstSeenAt": "2026-11-20T08:50:58.306Z"
+  },
+  "https://www.seiyu.co.jp/service/otoku_calendar/": {
+   "hash": "d2dcd32f7941144e",
+   "lines": 95,
+   "seenAt": "2026-11-20T08:50:59.014Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:11.880Z",
+   "firstSeenAt": "2026-11-20T08:50:59.014Z"
+  },
+  "https://www.seiyu.co.jp/assets/images/cal-202611.png": {
+   "hash": "e8cf1e85d72d64c7",
+   "lines": 8825,
+   "seenAt": "2026-11-20T08:51:00.699Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:13.621Z",
+   "firstSeenAt": "2026-11-20T08:51:00.699Z"
+  },
+  "https://www.seiyu.co.jp/service/rakuten_pointprogram/": {
+   "hash": "276af2912224c98a",
+   "lines": 178,
+   "seenAt": "2026-11-20T08:51:02.007Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:14.316Z",
+   "firstSeenAt": "2026-11-20T08:51:02.007Z"
+  },
+  "https://www.seiyu.co.jp/assets/images/rakuten_pointprogram_title-mainvisual2611.png": {
+   "hash": "ad661209b3bc1906",
+   "lines": 366,
+   "seenAt": "2026-11-20T08:51:03.194Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:15.415Z",
+   "firstSeenAt": "2026-11-20T08:51:03.194Z"
+  },
+  "https://paypay.ne.jp/event/paypaystep/": {
+   "hash": "6b2289ddefaec508",
+   "lines": 961,
+   "seenAt": "2026-11-20T08:51:03.414Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:16.403Z",
+   "firstSeenAt": "2026-11-20T08:51:03.414Z"
+  },
+  "https://www.lifefin.jp/": {
+   "hash": "30d0536ed063e82c",
+   "lines": 152,
+   "seenAt": "2026-11-20T08:51:06.261Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:19.478Z",
+   "firstSeenAt": "2026-11-20T08:51:06.261Z"
+  },
+  "https://www.lifefin.jp/notice/detail/5x_thepoint_cp.html": {
+   "hash": "632bf1c98ed621e8",
+   "lines": 94,
+   "seenAt": "2026-11-20T08:51:07.034Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:20.296Z",
+   "firstSeenAt": "2026-11-20T08:51:07.034Z"
+  },
+  "https://www.lifecorp.jp/service/card.html": {
+   "hash": "b47aed71222e11d0",
+   "lines": 88,
+   "seenAt": "2026-11-20T08:51:07.478Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:20.978Z",
+   "firstSeenAt": "2026-11-20T08:51:07.478Z"
+  },
+  "https://www.mos.jp/service/mosca/mpgm/": {
+   "hash": "64eeb07eb6867760",
+   "lines": 235,
+   "seenAt": "2026-11-20T08:51:08.314Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:21.823Z",
+   "firstSeenAt": "2026-11-20T08:51:08.314Z"
+  },
+  "https://aupay.auone.jp/": {
+   "hash": "7ddb25a5b9315c37",
+   "lines": 77,
+   "seenAt": "2026-11-20T08:51:09.460Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:22.957Z",
+   "firstSeenAt": "2026-11-20T08:51:09.460Z"
+  },
+  "https://www.mybasket.co.jp/service/point/": {
+   "hash": "083162f2a3ac0c99",
+   "lines": 188,
+   "seenAt": "2026-11-20T08:51:10.304Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:23.672Z",
+   "firstSeenAt": "2026-11-20T08:51:10.304Z"
+  },
+  "https://www.mv-tokai.co.jp/": {
+   "hash": "15d82353ebe8066f",
+   "lines": 319,
+   "seenAt": "2026-11-20T08:51:13.487Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:26.940Z",
+   "firstSeenAt": "2026-11-20T08:51:13.487Z"
+  },
+  "https://www.daiei.co.jp/okaidoku/": {
+   "hash": "d50cda1383eb58f5",
+   "lines": 90,
+   "seenAt": "2026-11-20T08:51:14.553Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:28.112Z",
+   "firstSeenAt": "2026-11-20T08:51:14.553Z"
+  },
+  "https://www.izumi.co.jp/corp/group/": {
+   "hash": "1a81bec18c46a977",
+   "lines": 339,
+   "seenAt": "2026-11-20T08:51:16.089Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:29.706Z",
+   "firstSeenAt": "2026-11-20T08:51:16.089Z"
+  },
+  "https://sunny.izumi.jp/": {
+   "hash": "24ecbbd6cf18308d",
+   "lines": 50,
+   "seenAt": "2026-11-20T08:51:17.440Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:31.228Z",
+   "firstSeenAt": "2026-11-20T08:51:17.440Z"
+  },
+  "https://sunny.izumi.jp/information/shittokucalender2611/": {
+   "hash": "0285b410307cccb4",
+   "lines": 26,
+   "seenAt": "2026-11-20T08:51:18.776Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:32.788Z",
+   "firstSeenAt": "2026-11-20T08:51:18.776Z"
+  },
+  "https://sunny.izumi.jp/information/2611calendar.jpg": {
+   "hash": "af037d53b4f2f7d3",
+   "lines": 2105,
+   "seenAt": "2026-11-20T08:51:20.914Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:34.794Z",
+   "firstSeenAt": "2026-11-20T08:51:20.914Z"
+  },
+  "https://www.tohotheater.jp/otoku/": {
+   "hash": "8374f25d84e62ab4",
+   "lines": 167,
+   "seenAt": "2026-11-20T08:51:21.675Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:35.500Z",
+   "firstSeenAt": "2026-11-20T08:51:21.675Z"
+  },
+  "https://www.saisoncard.co.jp/creditcard/benefits-service/saison-thursday/": {
+   "hash": "30b4cae62069d4b1",
+   "lines": 414,
+   "seenAt": "2026-11-20T08:51:22.525Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:36.473Z",
+   "firstSeenAt": "2026-11-20T08:51:22.525Z"
+  },
+  "https://pointcard.rakuten.co.jp/": {
+   "hash": "d9cc5f2f041af07d",
+   "lines": 189,
+   "seenAt": "2026-11-20T08:51:23.722Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:37.794Z",
+   "firstSeenAt": "2026-11-20T08:51:23.722Z"
+  },
+  "https://www.cr.mufg.jp/": {
+   "hash": "74e760b13a23f782",
+   "lines": 450,
+   "seenAt": "2026-11-20T08:51:24.641Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:38.363Z",
+   "firstSeenAt": "2026-11-20T08:51:24.641Z"
+  },
+  "https://www.jcb.co.jp/": {
+   "hash": "c67fc5866d63b823",
+   "lines": 282,
+   "seenAt": "2026-11-20T08:51:25.202Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:38.971Z",
+   "firstSeenAt": "2026-11-20T08:51:25.202Z"
+  },
+  "https://dpoint.docomo.ne.jp/guide/about_dpointcard/index.html": {
+   "hash": "09a13b91b9db585f",
+   "lines": 300,
+   "seenAt": "2026-11-20T08:54:45.362Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:00.692Z",
+   "firstSeenAt": "2026-11-20T08:54:45.362Z"
+  },
+  "https://dpoint.docomo.ne.jp/": {
+   "hash": "a35bba41bd324ceb",
+   "lines": 742,
+   "seenAt": "2026-11-20T09:07:04.746Z",
+   "lastResult": "取得成功",
+   "lastTriedAt": "2026-11-20T09:07:04.746Z",
+   "firstSeenAt": "2026-11-20T08:54:49.464Z"
+  },
+  "https://www.smbc-card.com/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:02.634Z"
+  },
+  "https://www.smbc-card.com/nyukai/merit/proper_p5.jsp": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:03.092Z"
+  },
+  "https://d-card.jp/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "接続失敗(curl: (35) OpenSSL/3.0.13: error:0A000152:SSL routines::unsafe legacy renegotiation disabled)",
+   "lastTriedAt": "2026-11-20T09:07:04.746Z"
+  },
+  "https://www.rakuten-card.co.jp/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:05.167Z"
+  },
+  "https://www.jcb.co.jp/ordercard/kojin_card/jcb_cardw.html": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "ページなし(404)",
+   "lastTriedAt": "2026-11-20T09:07:06.546Z"
+  },
+  "https://www.aeon.co.jp/card/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:06.910Z"
+  },
+  "https://www.welcia-yakkyoku.co.jp/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:08.243Z"
+  },
+  "https://www.aeon.co.jp/merit/thanks_day": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:08.831Z"
+  },
+  "https://www.aeonbank.co.jp/aeoncard/incentive/discount/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:09.285Z"
+  },
+  "https://www.aeonretail.jp/otoku/kansyaday.html": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "ページなし(404)",
+   "lastTriedAt": "2026-11-20T09:07:10.522Z"
+  },
+  "https://www.ministop.co.jp/service/waon.html": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "一時的に利用不可(503)",
+   "lastTriedAt": "2026-11-20T09:07:17.259Z"
+  },
+  "https://www.waon.net/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:18.083Z"
+  },
+  "https://retail.jr-cross.co.jp/newdays/kessai/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "接続失敗(curl: (56) CONNECT tunnel failed, response 403)",
+   "lastTriedAt": "2026-11-20T09:07:25.216Z"
+  },
+  "https://www.aeoncinema.com/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:36.673Z"
+  },
+  "https://www.aeon.co.jp/merit/cinema/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:37.069Z"
+  },
+  "https://www.aeon.co.jp/": {
+   "lastResult": "取得失敗",
+   "lastVerdict": "サイトが拒否(403)",
+   "lastTriedAt": "2026-11-20T09:07:38.072Z"
+  }
+ }
+}

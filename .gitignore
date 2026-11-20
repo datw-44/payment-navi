@@ -34,6 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# 取得した公式ページの本文・画像は保存しない（著作物のため）。
+# 差分検出の基準は audit/ledger/page-snapshots.json にメタデータだけ保存する。
 /audit/cache/
 # 週次レポートは生成物。必要なものだけ手で残す。
 /audit/reports/

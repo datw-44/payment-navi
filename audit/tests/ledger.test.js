@@ -131,4 +131,27 @@ test("一致の行は必須項目がすべて確認済みになっている", ()
     }
   }
 });
+
+
+// ───────── 差分検出の基準（セッションをまたいで残る） ─────────
+test("差分検出の基準はブランチに保存され、公式ページの本文を含まない", () => {
+  const snapPath = path.join(ROOT, "audit/ledger/page-snapshots.json");
+  assert.ok(fs.existsSync(snapPath), "比較基準がブランチに無い（新セッションで差分検出ができなくなる）");
+  const doc = JSON.parse(fs.readFileSync(snapPath, "utf8"));
+  const pages = doc.pages || {};
+  const allowed = new Set(["hash", "lines", "seenAt", "lastResult", "lastVerdict", "lastTriedAt", "firstSeenAt"]);
+  let withBaseline = 0;
+  for (const [url, v] of Object.entries(pages)) {
+    assert.match(url, /^https?:\/\//, `URLでない項目がある: ${url}`);
+    for (const k of Object.keys(v)) {
+      assert.ok(allowed.has(k), `保存して良い項目でない: ${k}（本文や画像を保存してはいけない）`);
+      assert.ok(typeof v[k] !== "object", `${k} に構造化データが入っている`);
+      if (typeof v[k] === "string") {
+        assert.ok(v[k].length < 64, `${k} の値が長すぎる（本文が混入している恐れ）: ${String(v[k]).slice(0, 40)}`);
+      }
+    }
+    if (v.hash) { assert.match(v.hash, /^[0-9a-f]{16}$/); withBaseline++; }
+  }
+  assert.ok(withBaseline > 0, "比較基準を持つURLが1件もない");
+});
 console.log(`\n${passed} tests passed`);
