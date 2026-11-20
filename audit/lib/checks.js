@@ -18,6 +18,7 @@ const CHECKS = [
   { key: "還元率",   label: "還元率・割引率",           required: true },
   { key: "対象日",   label: "対象日・曜日",             required: true, onlyFor: "benefit" },
   { key: "対象決済", label: "対象となるカード・決済方法", required: true },
+  { key: "ポイント種類", label: "付与されるポイントの種類", required: true },
   { key: "対象店舗", label: "その店舗が対象であること",   required: true },
   { key: "追加条件", label: "エントリー・提示・会員登録等", required: true },
   { key: "上限",     label: "付与上限・金額上限",         required: false },

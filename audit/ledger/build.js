@@ -108,6 +108,12 @@ function applyIssuerBase(candidate, cls, issuers) {
   // 発行元の案内で分かるのは「カード自体の通常還元」だけ。
   // その店舗が対象か、対象決済は何か、上限や除外があるかは店舗側の根拠が要る。
   // したがってこの経路だけで「一致」にはしない。
+  // 発行元の案内はポイントの種類も明示しているので、そこは照合できる。
+  const pt = String(candidate.ポイント種類 || "");
+  if (prod.pointName) {
+    if (pt.includes(prod.pointName)) a.checks.ポイント種類 = "確認済み";
+    else if (pt) a.checks.ポイント種類 = "相違";
+  }
   if (r === null) {
     a.checks.還元率 = "未確認";
     a.confirmed = [`発行元の通常還元は${prod.baseRatePercent}%（${prod.pointName}）`, prod.note].filter(Boolean);
@@ -117,6 +123,10 @@ function applyIssuerBase(candidate, cls, issuers) {
   } else {
     a.checks.還元率 = "相違";
     a.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${prod.baseRatePercent}%と異なる`];
+  }
+  if (a.checks.ポイント種類 === "相違") {
+    a.mismatches = [...(a.mismatches || []), `掲載のポイント種類「${pt}」が、発行元の公式な「${prod.pointName}」と異なる`];
+    a.fixes = [...(a.fixes || []), `ポイント種類を「${prod.pointName}」に合わせて再確認する`];
     a.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${prod.baseRatePercent}%。${prod.note || ""}）`];
   }
   a.status = verdictFromChecks(a.checks, "candidate");

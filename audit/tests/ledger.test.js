@@ -94,6 +94,8 @@ test("判定は条件項目から導かれる（必須がすべて確認済み�
   c.還元率 = "確認済み";
   assert.equal(verdictFromChecks(c, "candidate"), "一部確認");
   c.対象決済 = "確認済み"; c.対象店舗 = "確認済み"; c.追加条件 = "確認済み";
+  assert.equal(verdictFromChecks(c, "candidate"), "一部確認", "ポイント種類が未確認のうちは一致にしない");
+  c.ポイント種類 = "確認済み";
   assert.equal(verdictFromChecks(c, "candidate"), "一致");
   assert.equal(verdictFromChecks(c, "benefit"), "一部確認", "特典は対象日も必須");
   c.対象日 = "確認済み";
@@ -102,7 +104,8 @@ test("判定は条件項目から導かれる（必須がすべて確認済み�
 
 test("記載不足があれば一致にしない（矛盾ではないので不一致にもしない）", () => {
   const c = emptyChecks();
-  c.還元率 = "確認済み"; c.対象決済 = "確認済み"; c.対象店舗 = "確認済み"; c.追加条件 = "記載不足";
+  c.還元率 = "確認済み"; c.対象決済 = "確認済み"; c.ポイント種類 = "確認済み";
+  c.対象店舗 = "確認済み"; c.追加条件 = "記載不足";
   assert.equal(verdictFromChecks(c, "candidate"), "一部確認");
 });
 
