@@ -85,7 +85,7 @@ async function main() {
       if (!text) {
         failures.push({ url: u, verdict: v });
         const prev0 = snapshots[u];
-        snapshots[u] = { ...(prev0 || {}), lastResult: "取得失敗", lastVerdict: v, lastTriedAt: new Date().toISOString() };
+        snapshots[u] = { ...(prev0 || {}), lastResult: "取得失敗", lastVerdict: String(v).slice(0, 110), lastTriedAt: new Date().toISOString() };
         continue;
       }
       const lines = text.split("\n").length;

@@ -147,7 +147,10 @@ test("差分検出の基準はブランチに保存され、公式ページの�
       assert.ok(allowed.has(k), `保存して良い項目でない: ${k}（本文や画像を保存してはいけない）`);
       assert.ok(typeof v[k] !== "object", `${k} に構造化データが入っている`);
       if (typeof v[k] === "string") {
-        assert.ok(v[k].length < 64, `${k} の値が長すぎる（本文が混入している恐れ）: ${String(v[k]).slice(0, 40)}`);
+        // lastVerdict だけは取得失敗の理由（curlのエラー文など）が入るので上限を分ける。
+        // それ以外の項目に長い文字列が入っていたら、本文が混入している可能性がある。
+        const limit = k === "lastVerdict" ? 120 : 64;
+        assert.ok(v[k].length <= limit, `${k} の値が長すぎる（本文が混入している恐れ）: ${String(v[k]).slice(0, 40)}`);
       }
     }
     if (v.hash) { assert.match(v.hash, /^[0-9a-f]{16}$/); withBaseline++; }
