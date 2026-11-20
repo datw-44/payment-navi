@@ -44,9 +44,12 @@ test("発行元の通常還元は appliesTo に合う商品にしか適用され
     if (it.audit.method !== "issuer-base") continue;
     const iss = issuers[it.audit.issuerKey];
     assert.ok(iss, `発行元の記録がない: ${it.audit.issuerKey}`);
-    assert.ok(iss.appliesTo, `appliesTo が無い発行元に自動照合が適用されている: ${it.audit.issuerKey}`);
-    assert.ok(new RegExp(iss.appliesTo).test(it.cardName),
-      `${it.cardName} は ${it.audit.issuerKey} の appliesTo(${iss.appliesTo}) に合わない`);
+    assert.ok(Array.isArray(iss.products) && iss.products.length,
+      `products が無い発行元に自動照合が適用されている: ${it.audit.issuerKey}`);
+    const prod = iss.products.find((pr) => pr.appliesTo === it.audit.product);
+    assert.ok(prod, `${it.cardName} の product(${it.audit.product}) が発行元の記録にない`);
+    assert.ok(new RegExp(prod.appliesTo).test(it.cardName),
+      `${it.cardName} は appliesTo(${prod.appliesTo}) に合わない`);
   }
 });
 

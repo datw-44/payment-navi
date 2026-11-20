@@ -68,39 +68,45 @@ function simpleRate(s) {
   return m ? Number(m[1]) : null;
 }
 
-/** 発行元の通常還元を使って base 候補を機械的に照合する。店舗限定を含む候補には使わない。 */
+/** 発行元の通常還元を使って base 候補を機械的に照合する。店舗限定を含む候補には使わない。
+ *
+ * 同じ発行元でも商品ごとに還元率が違う（dカード1% と dカード プリペイド0.5%、
+ * PayPayクレジット1.0% と PayPay残高0.5% など）。products の appliesTo に
+ * 完全に合致した候補だけを照合し、合致しなければ未確認のままにする。
+ */
 function applyIssuerBase(candidate, cls, issuers) {
   if (cls.kind !== "base" || !cls.issuerKey) return null;
   const iss = issuers[cls.issuerKey];
-  if (!iss || iss.status !== "確認済み" || typeof iss.baseRatePercent !== "number") return null;
-  // 同じ発行元でも商品が違えば還元率が違う（au PAY カード と au PAY コード支払いなど）。
-  // appliesTo で対象商品を明示したものだけ自動照合する。
-  if (!iss.appliesTo) return null;
-  if (!new RegExp(iss.appliesTo).test(candidate.カード)) return null;
+  if (!iss || iss.status !== "確認済み") return null;
+  const products = Array.isArray(iss.products) ? iss.products : [];
+  const prod = products.find((pr) => pr.appliesTo && new RegExp(pr.appliesTo).test(candidate.カード));
+  if (!prod || typeof prod.baseRatePercent !== "number") return null;
+
   const r = simpleRate(candidate.還元率);
-  const base = emptyAudit();
-  base.officialUrls = iss.officialUrls || [];
-  base.checkedAt = iss.checkedAt || null;
-  base.method = "issuer-base";
-  base.evidence = (iss.evidence || []).slice(0, 3);
-  base.issuerKey = cls.issuerKey;
-  base.provenance = `発行元「${iss.name}」の通常還元（${iss.baseRatePercent}%）の公式根拠を、この候補の照合に再利用`;
+  const a = emptyAudit();
+  a.officialUrls = iss.officialUrls || [];
+  a.checkedAt = iss.checkedAt || null;
+  a.method = "issuer-base";
+  a.evidence = (iss.evidence || []).slice(0, 4);
+  a.issuerKey = cls.issuerKey;
+  a.product = prod.appliesTo;
+  a.provenance = `発行元「${iss.name}」の商品「${prod.appliesTo}」の通常還元（${prod.baseRatePercent}%）の公式根拠を、この候補の照合に再利用`;
   if (r === null) {
-    base.status = "一部確認";
-    base.confirmed = [`発行元の通常還元は${iss.baseRatePercent}%（${iss.pointName}）`];
-    base.unconfirmed = [`掲載の還元率「${candidate.還元率}」は単純な率ではないため、発行元の通常還元だけでは判定できない`];
-    return base;
+    a.status = "一部確認";
+    a.confirmed = [`発行元の通常還元は${prod.baseRatePercent}%（${prod.pointName}）`, prod.note].filter(Boolean);
+    a.unconfirmed = [`掲載の還元率「${candidate.還元率}」は単純な率ではないため、通常還元だけでは判定できない`];
+    return a;
   }
-  if (Math.abs(r - iss.baseRatePercent) < 0.001) {
-    base.status = "一致";
-    base.confirmed = [`還元率${r}%が発行元の通常還元と一致`, `ポイント種類: ${iss.pointName}`];
-    base.unconfirmed = ["この店舗固有の上乗せや対象外条件の有無（店舗側の公式確認が別途必要）"];
-    return base;
+  if (Math.abs(r - prod.baseRatePercent) < 0.001) {
+    a.status = "一致";
+    a.confirmed = [`還元率${r}%が発行元の通常還元と一致`, `ポイント種類: ${prod.pointName}`, prod.note].filter(Boolean);
+    a.unconfirmed = ["この店舗固有の上乗せ・対象外条件の有無（店舗側の公式確認が別途必要）"];
+    return a;
   }
-  base.status = "不一致";
-  base.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${iss.baseRatePercent}%と異なる`];
-  base.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${iss.baseRatePercent}%）`];
-  return base;
+  a.status = "不一致";
+  a.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${prod.baseRatePercent}%と異なる`];
+  a.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${prod.baseRatePercent}%。${prod.note || ""}）`];
+  return a;
 }
 
 function build() {

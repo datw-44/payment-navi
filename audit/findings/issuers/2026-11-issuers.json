@@ -20,7 +20,15 @@
       ],
       "notes": "店舗限定の上乗せは公式トップに記載なし。店舗側の特典は別途店舗公式で確認すること。",
       "recheckAfter": "2027-02-20",
-      "appliesTo": "^リクルートカード$"
+      "appliesTo": "^リクルートカード$",
+      "products": [
+        {
+          "appliesTo": "^リクルートカード$",
+          "baseRatePercent": 1.2,
+          "pointName": "リクルートポイント",
+          "note": "年会費永年無料のリクルートカード"
+        }
+      ]
     },
     "au": {
       "name": "au PAY カード",
@@ -39,25 +47,53 @@
       "notes": "別途「au PAY Pontaアップ店」という店舗限定の上乗せ制度が存在する（『au PAY（コード支払い）のご利用でポイントがさらにたまるおトクなお店』）。au PAY（コード支払い）の基本還元率はこのページでは確認できていないため、au PAY カード（クレジット）の値のみ確定とする。",
       "recheckAfter": "2027-02-20",
       "appliesTo": "^au ?PAY ?カード",
-      "productScope": "au PAY カード（クレジットカード）のみ。au PAY のコード支払いは別商品で還元率が異なるため対象外。"
+      "productScope": "au PAY カード（クレジットカード）のみ。au PAY のコード支払いは別商品で還元率が異なるため対象外。",
+      "products": [
+        {
+          "appliesTo": "^au ?PAYカード$",
+          "baseRatePercent": 1,
+          "pointName": "Pontaポイント",
+          "note": "au PAY カード（クレジット）。100円（税込）ごとに1ポイント。au PAY のコード支払いは別商品で対象外"
+        }
+      ]
     },
     "paypay": {
       "name": "PayPay / PayPayカード",
-      "status": "一部確認",
+      "status": "確認済み",
       "baseRatePercent": null,
       "maxRatePercent": 1.5,
       "pointName": "PayPayポイント",
       "officialUrls": [
+        "https://paypay.ne.jp/event/paypaystep/",
         "https://paypay.ne.jp/point/"
       ],
-      "checkedAt": "2026-11-20T01:55:00Z",
+      "checkedAt": "2026-11-20T02:35:00Z",
       "method": "html",
       "evidence": [
-        "PayPayの支払いで最大1.5％貯まる",
-        "PayPayポイントは、1ポイント＝1円分として利用できます"
+        "毎月の支払い状況に合わせて最大1.5％戻ってくる！ 基本付与分 0.5〜1.0％ ＋ 条件達成特典0.5％ 最大1.5％［img alt］",
+        "PayPay残高 … 適用期間の付与率合計最大1.0％→内訳 基本付与率0.5％＋条件達成特典 達成条件クリアで0.5％［img alt］",
+        "クレジット（クレジット利用設定済みの PayPayカード・PayPayカード ゴールド）… 付与率合計最大1.5％ 内訳 基本付与率1.0％＋条件達成特典 達成条件クリアで0.5％［img alt］",
+        "PayPayの本人確認が完了している方が対象です。",
+        "公共料金や金券等、一部対象外の支払いがあります。",
+        "PayPayポイントを支払い金額200円毎に付与。",
+        "PayPayポイントでの支払いは対象外です。"
       ],
-      "notes": "段階別（0.5% / 1% / 1.5%）の達成条件を載せたページのURLが未特定。基本率が確定していないため base 候補の自動照合には使わない。",
-      "recheckAfter": "2026-12-20"
+      "notes": "基本付与率と条件達成特典（PayPayステップ）を分けて確認済み。いずれも本人確認が前提。ポイントは支払い金額200円毎に付与。公共料金・金券等は対象外。",
+      "recheckAfter": "2026-12-20",
+      "products": [
+        {
+          "appliesTo": "^PayPayカード$",
+          "baseRatePercent": 1,
+          "pointName": "PayPayポイント",
+          "note": "クレジット利用設定済みのPayPayカード。基本付与率1.0%＋条件達成特典0.5%で最大1.5%"
+        },
+        {
+          "appliesTo": "^PayPay$",
+          "baseRatePercent": 0.5,
+          "pointName": "PayPayポイント",
+          "note": "PayPay残高払い。基本付与率0.5%＋条件達成特典0.5%で最大1.0%"
+        }
+      ]
     },
     "rakuten": {
       "name": "楽天カード / 楽天ペイ / 楽天ポイント",
@@ -82,22 +118,51 @@
     },
     "docomo": {
       "name": "dカード / d払い / dポイント",
-      "status": "未確認",
+      "status": "確認済み",
       "baseRatePercent": null,
       "pointName": "dポイント",
       "officialUrls": [
-        "https://dpoint.docomo.ne.jp/",
-        "https://d-card.jp/"
+        "https://dpoint.docomo.ne.jp/guide/about_dpointcard/index.html"
       ],
-      "checkedAt": "2026-11-20T02:05:00Z",
+      "checkedAt": "2026-11-20T02:30:00Z",
       "method": "browser",
-      "evidence": [],
-      "notes": "dpoint.docomo.ne.jp はブラウザ経由で描画できた（curlはTLSのレガシー再ネゴシエーション要求で接続不可）。ただしトップはポータルで、還元率の条件ページは未特定。",
-      "fetchFailure": {
-        "reason": "d-card.jp はブラウザ経由でも ERR_TUNNEL_CONNECTION_FAILED。dpoint.docomo.ne.jp はブラウザ経由で到達できるが、還元率を載せた下位ページのURLが未特定。",
-        "alternativeRoute": "dpoint.docomo.ne.jp 内の『dポイントのたまり方』『dカードの還元率』にあたるページを辿って取得する。関係する候補が172件と最多のため最優先。"
-      },
-      "recheckAfter": "2026-11-27"
+      "evidence": [
+        "dカード 年会費（税込）永年無料 *100円（税込）につき1ポイント",
+        "dカード GOLD 年会費（税込）11,000円 *100円（税込）につき1ポイント",
+        "dカード GOLD U 年会費（税込）3,300円 *100円（税込）につき1ポイント",
+        "dカード PLATINUM 年会費（税込）29,700円 *100円（税込）につき1ポイント",
+        "dカード プリペイド 年会費（税込）無料 *200円（税込）につき1ポイント"
+      ],
+      "notes": "dカード本体の通常還元は確認できた。d払い（コード決済）の基本還元率と、dポイントカード提示の付与率は別途確認が必要。dpoint.docomo.ne.jp はブラウザ経由でのみ到達できる（curlはTLSのレガシー再ネゴシエーション要求で不可）。",
+      "recheckAfter": "2026-11-27",
+      "products": [
+        {
+          "appliesTo": "^dカード$",
+          "baseRatePercent": 1,
+          "pointName": "dポイント",
+          "note": "100円（税込）につき1ポイント。年会費永年無料"
+        },
+        {
+          "appliesTo": "^dカード GOLD",
+          "baseRatePercent": 1,
+          "pointName": "dポイント",
+          "note": "100円（税込）につき1ポイント"
+        },
+        {
+          "appliesTo": "^dカード プリペイド$",
+          "baseRatePercent": 0.5,
+          "pointName": "dポイント",
+          "note": "200円（税込）につき1ポイント"
+        }
+      ],
+      "remaining": {
+        "unconfirmed": [
+          "d払い（コード決済）の基本還元率",
+          "dポイントカード提示による付与率",
+          "dカードとdポイントカード提示の二重取り可否"
+        ],
+        "nextStep": "dpoint.docomo.ne.jp 内の d払い・ポイント提示に関する説明ページを audit/cli.js render で取得する。"
+      }
     },
     "smbc": {
       "name": "三井住友カード / Olive / Vポイント",
@@ -194,5 +259,6 @@
       "recheckAfter": null
     }
   },
-  "_appliesToNote": "appliesTo は、その発行元の『この商品』の通常還元だけに自動照合を限定するための正規表現。同じ発行元でも別商品（例: au PAY カード と au PAY コード支払い）は還元率が異なるため、これを付けない限り自動照合は行わない。"
+  "_appliesToNote": "appliesTo は、その発行元の『この商品』の通常還元だけに自動照合を限定するための正規表現。同じ発行元でも別商品（例: au PAY カード と au PAY コード支払い）は還元率が異なるため、これを付けない限り自動照合は行わない。",
+  "_productsNote": "products は、同じ発行元の中で還元率が異なる商品を分けて持つための配列。appliesTo に合致した候補だけに baseRatePercent を自動適用する。合致しなければ自動照合しない（未確認のまま）。"
 }
