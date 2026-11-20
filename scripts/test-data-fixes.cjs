@@ -141,4 +141,45 @@ test("西友の毎月15日の特典は保留のまま残っている（未確認
   assert.equal(c.対象日条件, "毎月15日");
 });
 
+// ── 解説と候補の整合性 ──
+// 候補だけ直して解説を直し忘れると、同じページの中で矛盾した説明が出る。
+const story = (storeId) => {
+  const e = entries.find((x) => x.storeId === storeId);
+  assert.ok(e, storeId);
+  return e.store.解説 || "";
+};
+
+test("モスバーガーの解説が入金特典として説明されている", () => {
+  const t = story("mos-burger");
+  assert.equal(/25〜27日|25日〜27日/.test(t), false, "解説に古い対象日が残っている");
+  assert.match(t, /入金|チャージ/, "解説に入金特典である説明がない");
+});
+
+test("西友の解説が増量日の曜日と食い違っていない", () => {
+  const t = story("seiyu");
+  assert.equal(/毎週月曜・土曜に西友アプリ/.test(t), false, "解説に古い対象曜日が残っている");
+  assert.match(t, /金・土・日・月|増量日/, "解説に現在の増量日の説明がない");
+});
+
+test("イトーヨーカドーの解説に対象決済の限定がある", () => {
+  const t = story("ito-yokado");
+  assert.match(t, /nanaco|セブンカード/, "解説に対象決済の説明がない");
+  assert.match(t, /対象外/, "解説に対象外決済の説明がない");
+});
+
+test("まいばすけっとの解説に首都圏限定がある", () => {
+  assert.match(story("my-basket"), /首都圏/, "解説に対象地域の説明がない");
+});
+
+test("ダイエーの解説が会計時の割引として説明されている", () => {
+  const t = story("daiei");
+  assert.match(t, /WAON POINTカード/, "解説に対象外決済の説明がない");
+});
+
+test("今回確認した店舗の解説に、確認時点の範囲が書かれている", () => {
+  for (const id of ["mos-burger", "seiyu", "ito-yokado", "daiei", "my-basket", "tsuruha-drug", "lawson", "sunny"]) {
+    assert.match(story(id), /情報は2026年11月時点/, `${id} の解説に2026年11月時点の記載がない`);
+  }
+});
+
 console.log(`\n${passed} tests passed`);
