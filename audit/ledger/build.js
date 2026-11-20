@@ -17,12 +17,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 const { load, itemId } = require("../lib/data.js");
+const { classify } = require("../lib/issuers.js");
 
 /** 掲載内容の指紋。生の内容を台帳に複製しないためハッシュだけを持つ。 */
 const fingerprint = (sig) => crypto.createHash("sha1").update(sig).digest("hex").slice(0, 16);
 
 const LEDGER = path.join(__dirname, "ledger.json");
 const FINDINGS_DIR = path.join(__dirname, "..", "findings");
+const ISSUERS_FILE = path.join(FINDINGS_DIR, "issuers", "2026-11-issuers.json");
 const STATUSES = ["一致", "不一致", "一部確認", "未確認"];
 
 function emptyAudit() {
@@ -46,7 +48,7 @@ function loadFindings() {
   const merged = {};
   const sources = {};
   if (!fs.existsSync(FINDINGS_DIR)) return { merged, sources, files: [] };
-  const files = fs.readdirSync(FINDINGS_DIR).filter((f) => f.endsWith(".json")).sort();
+  const files = fs.readdirSync(FINDINGS_DIR).filter((f) => f.endsWith(".json")).sort();  // issuers/ は別扱い
   for (const f of files) {
     const doc = JSON.parse(fs.readFileSync(path.join(FINDINGS_DIR, f), "utf8"));
     for (const [id, rec] of Object.entries(doc.items || {})) {
@@ -57,9 +59,56 @@ function loadFindings() {
   return { merged, sources, files };
 }
 
+
+/** 「1%」「1.2%」のような単純な率だけ数値化する。「最大」「条件」「割引」は単純比較できないので null。 */
+function simpleRate(s) {
+  if (!s) return null;
+  if (/最大|条件|割引|〜|~|以上|相当/.test(s)) return null;
+  const m = /^(\d+(?:\.\d+)?)%$/.exec(String(s).trim());
+  return m ? Number(m[1]) : null;
+}
+
+/** 発行元の通常還元を使って base 候補を機械的に照合する。店舗限定を含む候補には使わない。 */
+function applyIssuerBase(candidate, cls, issuers) {
+  if (cls.kind !== "base" || !cls.issuerKey) return null;
+  const iss = issuers[cls.issuerKey];
+  if (!iss || iss.status !== "確認済み" || typeof iss.baseRatePercent !== "number") return null;
+  // 同じ発行元でも商品が違えば還元率が違う（au PAY カード と au PAY コード支払いなど）。
+  // appliesTo で対象商品を明示したものだけ自動照合する。
+  if (!iss.appliesTo) return null;
+  if (!new RegExp(iss.appliesTo).test(candidate.カード)) return null;
+  const r = simpleRate(candidate.還元率);
+  const base = emptyAudit();
+  base.officialUrls = iss.officialUrls || [];
+  base.checkedAt = iss.checkedAt || null;
+  base.method = "issuer-base";
+  base.evidence = (iss.evidence || []).slice(0, 3);
+  base.issuerKey = cls.issuerKey;
+  base.provenance = `発行元「${iss.name}」の通常還元（${iss.baseRatePercent}%）の公式根拠を、この候補の照合に再利用`;
+  if (r === null) {
+    base.status = "一部確認";
+    base.confirmed = [`発行元の通常還元は${iss.baseRatePercent}%（${iss.pointName}）`];
+    base.unconfirmed = [`掲載の還元率「${candidate.還元率}」は単純な率ではないため、発行元の通常還元だけでは判定できない`];
+    return base;
+  }
+  if (Math.abs(r - iss.baseRatePercent) < 0.001) {
+    base.status = "一致";
+    base.confirmed = [`還元率${r}%が発行元の通常還元と一致`, `ポイント種類: ${iss.pointName}`];
+    base.unconfirmed = ["この店舗固有の上乗せや対象外条件の有無（店舗側の公式確認が別途必要）"];
+    return base;
+  }
+  base.status = "不一致";
+  base.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${iss.baseRatePercent}%と異なる`];
+  base.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${iss.baseRatePercent}%）`];
+  return base;
+}
+
 function build() {
   const d = load();
   const findings = loadFindings();
+  const issuerDoc = fs.existsSync(ISSUERS_FILE) ? JSON.parse(fs.readFileSync(ISSUERS_FILE, "utf8")) : { issuers: {} };
+  const issuers = issuerDoc.issuers || {};
+  let fromIssuer = 0;
   const prev = fs.existsSync(LEDGER) ? JSON.parse(fs.readFileSync(LEDGER, "utf8")) : { items: {}, acceptance: {} };
   const items = {};
   const acceptanceRows = {};
@@ -72,9 +121,21 @@ function build() {
       const kind = c.特定日限定 === true ? "benefit" : "candidate";
       kind === "benefit" ? benefits++ : candidates++;
       const old = prev.items ? prev.items[id] : null;
-      // 優先順位: findings の記録 > 前回の台帳 > 空
-      let audit = findings.merged[id] || (old ? old.audit : emptyAudit());
-      const source = findings.sources[id] || null;
+      const cls = classify(c, store.店舗);
+      // 優先順位: 個別の findings > 発行元の通常還元による照合 > 前回の台帳 > 空
+      let audit = findings.merged[id];
+      let source = findings.sources[id] || null;
+      if (!audit) {
+        const viaIssuer = applyIssuerBase(c, cls, issuers);
+        if (viaIssuer) { audit = viaIssuer; source = "issuers/2026-11-issuers.json"; fromIssuer++; }
+      }
+      // 前回の台帳から引き継ぐのは「手で書いた一次記録」だけ。
+      // 発行元の通常還元から機械的に導いた結果（method: issuer-base）は毎回作り直す。
+      // そうしないと、発行元の記録を直しても古い判定が残り続ける。
+      if (!audit) {
+        const carriedOver = old && old.audit && old.audit.method !== "issuer-base" ? old.audit : null;
+        audit = carriedOver || emptyAudit();
+      }
       let dataChangedSinceAudit = false;
       if (old) {
         carried++;
@@ -83,8 +144,13 @@ function build() {
           resetBySignature++;
         }
       }
+      // 「未着手」と「調査したが未確認」を区別する
+      const investigated = Boolean(source) || audit.status !== "未確認" ||
+                           Boolean(audit.fetchFailure) || (audit.officialUrls || []).length > 0;
       items[id] = { storeId, storeName: store.店舗, category: store.カテゴリ, cardName: c.カード,
                     kind, targetDays: c.対象日条件 || null, dataSignature: sig, dataChangedSinceAudit,
+                    issuerKey: cls.issuerKey, issuerName: cls.issuerName, evidenceKind: cls.kind,
+                    phase: investigated ? "調査済み" : "未着手",
                     findingSource: source, audit };
     }
     const sup = d.acceptance[store.店舗];
@@ -115,6 +181,10 @@ function build() {
   console.log(`  店舗 ${d.entries.length} / 支払い候補 ${candidates} / 定例特典 ${benefits} / 行数 ${candidates + benefits}`);
   console.log(`  既存の監査結果を引き継いだ行: ${carried}（うち掲載内容の変更で再確認が必要: ${resetBySignature}）`);
   console.log(`  findings から反映した行: ${Object.keys(findings.merged).length}（${findings.files.join(", ") || "なし"}）`);
+  console.log(`  発行元の通常還元を再利用して照合した行: ${fromIssuer}`);
+  const phases = {};
+  for (const it of Object.values(items)) phases[it.phase] = (phases[it.phase] || 0) + 1;
+  console.log(`  着手状況: ${JSON.stringify(phases)}`);
   const byStatus = {};
   for (const it of Object.values(items)) byStatus[it.audit.status] = (byStatus[it.audit.status] || 0) + 1;
   console.log(`  判定内訳: ${JSON.stringify(byStatus)}`);

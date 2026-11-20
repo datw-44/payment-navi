@@ -1,0 +1,198 @@
+{
+  "_note": "決済手段の提供元（発行元）ごとの『カード自体の通常還元』の公式根拠。店舗限定の上乗せはここに書かない。audit/ledger/build.js がこれを base 候補の照合に再利用する。",
+  "auditedOn": "2026-11-20 (UTC)",
+  "issuers": {
+    "recruit": {
+      "name": "リクルートカード",
+      "status": "確認済み",
+      "baseRatePercent": 1.2,
+      "pointName": "リクルートポイント",
+      "officialUrls": [
+        "https://recruit-card.jp/"
+      ],
+      "checkedAt": "2026-11-20T01:50:00Z",
+      "method": "html",
+      "evidence": [
+        "年会費永年無料！ポイント還元率1.2%のリクルートカード［meta description］",
+        "驚異の高還元率 1.2%［img alt］",
+        "例えば、10,000円のお買い物で120円分のポイントが還元されます。",
+        "リクルートポイントは1ポイント＝1円分として、お金と同じ感覚でご利用いただけます。"
+      ],
+      "notes": "店舗限定の上乗せは公式トップに記載なし。店舗側の特典は別途店舗公式で確認すること。",
+      "recheckAfter": "2027-02-20",
+      "appliesTo": "^リクルートカード$"
+    },
+    "au": {
+      "name": "au PAY カード",
+      "status": "確認済み",
+      "baseRatePercent": 1,
+      "pointName": "Pontaポイント",
+      "officialUrls": [
+        "https://aupay.auone.jp/"
+      ],
+      "checkedAt": "2026-11-20T02:10:00Z",
+      "method": "html",
+      "evidence": [
+        "auご利用料金のお支払いはもちろん、普段のお買い物や公共料金のお支払いなどで100円（税込）ごとに1ポイントたまるクレジットカードです。",
+        "たまったポイントは１P=１円としてイロイロな使い方ができてとってもオトクです。"
+      ],
+      "notes": "別途「au PAY Pontaアップ店」という店舗限定の上乗せ制度が存在する（『au PAY（コード支払い）のご利用でポイントがさらにたまるおトクなお店』）。au PAY（コード支払い）の基本還元率はこのページでは確認できていないため、au PAY カード（クレジット）の値のみ確定とする。",
+      "recheckAfter": "2027-02-20",
+      "appliesTo": "^au ?PAY ?カード",
+      "productScope": "au PAY カード（クレジットカード）のみ。au PAY のコード支払いは別商品で還元率が異なるため対象外。"
+    },
+    "paypay": {
+      "name": "PayPay / PayPayカード",
+      "status": "一部確認",
+      "baseRatePercent": null,
+      "maxRatePercent": 1.5,
+      "pointName": "PayPayポイント",
+      "officialUrls": [
+        "https://paypay.ne.jp/point/"
+      ],
+      "checkedAt": "2026-11-20T01:55:00Z",
+      "method": "html",
+      "evidence": [
+        "PayPayの支払いで最大1.5％貯まる",
+        "PayPayポイントは、1ポイント＝1円分として利用できます"
+      ],
+      "notes": "段階別（0.5% / 1% / 1.5%）の達成条件を載せたページのURLが未特定。基本率が確定していないため base 候補の自動照合には使わない。",
+      "recheckAfter": "2026-12-20"
+    },
+    "rakuten": {
+      "name": "楽天カード / 楽天ペイ / 楽天ポイント",
+      "status": "一部確認",
+      "baseRatePercent": null,
+      "pointName": "楽天ポイント",
+      "officialUrls": [
+        "https://pointcard.rakuten.co.jp/",
+        "https://www.rakuten-card.co.jp/"
+      ],
+      "checkedAt": "2026-11-20T02:10:00Z",
+      "method": "html+browser",
+      "evidence": [
+        "貯めたポイントは1ポイント1円相当でご利用できます［楽天ポイントカード公式］"
+      ],
+      "notes": "楽天カードの基本還元率（100円＝1ポイント）を載せた公式ページを取得できていない。www.rakuten-card.co.jp はcurl・ブラウザとも『アクセスが集中し、ページを閲覧しにくい状態』の案内ページが返る（恒久的なブロックではないため再試行の価値あり）。",
+      "fetchFailure": {
+        "reason": "www.rakuten-card.co.jp が混雑案内ページを返す（403ではない）。",
+        "alternativeRoute": "時間をおいて再試行する。または楽天ポイントカード公式（取得可能）内の『ポイントのため方』ページを探す。"
+      },
+      "recheckAfter": "2026-11-27"
+    },
+    "docomo": {
+      "name": "dカード / d払い / dポイント",
+      "status": "未確認",
+      "baseRatePercent": null,
+      "pointName": "dポイント",
+      "officialUrls": [
+        "https://dpoint.docomo.ne.jp/",
+        "https://d-card.jp/"
+      ],
+      "checkedAt": "2026-11-20T02:05:00Z",
+      "method": "browser",
+      "evidence": [],
+      "notes": "dpoint.docomo.ne.jp はブラウザ経由で描画できた（curlはTLSのレガシー再ネゴシエーション要求で接続不可）。ただしトップはポータルで、還元率の条件ページは未特定。",
+      "fetchFailure": {
+        "reason": "d-card.jp はブラウザ経由でも ERR_TUNNEL_CONNECTION_FAILED。dpoint.docomo.ne.jp はブラウザ経由で到達できるが、還元率を載せた下位ページのURLが未特定。",
+        "alternativeRoute": "dpoint.docomo.ne.jp 内の『dポイントのたまり方』『dカードの還元率』にあたるページを辿って取得する。関係する候補が172件と最多のため最優先。"
+      },
+      "recheckAfter": "2026-11-27"
+    },
+    "smbc": {
+      "name": "三井住友カード / Olive / Vポイント",
+      "status": "未確認",
+      "baseRatePercent": null,
+      "pointName": "Vポイント",
+      "officialUrls": [
+        "https://www.smbc-card.com/"
+      ],
+      "checkedAt": "2026-11-20T02:00:00Z",
+      "method": "none",
+      "evidence": [],
+      "notes": "関係する候補93件（うち店舗限定を含むもの56件）。コンビニ・飲食店の最大7%は店舗限定特典なので、カード自体の通常還元（0.5%）とは分けて確認する必要がある。",
+      "fetchFailure": {
+        "reason": "www.smbc-card.com は curl・実ブラウザ（Chromium）のいずれでも Akamai が『Access Denied』を返す。データセンターIPからの遮断で、ブラウザ表示でも回避されない。制限の回避は行わない。",
+        "alternativeRoute": "人間が通常のブラウザで https://www.smbc-card.com/nyukai/merit/proper_p5.jsp を開き、(1) 対象のコンビニ・飲食店の一覧、(2) 還元率（7%）と内訳、(3) 対象となるタッチ決済の種類、(4) 上限、(5) 対象外条件 を確認する。この1ページで複数店舗の候補をまとめて検証できるため最優先。"
+      },
+      "recheckAfter": null
+    },
+    "aeon": {
+      "name": "イオンカード / AEON Pay / 電子マネーWAON",
+      "status": "未確認",
+      "baseRatePercent": null,
+      "pointName": "WAON POINT",
+      "officialUrls": [
+        "https://www.aeon.co.jp/",
+        "https://www.waon.net/"
+      ],
+      "checkedAt": "2026-11-20T02:00:00Z",
+      "method": "none",
+      "evidence": [],
+      "notes": "関係する候補57件。ただしイオングループ店舗側（ダイエー・まいばすけっと）の公式ページからは、感謝デー・倍デーの条件と『基本とは200円（税込）ごとに1WAON POINT進呈をさします』という基本付与の定義を取得済み。発行元サイトが読めなくても、グループ店舗側から基本定義を補強できる。",
+      "fetchFailure": {
+        "reason": "イオン系ドメインは Akamai が Access Denied（ブラウザでも同じ）。www.aeoncinema.com は Cloudflare がブロック。",
+        "alternativeRoute": "(1) ダイエー https://www.daiei.co.jp/okaidoku/ とまいばすけっと https://www.mybasket.co.jp/service/point/ から取得済みの『基本＝200円（税込）ごとに1WAON POINT』を基本還元0.5%の根拠として扱えるか検討する。(2) イオンカード自体の通常還元は人間が https://www.aeon.co.jp/card/ で確認する。"
+      },
+      "recheckAfter": null
+    },
+    "jreast": {
+      "name": "ビューカード / Suica / JRE POINT",
+      "status": "一部確認",
+      "baseRatePercent": 0.5,
+      "pointName": "JRE POINT",
+      "officialUrls": [
+        "https://retail.jr-cross.co.jp/newdays/kessai/"
+      ],
+      "checkedAt": "2026-11-19T17:10:00Z",
+      "method": "browser",
+      "evidence": [
+        "JRE POINTに登録したSuicaでお買い物をすると、200円（税込）につき1ポイント、JRE POINTがたまります。［ニューデイズ公式］",
+        "事前にJRE POINTへのSuicaの登録が必要になります。"
+      ],
+      "notes": "Suica決済の店舗付与0.5%はニューデイズ公式で確認できたが、ビューカード自体の還元率やJRE POINT公式（www.jrepoint.jp は403）は未確認。",
+      "fetchFailure": {
+        "reason": "www.jreast.co.jp は Akamai が Access Denied、www.jrepoint.jp は403。",
+        "alternativeRoute": "人間が https://www.jrepoint.jp/ で JRE POINT の付与条件とニューデイズの曜日特典を確認する。"
+      },
+      "recheckAfter": null
+    },
+    "mufg": {
+      "name": "三菱UFJカード",
+      "status": "未確認",
+      "baseRatePercent": null,
+      "pointName": "グローバルポイント",
+      "officialUrls": [
+        "https://www.cr.mufg.jp/"
+      ],
+      "checkedAt": "2026-11-20T01:52:00Z",
+      "method": "html",
+      "evidence": [],
+      "notes": "関係する候補9件はすべて店舗限定（7%等）。www.cr.mufg.jp には到達できるが、優遇店舗の条件ページを特定できていない。",
+      "fetchFailure": {
+        "reason": "到達はできるがポイント案内ページに『ローソン』『7%』の記載がなく、優遇店舗ページのURLが未特定（想定した /landing/gpoint/tokutenstore/ は404）。",
+        "alternativeRoute": "www.cr.mufg.jp のサイト内リンクから『グローバルポイント』『優遇店舗』の現行ページを辿る。"
+      },
+      "recheckAfter": null
+    },
+    "jcb": {
+      "name": "JCBカード",
+      "status": "未確認",
+      "baseRatePercent": null,
+      "pointName": "Oki Dokiポイント",
+      "officialUrls": [
+        "https://www.jcb.co.jp/"
+      ],
+      "checkedAt": "2026-11-20T02:10:00Z",
+      "method": "html",
+      "evidence": [],
+      "notes": "www.jcb.co.jp のトップは取得できるが、カード別ページは本文が十数行しか取れず、JavaScript描画の可能性が高い。",
+      "fetchFailure": {
+        "reason": "カード別ページ（/ordercard/kojin_card/jcb_cardw.html）は HTTP 200 だが本文14行。/ordercard/point/index.html は404。",
+        "alternativeRoute": "audit/cli.js render でブラウザ描画してから再抽出する。"
+      },
+      "recheckAfter": null
+    }
+  },
+  "_appliesToNote": "appliesTo は、その発行元の『この商品』の通常還元だけに自動照合を限定するための正規表現。同じ発行元でも別商品（例: au PAY カード と au PAY コード支払い）は還元率が異なるため、これを付けない限り自動照合は行わない。"
+}

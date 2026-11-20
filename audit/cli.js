@@ -6,6 +6,7 @@
  *   node audit/cli.js batch <jsonファイル>             複数URLをまとめて取得
  *   node audit/cli.js search <url> <キーワード...>     キャッシュ済み本文を検索（再取得しない）
  *   node audit/cli.js links <url> [絞り込み語...]      ページ内のリンク一覧
+ *   node audit/cli.js render <url> [キーワード...]     ブラウザで描画してから検索（JS描画・TLS非互換サイト用）
  * 取得した本文は audit/cache/ に保存され、次回以降は再取得しない（--force で強制取得）。
  */
 const fs = require("node:fs");
@@ -45,6 +46,28 @@ if (cmd === "fetch") {
   }
   console.log("\n===== まとめ =====");
   for (const s of summary) console.log(`  ${s.hits > 0 ? "◎" : " "} ${String(s.label).padEnd(22)} ${s.verdict.padEnd(22)} 一致${s.hits}行`);
+} else if (cmd === "render") {
+  // 実ブラウザ(Chromium)で表示してから本文・alt・画像・リンクを取り出す。
+  // curl が TLS の都合で繋げないサイトや、本文をJavaScriptで描画するページ用。
+  // アクセス制限の回避には使わない。ブロックページが返ったらそのまま記録する。
+  const { renderAll } = require("./lib/render.js");
+  const url = args[0], kws = args.slice(1);
+  const name = require("node:crypto").createHash("sha1").update(url).digest("hex").slice(0, 12);
+  renderAll([{ name, url }], { waitMs: 3000 }).then((res) => {
+    const r = res[0];
+    console.log(`\n■ ${url}`);
+    if (!r.ok) { console.log(`  結果: 描画失敗 (${r.error})`); return; }
+    const text = fs.readFileSync(r.out, "utf8");
+    const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
+    const blocked = /Access Denied|you have been blocked|503 Service|アクセスが集中/i.test(text.slice(0, 600));
+    console.log(`  結果: ${blocked ? "ブロックページが返った" : "描画成功"}  本文${r.textLength}文字 alt${r.alts}件 画像${r.images}件 リンク${r.links}件`);
+    console.log(`  保存先: ${r.out}`);
+    if (kws.length) {
+      const res2 = search(lines, kws, 1);
+      console.log(`  キーワード一致: ${res2.matchedLineNumbers.length}行`);
+      for (const e of res2.excerpt) console.log(`    ${String(e.line).padStart(4)}: ${e.text.slice(0, 170)}`);
+    }
+  });
 } else if (cmd === "search") {
   const r = fetchPage(args[0], {});
   if (!r.extracted) { console.log("本文がキャッシュにありません"); process.exit(1); }
