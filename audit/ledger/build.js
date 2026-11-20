@@ -18,6 +18,7 @@ const path = require("node:path");
 const crypto = require("node:crypto");
 const { load, itemId } = require("../lib/data.js");
 const { classify } = require("../lib/issuers.js");
+const { emptyChecks, verdictFromChecks, missingLabels, shortfallLabels } = require("../lib/checks.js");
 
 /** 掲載内容の指紋。生の内容を台帳に複製しないためハッシュだけを持つ。 */
 const fingerprint = (sig) => crypto.createHash("sha1").update(sig).digest("hex").slice(0, 16);
@@ -29,7 +30,8 @@ const STATUSES = ["一致", "不一致", "一部確認", "未確認"];
 
 function emptyAudit() {
   return {
-    status: "未確認",          // 一致 / 不一致 / 一部確認 / 未確認
+    status: "未確認",          // 一致 / 不一致 / 一部確認 / 未確認（checks から導く）
+    checks: emptyChecks(),     // 条件項目ごとの確認状況
     officialUrls: [],          // 根拠にした公式URL
     checkedAt: null,           // 確認日時 (ISO8601)
     method: null,              // html / browser / pdf / image / none
@@ -52,7 +54,18 @@ function loadFindings() {
   for (const f of files) {
     const doc = JSON.parse(fs.readFileSync(path.join(FINDINGS_DIR, f), "utf8"));
     for (const [id, rec] of Object.entries(doc.items || {})) {
-      merged[id] = { ...emptyAudit(), ...rec };   // 記録にない欄は既定値で埋める
+      const base = emptyAudit();
+      const a = { ...base, ...rec };
+      a.checks = { ...base.checks, ...(rec.checks || {}) };
+      // checks を書いた記録は、そこから判定を導く（人が書いた status より項目の方を信頼する）
+      if (rec.checks) {
+        a.status = verdictFromChecks(a.checks, rec._kind || "candidate");
+        a.unconfirmedChecks = missingLabels(a.checks, rec._kind || "candidate");
+        a.shortfalls = shortfallLabels(a.checks);
+      } else {
+        a.checksDeclared = false;   // 項目別の確認状況が未記入。精査が必要
+      }
+      merged[id] = a;
       sources[id] = f;
     }
   }
@@ -90,22 +103,24 @@ function applyIssuerBase(candidate, cls, issuers) {
   a.evidence = (iss.evidence || []).slice(0, 4);
   a.issuerKey = cls.issuerKey;
   a.product = prod.appliesTo;
-  a.provenance = `発行元「${iss.name}」の商品「${prod.appliesTo}」の通常還元（${prod.baseRatePercent}%）の公式根拠を、この候補の照合に再利用`;
+  a.provenance = `発行元「${iss.name}」の商品「${prod.appliesTo}」の通常還元（${prod.baseRatePercent}%）の公式根拠を再利用`;
+
+  // 発行元の案内で分かるのは「カード自体の通常還元」だけ。
+  // その店舗が対象か、対象決済は何か、上限や除外があるかは店舗側の根拠が要る。
+  // したがってこの経路だけで「一致」にはしない。
   if (r === null) {
-    a.status = "一部確認";
+    a.checks.還元率 = "未確認";
     a.confirmed = [`発行元の通常還元は${prod.baseRatePercent}%（${prod.pointName}）`, prod.note].filter(Boolean);
-    a.unconfirmed = [`掲載の還元率「${candidate.還元率}」は単純な率ではないため、通常還元だけでは判定できない`];
-    return a;
-  }
-  if (Math.abs(r - prod.baseRatePercent) < 0.001) {
-    a.status = "一致";
+  } else if (Math.abs(r - prod.baseRatePercent) < 0.001) {
+    a.checks.還元率 = "確認済み";
     a.confirmed = [`還元率${r}%が発行元の通常還元と一致`, `ポイント種類: ${prod.pointName}`, prod.note].filter(Boolean);
-    a.unconfirmed = ["この店舗固有の上乗せ・対象外条件の有無（店舗側の公式確認が別途必要）"];
-    return a;
+  } else {
+    a.checks.還元率 = "相違";
+    a.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${prod.baseRatePercent}%と異なる`];
+    a.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${prod.baseRatePercent}%。${prod.note || ""}）`];
   }
-  a.status = "不一致";
-  a.mismatches = [`掲載の還元率${r}%が、発行元の公式な通常還元${prod.baseRatePercent}%と異なる`];
-  a.fixes = [`還元率の根拠を再確認する（発行元の通常還元は${prod.baseRatePercent}%。${prod.note || ""}）`];
+  a.status = verdictFromChecks(a.checks, "candidate");
+  a.unconfirmed = missingLabels(a.checks, "candidate").map((l) => `${l}（この店舗の公式根拠が未取得）`);
   return a;
 }
 
@@ -150,6 +165,13 @@ function build() {
           resetBySignature++;
         }
       }
+      // 記録に条件項目があるなら、候補の種別を踏まえて判定を取り直す
+      if (findings.merged[id] && findings.merged[id].checksDeclared !== false && findings.sources[id]) {
+        audit = { ...audit };
+        audit.status = verdictFromChecks(audit.checks, kind);
+        audit.unconfirmedChecks = missingLabels(audit.checks, kind);
+        audit.shortfalls = shortfallLabels(audit.checks);
+      }
       // 「未着手」と「調査したが未確認」を区別する
       const investigated = Boolean(source) || audit.status !== "未確認" ||
                            Boolean(audit.fetchFailure) || (audit.officialUrls || []).length > 0;
@@ -188,6 +210,8 @@ function build() {
   console.log(`  既存の監査結果を引き継いだ行: ${carried}（うち掲載内容の変更で再確認が必要: ${resetBySignature}）`);
   console.log(`  findings から反映した行: ${Object.keys(findings.merged).length}（${findings.files.join(", ") || "なし"}）`);
   console.log(`  発行元の通常還元を再利用して照合した行: ${fromIssuer}`);
+  const noChecks = Object.values(items).filter((it) => it.audit.checksDeclared === false).length;
+  if (noChecks) console.log(`  条件項目の記入がない行（精査が必要）: ${noChecks}`);
   const phases = {};
   for (const it of Object.values(items)) phases[it.phase] = (phases[it.phase] || 0) + 1;
   console.log(`  着手状況: ${JSON.stringify(phases)}`);

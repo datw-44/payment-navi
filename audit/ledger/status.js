@@ -45,6 +45,24 @@ console.log(`  本番表示の承認記録（別管理・変更しない）: ver
 console.log(`      status=${JSON.stringify(L.meta.verificationRecords.byStatus)} displayApproval付き=${L.meta.verificationRecords.withDisplayApproval}件`);
 console.log(`  運営メモ dataMemos: ${L.meta.dataMemoCount}件`);
 
+// 条件項目ごとの確認状況
+const { CHECKS } = require("../lib/checks.js");
+console.log("\n  条件項目ごとの確認状況（全784行）");
+for (const c of CHECKS) {
+  const t = { 確認済み: 0, 相違: 0, 記載不足: 0, 未確認: 0 };
+  for (const r of all) {
+    if (c.onlyFor && r.kind !== c.onlyFor) continue;
+    t[(r.audit.checks || {})[c.key] || "未確認"]++;
+  }
+  const scope = c.onlyFor === "benefit" ? "（定例特典のみ）" : "";
+  console.log(`    ${c.label}${scope}`.padEnd(34) + `確認済み ${String(t.確認済み).padStart(3)} / 相違 ${t.相違} / 記載不足 ${t.記載不足} / 未確認 ${t.未確認}`);
+}
+const shortfall = all.filter((r) => (r.audit.shortfalls || []).length > 0);
+if (shortfall.length) {
+  console.log(`\n  公式が必須としているのに掲載に無い条件がある項目: ${shortfall.length}件`);
+  for (const r of shortfall) console.log(`    ${r.storeName} / ${r.cardName} → ${r.audit.shortfalls.join("、")}`);
+}
+
 const needFix = all.filter((r) => (r.audit.fixes || []).length > 0);
 if (needFix.length) {
   console.log(`\n  修正候補のある項目: ${needFix.length}件`);

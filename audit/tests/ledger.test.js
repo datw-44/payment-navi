@@ -83,4 +83,52 @@ test("掲載内容の指紋は16桁のハッシュで、掲載文そのものを
   }
 });
 
+
+
+// ───────── 判定モデル（条件項目）─────────
+const { CHECKS, verdictFromChecks, emptyChecks } = require("../lib/checks.js");
+
+test("判定は条件項目から導かれる（必須がすべて確認済みのときだけ一致）", () => {
+  const c = emptyChecks();
+  assert.equal(verdictFromChecks(c, "candidate"), "未確認");
+  c.還元率 = "確認済み";
+  assert.equal(verdictFromChecks(c, "candidate"), "一部確認");
+  c.対象決済 = "確認済み"; c.対象店舗 = "確認済み"; c.追加条件 = "確認済み";
+  assert.equal(verdictFromChecks(c, "candidate"), "一致");
+  assert.equal(verdictFromChecks(c, "benefit"), "一部確認", "特典は対象日も必須");
+  c.対象日 = "確認済み";
+  assert.equal(verdictFromChecks(c, "benefit"), "一致");
+});
+
+test("記載不足があれば一致にしない（矛盾ではないので不一致にもしない）", () => {
+  const c = emptyChecks();
+  c.還元率 = "確認済み"; c.対象決済 = "確認済み"; c.対象店舗 = "確認済み"; c.追加条件 = "記載不足";
+  assert.equal(verdictFromChecks(c, "candidate"), "一部確認");
+});
+
+test("発行元の通常還元だけでは一致にならない", () => {
+  const auto = items.filter((it) => it.audit.method === "issuer-base");
+  assert.ok(auto.length > 0);
+  for (const it of auto) {
+    assert.notEqual(it.audit.status, "一致",
+      `${it.storeId}::${it.cardName} が発行元の確認だけで一致になっている`);
+    const ch = it.audit.checks || {};
+    for (const k of ["対象決済", "対象店舗", "追加条件"]) {
+      assert.notEqual(ch[k], "確認済み",
+        `発行元の案内では確認できないはずの「${k}」が確認済みになっている`);
+    }
+  }
+});
+
+test("一致の行は必須項目がすべて確認済みになっている", () => {
+  for (const it of items) {
+    if (it.audit.status !== "一致") continue;
+    for (const c of CHECKS) {
+      if (!c.required) continue;
+      if (c.onlyFor && c.onlyFor !== it.kind) continue;
+      assert.equal((it.audit.checks || {})[c.key], "確認済み",
+        `${it.storeId}::${it.cardName} は一致だが「${c.label}」が確認済みでない`);
+    }
+  }
+});
 console.log(`\n${passed} tests passed`);
