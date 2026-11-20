@@ -1,0 +1,522 @@
+<!doctype html>
+<!--[if IE 9]><html lang="ja" class="ie9"><![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="ja">
+    <!--<![endif]-->
+    <head>
+        <meta charset="Shift_JIS">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Expires"  content="0" />
+<meta http-equiv="Pragma"   content="no-cache" />
+
+<link rel="apple-touch-icon-precomposed" href="https://www.tohotheater.jp/responsive/images/icon/TClogo_main.png" class="changeImgDomain" />
+<link rel="stylesheet" href="/responsive/css/icons.css?20260415">
+<link rel="stylesheet" href="/responsive/css/style.css?20260701">
+<!--[if lte IE 10]><link rel="stylesheet" href="/responsive/css/ie_compat.css"><![endif]-->
+<script src="/responsive/js/jquery.min.js"></script>
+<script src="/responsive/js/jquery.cookie.js"></script>
+<script src="/responsive/js/utils/cookieManager.js?20260728"></script>
+
+<script>
+$(function(){
+    if (typeof CookieManager.isConnectedAppl != "function") {
+        $.ajax({
+            method: 'GET',
+            url: '/responsive/js/utils/cookieManager.js?20260728',
+            dataType: 'script',
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+        })
+        .then(function(){
+        });
+    }
+});
+</script>
+
+        <title>サービスデイ || TOHOシネマズ</title>
+        <meta name="description" content="tohoシネマズは一週間ほぼ毎日おトク！" />
+        <meta name="keywords" content="TOHOシネマズ,東宝,トーホー,トウホウ,映画,シネマ,シネコン,サービスデイ" />
+        <!-- OGP -->
+        <meta property="og:title" content="" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:image" content="" />
+        <meta property="og:site_name" content="" />
+        <meta property="og:locale" content="ja_JP" />
+
+        <!-- LP_css -->
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+        <!-- LP_js -->
+        <script src="js/script.js"></script>
+
+        <!--[if IE 6]>
+            <script src="js/DD_belatedPNG.js"></script>
+            <script>
+                DD_belatedPNG.fix("img, .png_bg, #contents");
+            </script>
+        <![endif]-->
+    </head>
+    <body class="structureType2 is-has-menu" id="top">
+
+        <!-- [ HEADER ] -->
+	    <header class="header is-normal" role="banner">
+    <div class="header-ci"><a href="https://www.tohotheater.jp/" class="changeImgDomain"><img src="https://www.tohotheater.jp/responsive/images/module/logo-tohocinemas-01.png" width="116" alt="TOHO CINEMAS" class="changeImgDomain"></a></div>
+    <p class="header-button"><a href="#" class="js-menu-open"><i class="line"></i><i class="line"></i><i class="line"></i><span class="text"><span class="open">閉じる</span><span class="close">メニュー</span></span></a></p>
+</header>
+
+	    <!-- [ /HEADER ] -->
+
+        <div id="wrap">
+            <!-- [ CONTENT ] -->
+            <div class="grid">
+                <div class="grid-menu" id="js-menu">
+<script src="/responsive/js/utils/commonUtils.js?20260127"></script>
+<script src="/responsive/js/utils/gigyaLoader.js?20260127"></script>
+<script src="/responsive/js/utils/loginAuth.js?20251225"></script>
+<script src="/responsive/js/menuLogin.js?20251120"></script>
+<script>
+if(localStorage.getItem('menu') == 'close') {
+    var body = document.getElementById('top');
+    var menu = document.getElementById('js-menu');
+    var menuButtons = document.getElementsByClassName('js-menu-open');
+    body.className += ' is-menu-close';
+    menu.className += ' is-menu-close';
+    for(var index in menuButtons) {
+        menuButtons[index].className += ' is-close';
+    }
+}            
+
+</script>
+    <nav role="navigarion" class="global">
+        <div class="global-overlay js-menu-open"></div>
+        <div class="global-pseudo-overlay js-menu-open"></div>
+        <div class="global-pseudo-main"></div>
+        <div class="global-main">
+            <div class="global-home">
+                <ul>
+                    <li><a href="https://www.tohotheater.jp/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_home" aria-hidden="true"></i>トップページ</a></li>
+                </ul>
+            </div>
+            <div class="global-home">
+                <ul>
+                    <li class="global-login"><a href="" id="js-menu-login-link"><i class="icon-tohoone"></i><span id="js-menu-login-itemName">&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="global-tab js-simple-tab">
+                <div class="global-tab-nav">
+                    <ul class="js-simple-tab-nav">
+                        <li class="is-current"><a href="#simple-tab-01"><i class="glyphicon glyphicon-icon_theater" aria-hidden="true"></i><span class="text">劇場を探す</span></a></li>
+                        <li><a href="#simple-tab-02"><i class="glyphicon glyphicon-icon_movie" aria-hidden="true"></i><span class="text">作品を探す</span></a></li>
+                    </ul>
+                </div>
+                <div class="global-tab-panel js-simple-tab-panel is-current" id="simple-tab-01">
+                    <ul>
+                        <li class="search-theater-all"><a href="https://www.tohotheater.jp/theater/find.html" class="changeImgDomain"><i class="glyphicon glyphicon-icon_theater-all" aria-hidden="true"></i>すべての劇場</a></li>
+                        <li class="search-theater-premiumTheater"><a href="https://www.tohotheater.jp/service/premium_theater/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_premium_theater" aria-hidden="true"></i>プレミアムシアター<br>劇場一覧</a></li>
+                        <li class="search-theater-goon"><a href="https://www.tohotheater.jp/service/goon/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_goon" aria-hidden="true"></i>轟音シアター 劇場一覧</a></li>
+                        <li class="search-theater-imax"><a href="https://www.tohotheater.jp/service/imax/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_imax" aria-hidden="true"></i>IMAX 劇場一覧</a></li>
+                        <li class="search-dolby-cinema"><a href="https://www.tohotheater.jp/service/dolby-cinema/" class="changeImgDomain"><img src="/responsive/images/module/dolby_logo.png" width="110" alt="DolbyCinema"><span>劇場一覧</span></a></li>
+                        <li class="search-theater-mx4d"><a href="https://www.tohotheater.jp/service/mx4d/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_mx4d" aria-hidden="true"></i>MX4D 劇場一覧</a></li>
+                        <li class="search-theater-screen"><a href="https://www.tohotheater.jp/service/screen_x/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_screenx" aria-hidden="true"></i>SCREEN X 劇場一覧</a></li>
+                        <li class="search-theater-tcx"><a href="https://www.tohotheater.jp/service/tcx_dolbyatmos/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_tcx" aria-hidden="true"></i>TCX 劇場一覧</a></li>
+                        <li class="search-dolby-atmos"><a href="https://www.tohotheater.jp/service/tcx_dolbyatmos/" class="changeImgDomain"><img src="/responsive/images/module/dolby_atmos_logo.png" width="103.5" alt="DolbyAtmos"><span>劇場一覧</span></a></li>
+                        <li class="search-theater-premiumSeat"><a href="https://www.tohotheater.jp/service/premium_seat/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_seat" aria-hidden="true"></i>プレミアムシート<br>劇場一覧</a></li>					
+                    </ul>
+                </div>
+                <div class="global-tab-panel js-simple-tab-panel" id="simple-tab-02">
+                    <ul>
+                        <li class="search-movie-screening"><a href="/net/movie/TNPI3090J01.do"><i class="glyphicon glyphicon-icon_screening" aria-hidden="true"></i>上映中作品情報</a></li>
+                        <li class="search-movie-atmos"><a href="/net/movie/TNPI3080J01.do"><i class="glyphicon glyphicon-icon_release" aria-hidden="true"></i>公開予定作品情報</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="global-primary">
+                <ul class="group">
+                    <li class="global-event"><a href="https://www.tohotheater.jp/event/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_event" aria-hidden="true"></i><span class="text">舞台挨拶・<br>イベント</span></a></li>
+                    <li class="global-campaign"><a href="https://www.tohotheater.jp/campaign/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_privilege-01" aria-hidden="true"></i><span class="text">プレゼント・<br>キャンペーン</span></a></li>
+                    <li class="global-news"><a href="https://www.tohotheater.jp/news/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_news" aria-hidden="true"></i><span class="text">お知らせ</span></a></li>
+                    <li class="global-confirm"><a href="https://hlo.tohotheater.jp/net/ticket/TNPI2150J01.do" class="changeDomain"><i class="glyphicon glyphicon-icon_confirm" aria-hidden="true"></i><span class="text">購入情報の<br>確認</span></a></li>
+                </ul>
+            </div>
+            <div class="global-secondary">
+                <ul>
+                    <li class="global-ec"><a href="https://www.tohotheater.jp/food-drink/netshop/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_cart" aria-hidden="true"></i>ECサイト</a></li>
+                </ul>
+                <div class="global-secondary_accordion">
+                    <div class="js-toggle-button" data-href="global-food"><p><i class="glyphicon glyphicon-icon_food-drink" aria-hidden="true"></i>フード＆ドリンク</p></div>
+                    <ul id="global-food" style="display: none;">
+                        <li><a href="https://www.tohotheater.jp/food-drink/index.html" class="changeImgDomain"><i class="glyphicon" aria-hidden="true"></i>メニュー</a></li>
+                        <li><a href="https://www.tohotheater.jp/food-drink/popcorn/" class="changeImgDomain"><i class="glyphicon" aria-hidden="true"></i>ポップコーンの秘密</a></li>
+                    </ul>
+                </div>
+                <ul>
+                    <li class="global-service"><a href="https://www.tohotheater.jp/service/index.html" class="changeImgDomain"><i class="glyphicon glyphicon-icon_service" aria-hidden="true"></i>サービス案内</a></li>
+                    <li class="global-application"><a href="https://www.tohotheater.jp/app/" class="changeImgDomain"><img src="https://www.tohotheater.jp/responsive/images/module/icon-application-01.png" width="20" alt="" class="changeImgDomain">スマートフォンアプリ</a></li>
+                    <li class="global-officialSNS"><a href="https://www.tohotheater.jp/sns/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_all_sns" aria-hidden="true"></i>公式SNSアカウント</a></li>
+                    <li class="global-qa"><a href="https://help.tohotheater.jp/?site_domain=default" target="_blank"><i class="glyphicon glyphicon-icon_qa" aria-hidden="true"></i>ご質問・ご意見</a></li>
+                    <li class="global-sitemap"><a href="https://www.tohotheater.jp/info/sitemap.html" class="changeImgDomain"><i class="glyphicon glyphicon-icon_sitemap" aria-hidden="true"></i>サイトマップ</a></li>
+                    <li class="global-company"><a href="http://www.tohocinemas.co.jp/" target="_blank"><i class="glyphicon glyphicon-icon_company" aria-hidden="true"></i>企業情報</a></li>
+                    <li class="global-company"><a href="https://www.tohotheater.jp/sustainability/" class="changeImgDomain"><i class="glyphicon glyphicon-icon_sustainability" aria-hidden="true"></i>サステナビリティ</a></li>
+                    <li class="global-company"><a href="https://www.tohocinemas.co.jp/recruit/entry/" target="_blank"><i class="glyphicon glyphicon-icon_recruit" aria-hidden="true"></i>採用情報</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="global-empty"></div>
+    </nav>
+<script>
+
+var Menu = {
+    MenuClass: {
+        TAB_ID_START_WITH: 'simple-tab-',
+        TAB_CLASS: 'js-simple-tab-panel'
+    },
+    hideTabs: function() {
+        $('div[id^='+this.MenuClass.TAB_ID_START_WITH+'].'+this.MenuClass.TAB_CLASS).hide();
+        $('a[href^=#'+this.MenuClass.TAB_ID_START_WITH+']').parent().removeClass('is-current');
+    },
+    showTab: function(panelId) {
+        this.hideTabs();
+        $('div[id='+panelId+'].'+this.MenuClass.TAB_CLASS).show();
+        $('a[href=#'+panelId+']').parent().addClass('is-current');
+    }
+}
+
+$(function() {
+    $('li[class^=search-] a').each(function() {
+        var href = $(this).attr('href');
+        if(location.pathname != '/' && href.match(location.pathname+'$')) {
+            $(this).addClass('is-current');
+            var panelId = $(this).closest('.js-simple-tab-panel').attr('id');
+            Menu.showTab(panelId);
+        }
+    });
+});
+</script>
+</div>
+
+                <div class="grid-wrapper is-col-01">
+                    <div class="grid-main">
+                        <div id="contents">
+                            <div class="lp_area">
+                                <!-- メインビジュアル -->
+                                <section id="lp_mainvisual">
+                                    <div class="lp_mainvisual_inner">
+                                        <h1>
+                                            <img src="images/title-serviceday.png" alt="" />
+                                        </h1>
+                                        <video class="lp_mainvisual_movie" controls playsinline preload="metadata" poster="images/poster.jpg">
+                                            <source src="movie/toho1week_rope_short_MA_20260630.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </section>
+                                <!-- メインビジュアルここまで -->
+
+                                <!-- イントロダクション -->
+                                <section id="lp_introduction">
+                                    <h2>
+                                        <img src="images/copy.png" alt="" />
+                                    </h2>
+                                    <p>ほぼ毎日、何かしらの<br class="only_sp" />サービスデイが用意されているから、<br />いつ来てもおトクに映画が楽しめる！</p>
+                                </section>
+                                <!-- イントロダクションここまで -->
+
+                                <!-- サービスデイ -->
+                                <section id="lp_serviceday">
+                                    <div class="lp_serviceday_inner">
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/sunday.png" alt="sunday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>日曜日</dt>
+                                                    <dd>JERAサンデイ</dd>
+                                                </dl>
+                                                <p>対象：どなたでも。JERAサンデイ特設サイトにて、どなたでも使える割引クーポン提供中。<br />一般・大学生<span class="text-strong">300円</span>割引／高校生以下<span class="text-strong">100円</span>割引</p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://www.jera.co.jp/action/jera-sunday/" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/monday.png" alt="monday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>月曜日</dt>
+                                                    <dd>Pontaパス マンデイ</dd>
+                                                </dl>
+                                                <p>対象：Pontaパス会員・Pontaパス ライト会員<br />一般・大学生<span class="text-strong">1,100円</span>／高校生以下<span class="text-strong">900円</span></p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://entm.auone.jp/toho/aumonday/lpc?medid=thc_ad&srcid=movie&serial=6894" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                                <a href="https://entm.auone.jp/ftl/new500tc/lp?spia_so=7" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">新規入会特典はこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/tuesday.png" alt="tuesday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>火曜日</dt>
+                                                    <dd class="longtext">TOHO-ONE<br class="only_sp" />メンバーデイ</dd>
+                                                </dl>
+                                                <p>対象：TOHO-ONE会員（プレミアム プラン、スタンダード プラン）<br /><span class="text-strong">1,300円</span></p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://www.toho-one.com/about/?utm_source=cinemaowned&utm_medium=owned&utm_campaign=launch&refId=04" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/wednesday.png" alt="wednesday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>水曜日</dt>
+                                                    <dd>TOHOウェンズデイ</dd>
+                                                </dl>
+                                                <p>対象：どなたでも。<br />鑑賞料金<span class="text-strong">1,400円</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/wednesday.png" alt="wednesday" class="only_pc day_invisible" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>水曜日</dt>
+                                                    <dd class="longtext">Pontaパス ウェンズデイ</dd>
+                                                </dl>
+                                                <p>対象：Pontaパス会員<br />一般・大学生<span class="text-strong">1,100円</span>／高校生以下<span class="text-strong">900円</span></p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://entm.auone.jp/toho/aumonday/lpc?medid=thc_ad&srcid=movie&serial=6894" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                                <a href="https://entm.auone.jp/ftl/new500tc/lp?spia_so=7" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">新規入会特典はこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/thursday.png" alt="thursday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>木曜日</dt>
+                                                    <dd>セゾンの木曜日</dd>
+                                                </dl>
+                                                <p>対象：セゾンカードユーザー<br />一般<span class="text-strong">1,200円</span>／大学生<span class="text-strong">1,100円</span>／<br />高校生以下<span class="text-strong">900円</span></p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://www.saisoncard.co.jp/creditcard/benefits-service/saison-thursday/#coupon" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_serviceday_item">
+                                            <img src="images/friday.png" alt="friday" />
+                                            <div class="lp_serviceday_text">
+                                                <dl>
+                                                    <dt>金曜日</dt>
+                                                    <dd>FODフライデイ</dd>
+                                                </dl>
+                                                <p>対象：FODプレミアム会員<br />一般・大学生<span class="text-strong">1,200円</span>／高校生以下<span class="text-strong">900円</span></p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://fod.fujitv.co.jp/cp/fodfriday/lp/?waad=2WVIFdlq" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                                <a href="https://fod.fujitv.co.jp/cp/fodfriday-cp/lp/notice/?msockid=1b5969cf514b6ab432557fb9554b6899" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">新規入会特典はこちら</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- サービスデイここまで -->
+
+                                <!-- 外部サービス -->
+                                <section id="lp_external">
+                                    <div class="lp_external_inner">
+                                        <div class="lp_external_item">
+                                            <div class="lp_external_text unext">
+                                                <div>
+                                                    <img src="images/logo-unext.png" alt="u-nextロゴ" />
+                                                </div>
+                                                <p>31日間無料トライアル登録で、TOHOシネマズの新作映画が<span class="text-strong">500円</span>で観られるクーポンをプレゼント</p>
+                                            </div>
+                                            <div class="lp_serviceday_linkarea">
+                                                <a href="https://www.video.unext.jp/lp/tohocinemas?cid=D34117&adid=XXX&utm_source=tohocinemas&ut" class="lp_serviceday_link" target="_blank" rel="noopener noreferrer">詳しくはこちら</a>
+                                            </div>
+                                        </div>
+                                        <div class="lp_external_item">
+                                            <div class="lp_external_text firstday">
+                                                <div>ファーストデイ</div>
+                                                <p>対象：どなたでも<br />毎月1日は映画が<span class="text-strong">1,400円</span><br />（映画の日：12月1日は<span>1,000円</span>）</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- 外部サービスここまで -->
+                            </div>
+                        </div>
+                        <!-- /#contents -->
+                    </div>
+                    <!-- grid-main -->
+                </div>
+                <!-- grid-wrapper is-col-01 -->
+            </div>
+            <!-- grid -->
+        </div>
+        <!-- /#wrap -->
+        <!-- [ /CONTENT ] -->
+        <footer class="footer is-normal" role="contentinfo">
+    <div class="footer-pagetop">
+        <p><a href="#top" class="js-smooth">ページトップへ</a></p>
+    </div>
+    <div class="footer-link">
+        <ul>
+            <li><a href="http://www.tohocinemas.co.jp/" target="_blank">企業情報</a></li>
+            <li><a href="https://www.tohotheater.jp/info/sitemap.html" class="changeImgDomain">サイトマップ</a></li>
+            <li><a href="https://www.tohotheater.jp/info/privacy.html" class="changeImgDomain">個人情報の取扱いについて</a></li>
+            <li><a href="https://www.tohotheater.jp/info/business_deal.html" class="changeImgDomain">特定商取引法に基づく表記</a></li>
+            <li><a href="https://www.tohotheater.jp/info/help.html" class="changeImgDomain">ご利用に際して</a></li>
+            <li><a href="https://www.tohotheater.jp/vit/legal_notice.html" class="changeImgDomain">vit&reg;利用規約</a></li>
+            <li><a href="javascript:void(0);" class="js-modalShowCookie js-optin-cookie-settings" data-modal="modal-cookie-01">Cookieの設定</a></li>
+        </ul>
+        <ul class="sns-area">
+            <li class="global-youtube sns-area-item"><a href="https://www.youtube.com/user/TOHOCINEMASmagazine" target="_blank"><i class="glyphicon glyphicon-icon_youtube" aria-hidden="true"></i><span class="text">youtube</span></a></li>
+            <li class="global-line sns-area-item"><a href="https://line.me/R/ti/p/%40tohocinemas" target="_blank"><i class="glyphicon glyphicon-icon_line" aria-hidden="true"></i><span class="text">line</span></a></li>
+            <li class="global-x sns-area-item"><a href="https://x.com/tohocinemas_m" target="_blank"><i class="glyphicon glyphicon-icon_x" aria-hidden="true"></i><span class="text">X</span></a></li>
+            <li class="global-instagram sns-area-item"><a href="https://www.instagram.com/tohocinemas_official/" target="_blank"><i class="glyphicon glyphicon-icon_instagram" aria-hidden="true"></i><span class="text">instagram</span></a></li>
+        </ul>
+    </div>
+    <div class="footer-copyright">
+        <p><small>TM &amp; &copy; TOHO Cinemas Ltd. All Rights Reserved.</small></p>
+    </div>
+</footer>
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', 
+'739386006168943');
+fbq('track', 
+"PageView");</script>
+<noscript><img 
+height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=739386006168943&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K35TJR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K35TJR');</script>
+<!-- End Google Tag Manager -->
+
+<script src="/responsive/js/optin.js?20250730"></script>
+<!-- cookieの設定モーダル -->
+<div class="modal-wrap is-pc-640_cookie js-modalCookie" data-modal-content="modal-cookie-01">
+	<div class="modal-content-wrap js-modal-content-wrap-cookie">
+		<div class="modal-content js-modal-content-cookie">
+			<div class="modal-cookie-condition">
+				<div class="cookieHeader">
+					<img src="/responsive/images/module/logo-tohocinemas-01.png" class="cookieLogo" alt="TOHO CINEMAS">
+					<i class="modal-close js-modal-close-cookie"></i>
+				</div>
+				<div class="cookieInner">
+					<div class="tab-wrap">
+						<input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">必要不可欠なCookie</label>
+						<div class="tab-content">
+							<div class="tab-content-head">
+								<div class="title">必要不可欠なCookie</div>
+								<div class="activeMessage">常にアクティブ</div>
+							</div>
+							<div class="tab-content-text">
+								ログイン状態の判定や、プライバシー設定、画面内遷移、閲覧履歴がある劇場の情報保存、サイト上での各サービス利用に必要なCookieです。ブラウザの設定でブロックすることは可能ですが、各サービスが機能しなくなる可能性があります。このCookieが個人を特定できる情報を保持することはありません。
+							</div>
+							<a href="https://www.tohotheater.jp/info/cookie_policy.html" class="tab-content-link changeImgDomain">該当するCookie</a>
+						</div>
+						<input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">パフォーマンスのCookie</label>
+						<div class="tab-content">
+							<div class="tab-content-head">
+								<div class="title">パフォーマンスのCookie</div>
+								<div class="toggleSwitch">
+									<label class="toggleSwitch__label">
+										<input id="TOGGLE_02" type="checkbox" class="toggleSwitch__input">
+										<span class="toggleSwitch__content"></span>
+										<span class="toggleSwitch__circle"></span>
+									</label>
+								</div>
+							</div>
+							<div class="tab-content-text">
+								当サイトのパフォーマンス分析・改善のためのCookieです。訪問者数やページ閲覧数など、分析や状況を把握するために利用します。このCookieの利用が停止された場合、当サイト上でのお客様の動きを把握することはできません。
+							</div>
+							<a href="https://www.tohotheater.jp/info/cookie_policy.html" class="tab-content-link changeImgDomain">該当するCookie</a>
+						</div>
+						<input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">ターゲティングのCookie</label>
+						<div class="tab-content">
+							<div class="tab-content-head">
+								<div class="title">ターゲティングのCookie</div>
+								<div class="toggleSwitch">
+									<label class="toggleSwitch__label">
+										<input id="TOGGLE_03" type="checkbox" class="toggleSwitch__input">
+										<span class="toggleSwitch__content"></span>
+										<span class="toggleSwitch__circle"></span>
+									</label>
+								</div>
+							</div>
+							<div class="tab-content-text">
+								お客様に最適な広告配信を行うために利用されるCookieです。お客様の興味関心に基づき、他のウェブサイトでも関連性のある広告が表示されることがあります。このCookieの利用が停止された場合、ターゲット性のない一般的な広告が表示されるようになります。
+							</div>
+							<a href="https://www.tohotheater.jp/info/cookie_policy.html" class="tab-content-link changeImgDomain">該当するCookie</a>
+						</div>
+					</div>
+				</div>
+				<div class="cookieUnderBtn">
+					<span class="cookieUnderBtn__text">※この画面を非表示にするには、下記いずれかを選択ください。</span>
+					<a href="javascript:void(0);" class="js-modal-save-settings">設定を保存する</a>
+					<a href="javascript:void(0);" class="js-modal-accept-all-cookies">全てのCookieを受け入れる</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- cookieの設定モーダル end -->
+
+<div class="optIn is-optin-close">
+	<div class="optIn_inner">
+		<p class="textArea">当サイトでは、サービス向上、アクセス状況計測、広告配信など利用目的によりCookieを分類しており、必要に応じてCookieをブロック(オプトアウト)することができます。Cookieの使用に関する詳細は<a href="https://www.tohotheater.jp/info/help.html" class="changeImgDomain">「ご利用に際して」</a>をご覧ください。<span class="sp-only">※この画面を非表示にするには、下記いずれかを選択ください。</span></p>
+		<p class="setting-btnArea">
+			<span class="setting-btnArea__text">※この画面を非表示にするには、<br>下記いずれかを選択ください。</span>
+			<a href="javascript:void(0);" class="js-modalShowCookie js-optin-cookie-settings" data-modal="modal-cookie-01">Cookieの設定</a>
+			<a href="javascript:void(0);" class="js-optin-accept-all-cookies">全てのCookieを受け入れる</a>
+		</p>
+	</div>
+</div>
+<script>
+function setHeight() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+setHeight();
+window.addEventListener('resize',setHeight);
+</script>
+
+<script>
+$(function() {
+	setTimeout(function(){
+		CookieManager.removeCookies();
+	},2000);
+});
+</script>
+
+        <!-- [ /FOOTER ] -->
+
+        <script src="/responsive/js/common.js?20260402"></script>
+<script src="/responsive/js/Promise.min.js"></script>
+<script src="/responsive/js/utils/commonUtils.js?20260127"></script>
+        <script src="/responsive/js/optin.js?20220207"></script>
+<div class="optIn is-optin-close">
+	<div class="optIn_inner">
+		<p class="textArea">このサイトでは、サイトの一部サービスやサイト・広告改善の為、Cookieを使用致します。<br>このバナーを閉じるか、閲覧を継続されることでCookieの使用に同意するものと致します。<br>Cookieの使用に関する詳細は<a href="https://www.tohotheater.jp/info/help.html" class="changeImgDomain">「ご利用に際して」</a>をご覧ください。こちらからオプトアウトも可能です。</p>
+		<p class="btnArea"><i class="optin-close"></i></p>
+	</div>
+</div>
+
+    </body>
+</html>
