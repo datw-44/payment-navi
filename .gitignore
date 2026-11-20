@@ -35,3 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /audit/cache/
+# 週次レポートは生成物。必要なものだけ手で残す。
+/audit/reports/
