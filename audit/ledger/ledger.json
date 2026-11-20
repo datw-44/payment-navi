@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "お支払いナビ 監査台帳。本番表示の承認記録 (app/design/store-detail/verification-records.json) とは別物で、ここの内容は公開画面に影響しない。",
-  "generatedAt": "2026-11-20T00:42:46.746Z",
+  "generatedAt": "2026-11-20T01:06:29.963Z",
   "statuses": [
    "一致",
    "不一致",
@@ -16,7 +16,8 @@
    "acceptanceStores": 109
   },
   "findingFiles": [
-   "2026-11-benefits.json"
+   "2026-11-benefits.json",
+   "2026-11-candidates-lawson.json"
   ],
   "acceptanceCheckedAt": "2026年10月",
   "dataMemoCount": 213,
@@ -422,19 +423,29 @@
    "targetDays": null,
    "dataSignature": "884851c1a66462b7",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.smbc-card.com/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "8%の根拠",
+     "対象となるタッチ決済の種類",
+     "対象外店舗",
+     "上限"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "www.smbc-card.com がドメイン許可後も HTTP 403 を返す（サイト側のボット拒否）。",
+     "alternativeRoute": "人間が通常のブラウザで三井住友カードの『対象のコンビニ・飲食店で最大7%』の案内ページを開き、Olive・三井住友カード（NL）のローソンでの還元率・対象決済・上限を確認する。"
+    }
    }
   },
   "lawson::三井住友カード（NL）等": {
@@ -446,19 +457,29 @@
    "targetDays": null,
    "dataSignature": "160886d939f5451a",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.smbc-card.com/nyukai/merit/proper_p5.jsp"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "7%の根拠",
+     "対象となるタッチ決済の種類",
+     "端末上限",
+     "対象外店舗"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "www.smbc-card.com が HTTP 403（サイト側のボット拒否）。",
+     "alternativeRoute": "上記と同じページを人間が確認する。この1ページでローソン・セブンイレブン等の複数店舗の候補をまとめて検証できるため、優先度が高い。"
+    }
    }
   },
   "lawson::ローソンPontaプラス（通常時）": {
@@ -511,19 +532,30 @@
    "targetDays": null,
    "dataSignature": "1668124f6e1e838f",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://d-card.jp/",
+     "https://dpoint.docomo.ne.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "最大2.0%の根拠",
+     "提示と決済の二重取りの可否"
+    ],
     "mismatches": [],
-    "fixes": [],
+    "fixes": [
+     "注意欄に『非公式の試算値』と書かれており、公開ページに『非公式』と明示された数値が出ている。公式根拠を確定させるか、表現を見直すべき項目として要検討"
+    ],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "d-card.jp と dpoint.docomo.ne.jp は TLS のレガシー再ネゴシエーションを要求するサーバー設定のため、curl が接続を拒否する（OpenSSL: unsafe legacy renegotiation disabled）。サイト側の拒否ではなく接続方式の非互換。TLSの安全設定を下げる回避はしていない。",
+     "alternativeRoute": "Playwright（Chromium）経由なら接続できる可能性がある。次回 audit/lib/render.js で取得を試す。"
+    }
    }
   },
   "lawson::楽天カード": {
@@ -535,19 +567,27 @@
    "targetDays": null,
    "dataSignature": "690e7cc63813ea55",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.rakuten-card.co.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "基本還元率1%の根拠",
+     "ローソンが楽天ポイントカード加盟店でないことの公式確認"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "www.rakuten-card.co.jp がドメイン許可後も HTTP 403。",
+     "alternativeRoute": "楽天ポイントカードの加盟店一覧（pointcard.rakuten.co.jp は取得可能）でローソンの扱いを確認する。"
+    }
    }
   },
   "lawson::楽天ペイ（楽天キャッシュ利用時）": {
@@ -559,19 +599,28 @@
    "targetDays": null,
    "dataSignature": "aa62483eb922d8cb",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.rakuten-card.co.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "最大1.5%の根拠",
+     "カウント期間（前々月16日〜前月15日）に2回以上提示という条件",
+     "アプリ版のみ対象という条件"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "楽天カード・楽天ペイの公式サイトが403。",
+     "alternativeRoute": "pointcard.rakuten.co.jp（取得可能）と楽天ペイ公式の条件ページを探す。"
+    }
    }
   },
   "lawson::dカード": {
@@ -583,19 +632,26 @@
    "targetDays": null,
    "dataSignature": "128959aef9dec6ed",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://d-card.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "基本還元率1%の根拠"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "d-card.jp は TLS レガシー再ネゴシエーション要求で curl が接続できない。",
+     "alternativeRoute": "Playwright（Chromium）で取得を試す。"
+    }
    }
   },
   "lawson::d払い": {
@@ -607,19 +663,27 @@
    "targetDays": null,
    "dataSignature": "cd3257fa39307020",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://dpoint.docomo.ne.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "0.5%の根拠",
+     "dカード払い設定で1%になる条件"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "dpoint.docomo.ne.jp は TLS レガシー再ネゴシエーション要求で curl が接続できない。",
+     "alternativeRoute": "Playwright（Chromium）で取得を試す。"
+    }
    }
   },
   "lawson::PayPayカード": {
@@ -631,19 +695,34 @@
    "targetDays": null,
    "dataSignature": "7000241adde0e835",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
-    "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
-    "evidence": [],
-    "confirmed": [],
-    "unconfirmed": [],
+    "status": "一部確認",
+    "officialUrls": [
+     "https://paypay.ne.jp/point/"
+    ],
+    "checkedAt": "2026-11-20T01:55:00Z",
+    "method": "html",
+    "evidence": [
+     "PayPayの支払いで最大1.5％貯まる",
+     "PayPayポイントは、1ポイント＝1円分として利用できます［meta description］"
+    ],
+    "confirmed": [
+     "PayPayの支払いで最大1.5%",
+     "PayPayポイントは1ポイント＝1円"
+    ],
+    "unconfirmed": [
+     "基本還元率1%の根拠",
+     "『ステップ達成で1.5%』の達成条件と本人確認要件",
+     "ローソンでの個別条件"
+    ],
     "mismatches": [],
     "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": null
+    "recheckAfter": "2026-12-20",
+    "fetchFailure": {
+     "reason": "ポイント付与率の段階（0.5%/1%/1.5%）の内訳は『ポイント付与率について』の別ページにあり、今回はそのURLを特定できていない。",
+     "alternativeRoute": "paypay.ne.jp 内のポイント付与率詳細ページを特定して取得する。"
+    }
    }
   },
   "lawson::PayPay": {
@@ -655,19 +734,32 @@
    "targetDays": null,
    "dataSignature": "e5348d1b24966717",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
-    "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
-    "evidence": [],
-    "confirmed": [],
-    "unconfirmed": [],
+    "status": "一部確認",
+    "officialUrls": [
+     "https://paypay.ne.jp/point/"
+    ],
+    "checkedAt": "2026-11-20T01:55:00Z",
+    "method": "html",
+    "evidence": [
+     "PayPayの支払いで最大1.5％貯まる"
+    ],
+    "confirmed": [
+     "PayPayの支払いで最大1.5%が上限であること"
+    ],
+    "unconfirmed": [
+     "残高払いの基本0.5%",
+     "『ステップ達成で1%』の条件",
+     "Pontaカード/dポイントカード提示との二重取りの可否"
+    ],
     "mismatches": [],
     "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": null
+    "recheckAfter": "2026-12-20",
+    "fetchFailure": {
+     "reason": "上記と同じ。付与率の段階別条件のページ未特定。",
+     "alternativeRoute": "paypay.ne.jp のポイント付与率詳細ページを特定して取得する。"
+    }
    }
   },
   "lawson::JCBカードW": {
@@ -679,19 +771,27 @@
    "targetDays": null,
    "dataSignature": "09a9fdcb3e55b299",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.jcb.co.jp/ordercard/kojin_card/jcb_cardw.html"
+    ],
+    "checkedAt": "2026-11-20T01:52:00Z",
+    "method": "html",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "基本還元率1%（Oki Dokiポイント2倍）の根拠",
+     "ローソンがJCB優待店かどうか"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "ページは HTTP 200 だが抽出できた本文が14行しかなく、内容がJavaScriptで描画されている可能性が高い。",
+     "alternativeRoute": "Playwright（audit/lib/render.js）で描画してから再抽出する。"
+    }
    }
   },
   "lawson::リクルートカード": {
@@ -703,18 +803,32 @@
    "targetDays": null,
    "dataSignature": "5e5e317eb5762aac",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
-    "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
-    "evidence": [],
-    "confirmed": [],
-    "unconfirmed": [],
+    "status": "一致",
+    "officialUrls": [
+     "https://recruit-card.jp/"
+    ],
+    "checkedAt": "2026-11-20T01:50:00Z",
+    "method": "html",
+    "evidence": [
+     "年会費永年無料！ポイント還元率1.2%のリクルートカード［meta description］",
+     "驚異の高還元率 1.2%［img alt: 高還元率1.2%］",
+     "例えば、10,000円のお買い物で120円分のポイントが還元されます。",
+     "リクルートポイントは1ポイント＝1円分として、お金と同じ感覚でご利用いただけます。",
+     "Pontaポイントやdポイントに交換したり、Amazon.co.jpでのお買い物でもつかえる！"
+    ],
+    "confirmed": [
+     "基本還元率1.2%",
+     "付与されるのはリクルートポイント",
+     "1ポイント＝1円"
+    ],
+    "unconfirmed": [
+     "ローソンでの追加特典が無いこと（掲載の注意『コンビニ特典なし』は、特典が無いことの積極的な記載を公式で確認したわけではない）"
+    ],
     "mismatches": [],
     "fixes": [],
-    "recheckAfter": null,
+    "recheckAfter": "2027-02-20",
     "fetchFailure": null
    }
   },
@@ -727,19 +841,26 @@
    "targetDays": null,
    "dataSignature": "406950bb4ca224db",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.aeon.co.jp/card/"
+    ],
+    "checkedAt": "2026-11-20T01:45:00Z",
+    "method": "none",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "基本還元率0.5%の根拠"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "イオン系ドメインは Akamai が HTTP 403 を返す。",
+     "alternativeRoute": "人間が通常のブラウザでイオンカードの基本還元率を確認する。"
+    }
    }
   },
   "lawson::三菱UFJカード": {
@@ -751,19 +872,29 @@
    "targetDays": null,
    "dataSignature": "3a5aa8e863ecd6b5",
    "dataChangedSinceAudit": false,
-   "findingSource": null,
+   "findingSource": "2026-11-candidates-lawson.json",
    "audit": {
     "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
+    "officialUrls": [
+     "https://www.cr.mufg.jp/ja/point/index.html"
+    ],
+    "checkedAt": "2026-11-20T01:52:00Z",
+    "method": "html",
     "evidence": [],
     "confirmed": [],
-    "unconfirmed": [],
+    "unconfirmed": [
+     "ローソンが優遇対象店舗か",
+     "還元率7%の根拠",
+     "対象となる決済方法（クレジット・タッチ・Apple PayのQUICPay）",
+     "上限・エントリー要否"
+    ],
     "mismatches": [],
     "fixes": [],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": {
+     "reason": "www.cr.mufg.jp には到達できる（HTTP 200）が、ポイント案内ページに『ローソン』『7%』の記載がなく、優遇店舗の条件ページを特定できていない。想定した /landing/gpoint/tokutenstore/ は404。",
+     "alternativeRoute": "www.cr.mufg.jp のサイト内から『ポイント優遇店舗』『グローバルポイント』の現行ページを辿って特定する。掲載データの注意にも『上限・条件は公式サイトでご確認ください』とあり、元々根拠が確定していない可能性が高い。"
+    }
    }
   },
   "family-mart::ファミマカード（ファミペイ連携）": {
@@ -3019,30 +3150,41 @@
    "dataChangedSinceAudit": false,
    "findingSource": "2026-11-benefits.json",
    "audit": {
-    "status": "未確認",
+    "status": "不一致",
     "officialUrls": [
      "https://www.seiyu.co.jp/service/otoku_calendar/",
+     "https://www.seiyu.co.jp/assets/images/cal-202611.png",
      "https://www.seiyu.co.jp/service/rakuten_pointprogram/",
-     "https://www.seiyu.co.jp/campaign/"
+     "https://www.seiyu.co.jp/assets/images/rakuten_pointprogram_title-mainvisual2611.png"
     ],
-    "checkedAt": "2026-11-19T17:00:00Z",
-    "method": "browser",
-    "evidence": [],
-    "confirmed": [],
+    "checkedAt": "2026-11-20T01:10:00Z",
+    "method": "html+image",
+    "evidence": [
+     "［楽天ポイント増量日バナー画像 2611］楽天ポイント増量日！ 毎週4日連続！金・土・日・月",
+     "［同画像］さらに！11月20日〜30日は連続開催",
+     "［同画像］対象日に条件達成すると 楽天ポイント最大7倍 ／ 毎月開催 ／ ※200円（税抜）につき1ポイント進呈を基準とした場合の最大の倍率です。",
+     "［11月のお得カレンダー画像 2026.10.28時点］楽天ポイント増量日！の帯が 1・2／6・7／8・9／13・14／15・16／20・21／22〜28／29・30 に表示（＝金土日月の並び）",
+     "［イベント画像 2608］最大 楽天ポイント7倍（3.5%相当）／ 毎週月曜日と土曜日の増量日と同じ条件であるため、詳しくは店内のポスターをご確認ください。",
+     "［楽天ポイントプログラムページ meta description］毎週月・土曜日は楽天ポイント増量日！（※バナー・カレンダーより古い記述が残っている）"
+    ],
+    "confirmed": [
+     "楽天ポイント増量日は毎週金・土・日・月の4日連続（2026年11月時点）",
+     "7倍＝3.5%相当（200円税抜1ポイントを基準）",
+     "11月20日〜30日は連続開催"
+    ],
     "unconfirmed": [
-     "毎月15日の楽天ポイント増量の実施有無",
-     "還元率",
-     "対象決済",
-     "上限",
-     "対象外条件"
+     "「条件達成」の具体的内容（公式は『店内のポスターをご確認ください』とし、ウェブに掲載がない）",
+     "2.5%（5倍）に相当する下位の条件があるか"
     ],
-    "mismatches": [],
-    "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": {
-     "reason": "サイトには到達できる（HTTP 200）が、『月間お得カレンダー』ページを Playwright で描画しても本文が235文字しかなく、日付別の条件が本文・alt のいずれにも存在しない。条件は画像内に描かれている可能性が高い。",
-     "alternativeRoute": "お得カレンダーページ内の画像ファイルを取得し、画像内の文字を読む手段（OCR等）を用意する。または人間が https://www.seiyu.co.jp/service/otoku_calendar/ を開いて当月の増量日と条件を確認する。"
-    }
+    "mismatches": [
+     "対象日が違う。掲載データは「毎月15日」だが、公式の11月カレンダーに15日固有の特典表示はなく、15日が増量日なのは15日が日曜日だからである。15日が火〜木に当たる月は増量日にならない。"
+    ],
+    "fixes": [
+     "対象日条件: 「毎月15日」→ 公式の「毎週金・土・日・月」に改める。または15日固有の特典が本当に存在するか再確認する（未確認を理由に削除はしない）"
+    ],
+    "recheckAfter": "2026-12-20",
+    "fetchFailure": null,
+    "note": "西友公式サイト内に食い違いがある。ページのmeta descriptionは「毎週月・土曜日」のままだが、2026年11月のバナー画像とカレンダー画像は「金・土・日・月の4日連続」。より新しく具体的なバナー・カレンダー（2026.10.28時点）を根拠とした。"
    }
   },
   "seiyu::西友アプリ＋楽天ポイント（月・土曜）": {
@@ -3056,29 +3198,44 @@
    "dataChangedSinceAudit": false,
    "findingSource": "2026-11-benefits.json",
    "audit": {
-    "status": "未確認",
+    "status": "不一致",
     "officialUrls": [
      "https://www.seiyu.co.jp/service/otoku_calendar/",
-     "https://www.seiyu.co.jp/service/seiyuappli/"
+     "https://www.seiyu.co.jp/assets/images/cal-202611.png",
+     "https://www.seiyu.co.jp/service/rakuten_pointprogram/",
+     "https://www.seiyu.co.jp/assets/images/rakuten_pointprogram_title-mainvisual2611.png"
     ],
-    "checkedAt": "2026-11-19T17:00:00Z",
-    "method": "browser",
-    "evidence": [],
-    "confirmed": [],
+    "checkedAt": "2026-11-20T01:10:00Z",
+    "method": "html+image",
+    "evidence": [
+     "［楽天ポイント増量日バナー画像 2611］楽天ポイント増量日！ 毎週4日連続！金・土・日・月",
+     "［同画像］さらに！11月20日〜30日は連続開催",
+     "［同画像］対象日に条件達成すると 楽天ポイント最大7倍 ／ 毎月開催 ／ ※200円（税抜）につき1ポイント進呈を基準とした場合の最大の倍率です。",
+     "［11月のお得カレンダー画像 2026.10.28時点］楽天ポイント増量日！の帯が 1・2／6・7／8・9／13・14／15・16／20・21／22〜28／29・30 に表示（＝金土日月の並び）",
+     "［イベント画像 2608］最大 楽天ポイント7倍（3.5%相当）／ 毎週月曜日と土曜日の増量日と同じ条件であるため、詳しくは店内のポスターをご確認ください。",
+     "［楽天ポイントプログラムページ meta description］毎週月・土曜日は楽天ポイント増量日！（※バナー・カレンダーより古い記述が残っている）"
+    ],
+    "confirmed": [
+     "楽天ポイント増量日は毎週金・土・日・月の4日連続（2026年11月時点）",
+     "最大7倍＝3.5%相当であり、掲載の還元率3.5%は公式と一致",
+     "毎月開催"
+    ],
     "unconfirmed": [
-     "毎週月曜・土曜の実施有無",
-     "還元率3.5%の内訳",
-     "税抜2,500円以上の購入条件",
-     "1日250ptの上限",
-     "対象決済"
+     "「対象日に条件達成」の具体的内容（税抜2,500円以上の購入条件・1日250ptの上限が現在も有効か）",
+     "西友アプリ提示が必須かどうか"
     ],
-    "mismatches": [],
-    "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": {
-     "reason": "上記と同じ。西友のお得情報は画像中心で、HTML・alt・描画後テキストのいずれからも曜日別条件を取得できない。",
-     "alternativeRoute": "画像内文字の読み取り手段を用意する。または人間が西友アプリの案内ページとお得カレンダーを確認する。"
-    }
+    "mismatches": [
+     "対象日が不足している。掲載データは「毎週月曜・土曜」だが、公式は「毎週4日連続！金・土・日・月」。金曜と日曜が欠落している。",
+     "掲載の『1日250ptまで』『税抜2,500円以上』は、公式ウェブ上で裏付けを確認できていない（公式は条件の詳細を店内ポスターに委ねている）。"
+    ],
+    "fixes": [
+     "対象日条件: 「毎週月曜・土曜」→「毎週金・土・日・月」に修正",
+     "条件: 「条件達成で最大7倍（3.5%相当）」という公式の表現に沿って見直す",
+     "注意: 『1日250ptまで』『税抜2,500円以上』の根拠を再確認（公式ウェブに記載がなく、店頭掲示のみの可能性）"
+    ],
+    "recheckAfter": "2026-12-20",
+    "fetchFailure": null,
+    "correctionOfPriorAudit": "前回は『カレンダーの本文が235文字しかなく条件を取得できない』として未確認だった。カレンダーとバナーの画像を取得して読み取ることで、対象日と倍率を確定できた。"
    }
   },
   "seiyu::楽天ペイ（楽天キャッシュ利用時）": {
@@ -16339,27 +16496,55 @@
    "dataChangedSinceAudit": false,
    "findingSource": "2026-11-benefits.json",
    "audit": {
-    "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": "2026-11-20T00:50:00Z",
-    "method": "none",
-    "evidence": [],
-    "confirmed": [],
-    "unconfirmed": [
-     "サニーの現在の運営会社",
-     "楽天ポイントカード提示の特典が現在も実施されているか",
-     "毎週月曜・土曜の増量の実施有無",
-     "還元率",
-     "対象決済"
+    "status": "不一致",
+    "officialUrls": [
+     "https://www.izumi.co.jp/corp/group/",
+     "https://sunny.izumi.jp/",
+     "https://sunny.izumi.jp/information/shittokucalender2611/",
+     "https://sunny.izumi.jp/information/2611calendar.jpg"
     ],
-    "mismatches": [],
-    "fixes": [],
-    "recheckAfter": null,
-    "fetchFailure": {
-     "reason": "許可済みの www.youme.co.jp・youme.co.jp とも、プロキシが CONNECT 502 を返しホストに到達できない（403のようなサイト側の拒否ではなく、ホスト名が解決できていない）。記録されていた公式URL自体が現存しない可能性がある。",
-     "alternativeRoute": "サニーの運営会社を先に確定する必要がある。公開情報では西友が九州のサニー全69店舗をイズミ傘下のゆめマート熊本へ承継したとされており（出典は新聞・イズミのニュースリリースで、いずれも第三者または未取得のため確定情報として扱わない）、運営会社が変わっていれば楽天ポイント提示という前提自体が成立しない可能性がある。次の手順: (1) イズミ公式 www.izumi.co.jp のニュースリリースでサニー承継と現在の運営会社を確認する（要ドメイン許可）。(2) ゆめマート熊本／サニーの現行公式サイトのドメインを特定する。(3) そのうえでポイント制度を確認する。人間がブラウザで『サニー 公式』を開いて現行ドメインを教えてもらうのが最短。",
-     "priority": "高（掲載データの前提である運営会社と楽天ポイント提示が現状と合っていない恐れがある）"
-    }
+    "checkedAt": "2026-11-20T01:30:00Z",
+    "method": "html+image",
+    "evidence": [
+     "［イズミ公式 グループ会社］株式会社 ゆめマート熊本 … サニー事業部 … サニー 公式サイトはこちら → https://sunny.izumi.jp/",
+     "［サニー公式トップ］直営売場のお支払いで、ゆめカード値引積立額1円＝1円から使えます",
+     "［サニー公式トップ全文］「楽天」の文字列は0件",
+     "［11月 知っ得カレンダー画像］毎週土曜（7・14・21・28日）: ゆめアプリ会員限定 直営売場 ゆめカードポイント（値引積立）5倍 ／ 増し増しデー 楽天ポイント最大5倍",
+     "［同画像］1日・15日: 楽天Edyデー！楽天Edyでお買い物をすると楽天ポイント3倍 ※特典進呈には条件がございます",
+     "［同画像］5のつく日（5・15・25日）限定: 対象店舗にて楽天ペイでのお支払いで楽天ポイント最大3%還元 ※条件あり",
+     "［同画像］毎月最終日曜日（29日）限定: 対象店舗にて楽天ペイでのお支払いで楽天ポイント最大10%還元 ※条件あり",
+     "［同画像］毎月11日・22日: ペット用品10%OFF",
+     "［同画像］上記スケジュール・ポイント等は予告なく変更される場合がございます"
+    ],
+    "confirmed": [
+     "サニーの運営会社は株式会社ゆめマート熊本（イズミグループ）のサニー事業部",
+     "公式サイトは https://sunny.izumi.jp/",
+     "土曜日の特典はゆめアプリ会員限定で、ゆめカードポイント5倍＋楽天ポイント最大5倍",
+     "1日・15日は楽天Edyで楽天ポイント3倍",
+     "5のつく日は楽天ペイで最大3%還元",
+     "毎月最終日曜は楽天ペイで最大10%還元"
+    ],
+    "unconfirmed": [
+     "各特典の「条件あり」の具体的な内容（カレンダー画像に明記されていない）",
+     "通常時の還元率"
+    ],
+    "mismatches": [
+     "月曜日の特典が存在しない。公式の11月カレンダーに月曜の特典表示は一切なく、週次特典は土曜のみ。掲載データの「毎週月曜・土曜」は誤り。",
+     "土曜の特典内容が違う。公式は「ゆめアプリ会員限定」のゆめカードポイント5倍＋楽天ポイント最大5倍であり、掲載データの「楽天ポイントカード（アプリ）を提示」1%とは対象・倍率とも異なる。",
+     "運営会社が変わっている。掲載データは西友系（楽天ポイント中心）を前提としているが、現在はイズミグループで自社の「ゆめカード」が主たるポイントになっている。",
+     "掲載データにない特典が多数ある（楽天Edyデー3倍、5のつく日3%還元、最終日曜10%還元、ペット用品10%OFF）。"
+    ],
+    "fixes": [
+     "対象日条件: 「毎週月曜・土曜」→ 公式カレンダーに合わせて見直す（週次は土曜のみ）",
+     "条件: 土曜の特典は「ゆめアプリ会員限定」である旨と、ゆめカードポイント5倍＋楽天ポイント最大5倍を反映",
+     "店舗解説: 運営会社がイズミグループ（ゆめマート熊本 サニー事業部）である前提に改める",
+     "候補の追加検討: 楽天Edyデー（1日・15日3倍）、5のつく日（楽天ペイ最大3%）、最終日曜（楽天ペイ最大10%）",
+     "内部メモ: 公式URLを www.youme.co.jp から https://sunny.izumi.jp/ に訂正"
+    ],
+    "recheckAfter": "2026-12-20",
+    "fetchFailure": null,
+    "correctionOfPriorAudit": "前回は www.youme.co.jp に到達できず未確認としていた。イズミ公式のグループ会社ページからサニーの正しい公式サイト（sunny.izumi.jp）を特定でき、さらに知っ得カレンダー画像を読み取ることで条件を確定できた。記録されていた公式URL自体が誤りだった。",
+    "note": "月次カレンダーは画像でのみ提供されるため、週次監査では毎月このカレンダー画像を取得して読む必要がある。"
    }
   },
   "sunny::楽天カード（通常のカード決済）": {

@@ -1,0 +1,138 @@
+{
+  "_note": "支払い候補（通常候補）の監査根拠。第1弾はローソン。選定理由: コンビニ最大手で重要度が高く、店舗公式サイト（www.lawson.co.jp）が取得できるため照合の起点にしやすい。",
+  "auditedOn": "2026-11-20 (UTC)",
+  "scope": "lawson の通常候補13件（特定日限定1件は 2026-11-benefits.json 側で監査済み）",
+  "items": {
+    "lawson::リクルートカード": {
+      "status": "一致",
+      "officialUrls": ["https://recruit-card.jp/"],
+      "checkedAt": "2026-11-20T01:50:00Z",
+      "method": "html",
+      "evidence": [
+        "年会費永年無料！ポイント還元率1.2%のリクルートカード［meta description］",
+        "驚異の高還元率 1.2%［img alt: 高還元率1.2%］",
+        "例えば、10,000円のお買い物で120円分のポイントが還元されます。",
+        "リクルートポイントは1ポイント＝1円分として、お金と同じ感覚でご利用いただけます。",
+        "Pontaポイントやdポイントに交換したり、Amazon.co.jpでのお買い物でもつかえる！"
+      ],
+      "confirmed": ["基本還元率1.2%", "付与されるのはリクルートポイント", "1ポイント＝1円"],
+      "unconfirmed": ["ローソンでの追加特典が無いこと（掲載の注意『コンビニ特典なし』は、特典が無いことの積極的な記載を公式で確認したわけではない）"],
+      "mismatches": [],
+      "fixes": [],
+      "recheckAfter": "2027-02-20"
+    },
+    "lawson::PayPayカード": {
+      "status": "一部確認",
+      "officialUrls": ["https://paypay.ne.jp/point/"],
+      "checkedAt": "2026-11-20T01:55:00Z",
+      "method": "html",
+      "evidence": ["PayPayの支払いで最大1.5％貯まる", "PayPayポイントは、1ポイント＝1円分として利用できます［meta description］"],
+      "confirmed": ["PayPayの支払いで最大1.5%", "PayPayポイントは1ポイント＝1円"],
+      "unconfirmed": ["基本還元率1%の根拠", "『ステップ達成で1.5%』の達成条件と本人確認要件", "ローソンでの個別条件"],
+      "mismatches": [],
+      "fixes": [],
+      "recheckAfter": "2026-12-20",
+      "fetchFailure": {
+        "reason": "ポイント付与率の段階（0.5%/1%/1.5%）の内訳は『ポイント付与率について』の別ページにあり、今回はそのURLを特定できていない。",
+        "alternativeRoute": "paypay.ne.jp 内のポイント付与率詳細ページを特定して取得する。"
+      }
+    },
+    "lawson::PayPay": {
+      "status": "一部確認",
+      "officialUrls": ["https://paypay.ne.jp/point/"],
+      "checkedAt": "2026-11-20T01:55:00Z",
+      "method": "html",
+      "evidence": ["PayPayの支払いで最大1.5％貯まる"],
+      "confirmed": ["PayPayの支払いで最大1.5%が上限であること"],
+      "unconfirmed": ["残高払いの基本0.5%", "『ステップ達成で1%』の条件", "Pontaカード/dポイントカード提示との二重取りの可否"],
+      "mismatches": [],
+      "fixes": [],
+      "recheckAfter": "2026-12-20",
+      "fetchFailure": {
+        "reason": "上記と同じ。付与率の段階別条件のページ未特定。",
+        "alternativeRoute": "paypay.ne.jp のポイント付与率詳細ページを特定して取得する。"
+      }
+    },
+    "lawson::三菱UFJカード": {
+      "status": "未確認",
+      "officialUrls": ["https://www.cr.mufg.jp/ja/point/index.html"],
+      "checkedAt": "2026-11-20T01:52:00Z",
+      "method": "html",
+      "evidence": [],
+      "confirmed": [],
+      "unconfirmed": ["ローソンが優遇対象店舗か", "還元率7%の根拠", "対象となる決済方法（クレジット・タッチ・Apple PayのQUICPay）", "上限・エントリー要否"],
+      "mismatches": [],
+      "fixes": [],
+      "recheckAfter": null,
+      "fetchFailure": {
+        "reason": "www.cr.mufg.jp には到達できる（HTTP 200）が、ポイント案内ページに『ローソン』『7%』の記載がなく、優遇店舗の条件ページを特定できていない。想定した /landing/gpoint/tokutenstore/ は404。",
+        "alternativeRoute": "www.cr.mufg.jp のサイト内から『ポイント優遇店舗』『グローバルポイント』の現行ページを辿って特定する。掲載データの注意にも『上限・条件は公式サイトでご確認ください』とあり、元々根拠が確定していない可能性が高い。"
+      }
+    },
+    "lawson::JCBカードW": {
+      "status": "未確認",
+      "officialUrls": ["https://www.jcb.co.jp/ordercard/kojin_card/jcb_cardw.html"],
+      "checkedAt": "2026-11-20T01:52:00Z",
+      "method": "html",
+      "evidence": [],
+      "confirmed": [],
+      "unconfirmed": ["基本還元率1%（Oki Dokiポイント2倍）の根拠", "ローソンがJCB優待店かどうか"],
+      "mismatches": [],
+      "fixes": [],
+      "recheckAfter": null,
+      "fetchFailure": {
+        "reason": "ページは HTTP 200 だが抽出できた本文が14行しかなく、内容がJavaScriptで描画されている可能性が高い。",
+        "alternativeRoute": "Playwright（audit/lib/render.js）で描画してから再抽出する。"
+      }
+    },
+    "lawson::Oliveフレキシブルペイ": {
+      "status": "未確認", "officialUrls": ["https://www.smbc-card.com/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [],
+      "unconfirmed": ["8%の根拠", "対象となるタッチ決済の種類", "対象外店舗", "上限"],
+      "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "www.smbc-card.com がドメイン許可後も HTTP 403 を返す（サイト側のボット拒否）。", "alternativeRoute": "人間が通常のブラウザで三井住友カードの『対象のコンビニ・飲食店で最大7%』の案内ページを開き、Olive・三井住友カード（NL）のローソンでの還元率・対象決済・上限を確認する。" }
+    },
+    "lawson::三井住友カード（NL）等": {
+      "status": "未確認", "officialUrls": ["https://www.smbc-card.com/nyukai/merit/proper_p5.jsp"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [],
+      "unconfirmed": ["7%の根拠", "対象となるタッチ決済の種類", "端末上限", "対象外店舗"],
+      "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "www.smbc-card.com が HTTP 403（サイト側のボット拒否）。", "alternativeRoute": "上記と同じページを人間が確認する。この1ページでローソン・セブンイレブン等の複数店舗の候補をまとめて検証できるため、優先度が高い。" }
+    },
+    "lawson::楽天カード": {
+      "status": "未確認", "officialUrls": ["https://www.rakuten-card.co.jp/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["基本還元率1%の根拠", "ローソンが楽天ポイントカード加盟店でないことの公式確認"],
+      "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "www.rakuten-card.co.jp がドメイン許可後も HTTP 403。", "alternativeRoute": "楽天ポイントカードの加盟店一覧（pointcard.rakuten.co.jp は取得可能）でローソンの扱いを確認する。" }
+    },
+    "lawson::楽天ペイ（楽天キャッシュ利用時）": {
+      "status": "未確認", "officialUrls": ["https://www.rakuten-card.co.jp/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["最大1.5%の根拠", "カウント期間（前々月16日〜前月15日）に2回以上提示という条件", "アプリ版のみ対象という条件"],
+      "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "楽天カード・楽天ペイの公式サイトが403。", "alternativeRoute": "pointcard.rakuten.co.jp（取得可能）と楽天ペイ公式の条件ページを探す。" }
+    },
+    "lawson::dカード＋dポイントカード提示": {
+      "status": "未確認", "officialUrls": ["https://d-card.jp/", "https://dpoint.docomo.ne.jp/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["最大2.0%の根拠", "提示と決済の二重取りの可否"],
+      "mismatches": [],
+      "fixes": ["注意欄に『非公式の試算値』と書かれており、公開ページに『非公式』と明示された数値が出ている。公式根拠を確定させるか、表現を見直すべき項目として要検討"],
+      "recheckAfter": null,
+      "fetchFailure": { "reason": "d-card.jp と dpoint.docomo.ne.jp は TLS のレガシー再ネゴシエーションを要求するサーバー設定のため、curl が接続を拒否する（OpenSSL: unsafe legacy renegotiation disabled）。サイト側の拒否ではなく接続方式の非互換。TLSの安全設定を下げる回避はしていない。", "alternativeRoute": "Playwright（Chromium）経由なら接続できる可能性がある。次回 audit/lib/render.js で取得を試す。" }
+    },
+    "lawson::dカード": {
+      "status": "未確認", "officialUrls": ["https://d-card.jp/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["基本還元率1%の根拠"], "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "d-card.jp は TLS レガシー再ネゴシエーション要求で curl が接続できない。", "alternativeRoute": "Playwright（Chromium）で取得を試す。" }
+    },
+    "lawson::d払い": {
+      "status": "未確認", "officialUrls": ["https://dpoint.docomo.ne.jp/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["0.5%の根拠", "dカード払い設定で1%になる条件"], "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "dpoint.docomo.ne.jp は TLS レガシー再ネゴシエーション要求で curl が接続できない。", "alternativeRoute": "Playwright（Chromium）で取得を試す。" }
+    },
+    "lawson::イオンカード": {
+      "status": "未確認", "officialUrls": ["https://www.aeon.co.jp/card/"], "checkedAt": "2026-11-20T01:45:00Z", "method": "none",
+      "evidence": [], "confirmed": [], "unconfirmed": ["基本還元率0.5%の根拠"], "mismatches": [], "fixes": [], "recheckAfter": null,
+      "fetchFailure": { "reason": "イオン系ドメインは Akamai が HTTP 403 を返す。", "alternativeRoute": "人間が通常のブラウザでイオンカードの基本還元率を確認する。" }
+    }
+  }
+}
