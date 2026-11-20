@@ -26,6 +26,7 @@ const fingerprint = (sig) => crypto.createHash("sha1").update(sig).digest("hex")
 const LEDGER = path.join(__dirname, "ledger.json");
 const FINDINGS_DIR = path.join(__dirname, "..", "findings");
 const ISSUERS_FILE = path.join(FINDINGS_DIR, "issuers", "2026-11-issuers.json");
+const ACCEPTANCE_DIR = path.join(FINDINGS_DIR, "acceptance");
 const STATUSES = ["一致", "不一致", "一部確認", "未確認"];
 
 function emptyAudit() {
@@ -143,7 +144,15 @@ function build() {
   const prev = fs.existsSync(LEDGER) ? JSON.parse(fs.readFileSync(LEDGER, "utf8")) : { items: {}, acceptance: {} };
   const items = {};
   const acceptanceRows = {};
-  let candidates = 0, benefits = 0, carried = 0, resetBySignature = 0;
+  let candidates = 0, benefits = 0, carried = 0, resetBySignature = 0, accAuditedStores = 0;
+  // 対応決済の監査根拠を読む
+  const acceptanceFindings = {};
+  if (fs.existsSync(ACCEPTANCE_DIR)) {
+    for (const f of fs.readdirSync(ACCEPTANCE_DIR).filter((x) => x.endsWith(".json"))) {
+      const doc = JSON.parse(fs.readFileSync(path.join(ACCEPTANCE_DIR, f), "utf8"));
+      Object.assign(acceptanceFindings, doc.stores || {});
+    }
+  }
 
   for (const { storeId, store } of d.entries) {
     for (const c of store.候補) {
@@ -194,8 +203,22 @@ function build() {
     const sup = d.acceptance[store.店舗];
     const counts = sup ? Object.values(sup).reduce((n, g) => n + ((g && g.使える ? g.使える.length : 0) + (g && g.使えない ? g.使えない.length : 0)), 0) : 0;
     const oldAcc = prev.acceptance ? prev.acceptance[storeId] : null;
+    const accFind = acceptanceFindings[storeId];
+    let accAudit;
+    if (accFind) {
+      // 分類ごとの確認状況から、その店舗の対応決済の判定を決める。
+      const states = Object.values(accFind.groups || {}).map((g) => g.state);
+      const status = states.includes("相違") ? "不一致"
+        : states.length && states.every((x) => x === "確認済み") ? "一致"
+        : states.includes("確認済み") ? "一部確認" : "未確認";
+      accAudit = { ...emptyAudit(), status, officialUrls: accFind.officialUrls || [],
+                   checkedAt: accFind.checkedAt || null, method: accFind.method || null,
+                   evidence: accFind.evidence || [], fixes: accFind.fixes || [],
+                   groups: accFind.groups || {}, notAllCovered: accFind.notAllCovered || [] };
+      accAuditedStores++;
+    } else accAudit = oldAcc && oldAcc.audit && oldAcc.audit.method ? oldAcc.audit : emptyAudit();
     acceptanceRows[storeId] = { storeId, storeName: store.店舗, entryCount: counts,
-                                audit: oldAcc ? oldAcc.audit : emptyAudit() };
+                                phase: accFind ? "調査済み" : "未着手", audit: accAudit };
   }
 
   const ledger = {
@@ -228,6 +251,9 @@ function build() {
   const byStatus = {};
   for (const it of Object.values(items)) byStatus[it.audit.status] = (byStatus[it.audit.status] || 0) + 1;
   console.log(`  判定内訳: ${JSON.stringify(byStatus)}`);
+  const accT = {};
+  for (const r of Object.values(acceptanceRows)) accT[r.audit.status] = (accT[r.audit.status] || 0) + 1;
+  console.log(`  店舗別対応決済: 調査済み ${accAuditedStores} / ${Object.keys(acceptanceRows).length}　判定 ${JSON.stringify(accT)}`);
   return ledger;
 }
 

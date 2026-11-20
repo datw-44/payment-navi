@@ -1,7 +1,7 @@
 {
  "meta": {
   "note": "お支払いナビ 監査台帳。本番表示の承認記録 (app/design/store-detail/verification-records.json) とは別物で、ここの内容は公開画面に影響しない。",
-  "generatedAt": "2026-11-20T10:36:30.555Z",
+  "generatedAt": "2026-11-20T10:39:06.108Z",
   "statuses": [
    "一致",
    "不一致",
@@ -30418,8 +30418,19 @@
    "storeId": "seven-eleven",
    "storeName": "セブンイレブン",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30436,8 +30447,19 @@
    "storeId": "lawson",
    "storeName": "ローソン",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30454,8 +30476,19 @@
    "storeId": "family-mart",
    "storeName": "ファミリーマート",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30472,8 +30505,19 @@
    "storeId": "matsumotokiyoshi",
    "storeName": "マツモトキヨシ",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30490,8 +30534,19 @@
    "storeId": "welcia",
    "storeName": "ウエルシア",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30508,26 +30563,80 @@
    "storeId": "tsuruha-drug",
    "storeName": "ツルハドラッグ",
    "entryCount": 17,
+   "phase": "調査済み",
    "audit": {
-    "status": "未確認",
-    "officialUrls": [],
-    "checkedAt": null,
-    "method": null,
-    "evidence": [],
+    "status": "一部確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
+    "officialUrls": [
+     "https://www.tsuruha.co.jp/service/payment/"
+    ],
+    "checkedAt": "2026-11-20T10:40:00Z",
+    "method": "html",
+    "evidence": [
+     "電子マネーをご利用いただけます（HAPPAY（ハッペイ）・WAON・nanaco・Edy・iD・QUICPay・交通系電子マネー）",
+     "その他決済サービス 「d払い」「WeChat Pay」「Alipay＋」「PayPay」「au PAY」「楽天ペイ」「メルペイ」",
+     "「中国銀聯カード」… 札幌市内と観光地近辺や都心部等の一部店舗で導入",
+     "nanaco ※ローソンツルハ杉並和田店ではご利用いただけません"
+    ],
     "confirmed": [],
     "unconfirmed": [],
     "mismatches": [],
-    "fixes": [],
+    "fixes": [
+     "対応決済: HAPPAY（ツルハグループの電子マネー）の追加を検討",
+     "対応決済: 中国銀聯カードは一部店舗のみ導入である旨の扱いを検討"
+    ],
     "recheckAfter": null,
-    "fetchFailure": null
+    "fetchFailure": null,
+    "groups": {
+     "QRコード決済": {
+      "state": "確認済み",
+      "note": "掲載の5件（PayPay・d払い・楽天ペイ・au PAY・メルペイ）すべてが公式ページに記載されている"
+     },
+     "電子マネー": {
+      "state": "確認済み",
+      "note": "掲載の6件（交通系IC・iD・QUICPay・WAON・nanaco・楽天Edy）すべてが公式ページに記載されている"
+     },
+     "クレジットカード": {
+      "state": "未確認",
+      "note": "この決済案内ページは電子マネーとコード決済が中心で、Visa・Mastercard・JCB・American Express・Diners Club の国際ブランド名は1件も出てこない。記載が無いだけで使えないという意味ではないため未確認とする"
+     },
+     "その他": {
+      "state": "未確認",
+      "note": "掲載の『クレジットカード同士・電子マネー同士の組み合わせ払い不可』について、公式ページに該当の記載を確認できていない"
+     }
+    },
+    "notAllCovered": [
+     "公式には HAPPAY（ツルハ独自の電子マネー）・中国銀聯カード・WeChat Pay・Alipay＋ の記載があるが、掲載データには無い。確認できたものだけを載せる方針なので誤りではないが、HAPPAY は自社電子マネーなので追記を検討してよい",
+     "nanaco はローソンツルハ杉並和田店で使えないという例外が公式にあるが、掲載データに店舗例外の概念が無い"
+    ]
    }
   },
   "sundrug": {
    "storeId": "sundrug",
    "storeName": "サンドラッグ",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30544,8 +30653,19 @@
    "storeId": "aeon",
    "storeName": "イオン",
    "entryCount": 12,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30562,8 +30682,19 @@
    "storeId": "ito-yokado",
    "storeName": "イトーヨーカドー",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30580,8 +30711,19 @@
    "storeId": "seiyu",
    "storeName": "西友",
    "entryCount": 10,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30598,8 +30740,19 @@
    "storeId": "mcdonalds",
    "storeName": "マクドナルド",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30616,8 +30769,19 @@
    "storeId": "sukiya",
    "storeName": "すき家",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30634,8 +30798,19 @@
    "storeId": "yoshinoya",
    "storeName": "吉野家",
    "entryCount": 19,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30652,8 +30827,19 @@
    "storeId": "yodobashi-camera",
    "storeName": "ヨドバシカメラ",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30670,8 +30856,19 @@
    "storeId": "biccamera",
    "storeName": "ビックカメラ",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30688,8 +30885,19 @@
    "storeId": "yamada-denki",
    "storeName": "ヤマダ電機",
    "entryCount": 10,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30706,8 +30914,19 @@
    "storeId": "starbucks",
    "storeName": "スターバックス",
    "entryCount": 12,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30724,8 +30943,19 @@
    "storeId": "doutor",
    "storeName": "ドトール",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30742,8 +30972,19 @@
    "storeId": "tullys",
    "storeName": "タリーズ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30760,8 +31001,19 @@
    "storeId": "gusto",
    "storeName": "ガスト",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30778,8 +31030,19 @@
    "storeId": "saizeriya",
    "storeName": "サイゼリヤ",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30796,8 +31059,19 @@
    "storeId": "marugame-seimen",
    "storeName": "丸亀製麺",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30814,8 +31088,19 @@
    "storeId": "uniqlo",
    "storeName": "ユニクロ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30832,8 +31117,19 @@
    "storeId": "daiso",
    "storeName": "ダイソー",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30850,8 +31146,19 @@
    "storeId": "eneos",
    "storeName": "ENEOS",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30868,8 +31175,19 @@
    "storeId": "ministop",
    "storeName": "ミニストップ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30886,8 +31204,19 @@
    "storeId": "daily-yamazaki",
    "storeName": "デイリーヤマザキ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30904,8 +31233,19 @@
    "storeId": "seicomart",
    "storeName": "セイコーマート",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30922,8 +31262,19 @@
    "storeId": "sugi-drug",
    "storeName": "スギ薬局",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30940,8 +31291,19 @@
    "storeId": "cocokara-fine",
    "storeName": "ココカラファイン",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30958,8 +31320,19 @@
    "storeId": "cosmos-pharmacy",
    "storeName": "コスモス薬品",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30976,8 +31349,19 @@
    "storeId": "life",
    "storeName": "ライフ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -30994,8 +31378,19 @@
    "storeId": "maruetsu",
    "storeName": "マルエツ",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31012,8 +31407,19 @@
    "storeId": "gyomu-super",
    "storeName": "業務スーパー",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31030,8 +31436,19 @@
    "storeId": "costco",
    "storeName": "コストコ",
    "entryCount": 20,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31048,8 +31465,19 @@
    "storeId": "mos-burger",
    "storeName": "モスバーガー",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31066,8 +31494,19 @@
    "storeId": "kfc",
    "storeName": "ケンタッキーフライドチキン",
    "entryCount": 19,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31084,8 +31523,19 @@
    "storeId": "burger-king",
    "storeName": "バーガーキング",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31102,8 +31552,19 @@
    "storeId": "matsuya",
    "storeName": "松屋",
    "entryCount": 10,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31120,8 +31581,19 @@
    "storeId": "hama-sushi",
    "storeName": "はま寿司",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31138,8 +31610,19 @@
    "storeId": "sushiro",
    "storeName": "スシロー",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31156,8 +31639,19 @@
    "storeId": "seria",
    "storeName": "セリア",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31174,8 +31668,19 @@
    "storeId": "can-do",
    "storeName": "キャンドゥ",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31192,8 +31697,19 @@
    "storeId": "nitori",
    "storeName": "ニトリ",
    "entryCount": 11,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31210,8 +31726,19 @@
    "storeId": "muji",
    "storeName": "無印良品",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31228,8 +31755,19 @@
    "storeId": "don-quijote",
    "storeName": "ドン・キホーテ",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31246,8 +31784,19 @@
    "storeId": "idemitsu",
    "storeName": "出光",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31264,8 +31813,19 @@
    "storeId": "cosmo-oil",
    "storeName": "コスモ石油",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31282,8 +31842,19 @@
    "storeId": "lawson-store100",
    "storeName": "ローソンストア100",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31300,8 +31871,19 @@
    "storeId": "my-basket",
    "storeName": "まいばすけっと",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31318,8 +31900,19 @@
    "storeId": "seijo-ishii",
    "storeName": "成城石井",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31336,8 +31929,19 @@
    "storeId": "lopia",
    "storeName": "ロピア",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31354,8 +31958,19 @@
    "storeId": "ok-store",
    "storeName": "オーケー",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31372,8 +31987,19 @@
    "storeId": "summit",
    "storeName": "サミット",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31390,8 +32016,19 @@
    "storeId": "yaoko",
    "storeName": "ヤオコー",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31408,8 +32045,19 @@
    "storeId": "create-sd",
    "storeName": "クリエイトSD",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31426,8 +32074,19 @@
    "storeId": "kawachi-yakuhin",
    "storeName": "カワチ薬品",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31444,8 +32103,19 @@
    "storeId": "daikoku-drug",
    "storeName": "ダイコクドラッグ",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31462,8 +32132,19 @@
    "storeId": "cainz",
    "storeName": "カインズ",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31480,8 +32161,19 @@
    "storeId": "komeri",
    "storeName": "コメリ",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31498,8 +32190,19 @@
    "storeId": "dcm",
    "storeName": "DCM",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31516,8 +32219,19 @@
    "storeId": "kohnan",
    "storeName": "コーナン",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31534,8 +32248,19 @@
    "storeId": "ks-denki",
    "storeName": "ケーズデンキ",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31552,8 +32277,19 @@
    "storeId": "edion",
    "storeName": "エディオン",
    "entryCount": 12,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31570,8 +32306,19 @@
    "storeId": "joshin",
    "storeName": "ジョーシン",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31588,8 +32335,19 @@
    "storeId": "gu",
    "storeName": "GU",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31606,8 +32364,19 @@
    "storeId": "shimamura",
    "storeName": "しまむら",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31624,8 +32393,19 @@
    "storeId": "workman",
    "storeName": "ワークマン",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31642,8 +32422,19 @@
    "storeId": "komeda-coffee",
    "storeName": "コメダ珈琲店",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31660,8 +32451,19 @@
    "storeId": "mister-donut",
    "storeName": "ミスタードーナツ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31678,8 +32480,19 @@
    "storeId": "coco-ichibanya",
    "storeName": "CoCo壱番屋",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31696,8 +32509,19 @@
    "storeId": "kura-sushi",
    "storeName": "くら寿司",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31714,8 +32538,19 @@
    "storeId": "hidakaya",
    "storeName": "日高屋",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31732,8 +32567,19 @@
    "storeId": "jonathan",
    "storeName": "ジョナサン",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31750,8 +32596,19 @@
    "storeId": "bamiyan",
    "storeName": "バーミヤン",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31768,8 +32625,19 @@
    "storeId": "poplar",
    "storeName": "ポプラ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31786,8 +32654,19 @@
    "storeId": "newdays",
    "storeName": "ニューデイズ",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31804,8 +32683,19 @@
    "storeId": "maxvalu",
    "storeName": "マックスバリュ",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31822,8 +32712,19 @@
    "storeId": "daiei",
    "storeName": "ダイエー",
    "entryCount": 15,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31840,8 +32741,19 @@
    "storeId": "big-a",
    "storeName": "ビッグエー",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31858,8 +32770,19 @@
    "storeId": "sunny",
    "storeName": "サニー",
    "entryCount": 9,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31876,8 +32799,19 @@
    "storeId": "tokyu-store",
    "storeName": "東急ストア",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31894,8 +32828,19 @@
    "storeId": "inageya",
    "storeName": "いなげや",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31912,8 +32857,19 @@
    "storeId": "coop",
    "storeName": "コープ",
    "entryCount": 7,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31930,8 +32886,19 @@
    "storeId": "papasu",
    "storeName": "ぱぱす",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31948,8 +32915,19 @@
    "storeId": "tomods",
    "storeName": "トモズ",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31966,8 +32944,19 @@
    "storeId": "segami",
    "storeName": "セガミ薬局",
    "entryCount": 12,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -31984,8 +32973,19 @@
    "storeId": "freshness-burger",
    "storeName": "フレッシュネスバーガー",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32002,8 +33002,19 @@
    "storeId": "zetteria",
    "storeName": "ゼッテリア",
    "entryCount": 10,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32020,8 +33031,19 @@
    "storeId": "excelsior-caffe",
    "storeName": "エクセルシオールカフェ",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32038,8 +33060,19 @@
    "storeId": "hoshino-coffee",
    "storeName": "星乃珈琲店",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32056,8 +33089,19 @@
    "storeId": "yumean",
    "storeName": "夢庵",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32074,8 +33118,19 @@
    "storeId": "shabuyo",
    "storeName": "しゃぶ葉",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32092,8 +33147,19 @@
    "storeId": "steak-gusto",
    "storeName": "ステーキガスト",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32110,8 +33176,19 @@
    "storeId": "nakau",
    "storeName": "なか卯",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32128,8 +33205,19 @@
    "storeId": "hottomotto",
    "storeName": "ほっともっと",
    "entryCount": 20,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32146,8 +33234,19 @@
    "storeId": "gyoza-no-ohsho",
    "storeName": "餃子の王将",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32164,8 +33263,19 @@
    "storeId": "ringer-hut",
    "storeName": "リンガーハット",
    "entryCount": 11,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32182,8 +33292,19 @@
    "storeId": "tenya",
    "storeName": "てんや",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32200,8 +33321,19 @@
    "storeId": "tsutaya",
    "storeName": "TSUTAYA",
    "entryCount": 16,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32218,8 +33350,19 @@
    "storeId": "geo",
    "storeName": "ゲオ",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32236,8 +33379,19 @@
    "storeId": "bookoff",
    "storeName": "ブックオフ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32254,8 +33408,19 @@
    "storeId": "watts",
    "storeName": "ワッツ",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32272,8 +33437,19 @@
    "storeId": "shell",
    "storeName": "シェル",
    "entryCount": 14,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32290,8 +33466,19 @@
    "storeId": "kygnus",
    "storeName": "キグナス",
    "entryCount": 7,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32308,8 +33495,19 @@
    "storeId": "big-echo",
    "storeName": "ビッグエコー",
    "entryCount": 18,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32326,8 +33524,19 @@
    "storeId": "karaoke-kan",
    "storeName": "カラオケ館",
    "entryCount": 17,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32344,8 +33553,19 @@
    "storeId": "toho-cinemas",
    "storeName": "TOHOシネマズ",
    "entryCount": 9,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,
@@ -32362,8 +33582,19 @@
    "storeId": "aeon-cinema",
    "storeName": "イオンシネマ",
    "entryCount": 13,
+   "phase": "未着手",
    "audit": {
     "status": "未確認",
+    "checks": {
+     "還元率": "未確認",
+     "対象日": "未確認",
+     "対象決済": "未確認",
+     "ポイント種類": "未確認",
+     "対象店舗": "未確認",
+     "追加条件": "未確認",
+     "上限": "未確認",
+     "除外事項": "未確認"
+    },
     "officialUrls": [],
     "checkedAt": null,
     "method": null,

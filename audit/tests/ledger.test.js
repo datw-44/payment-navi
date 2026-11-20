@@ -160,4 +160,24 @@ test("差分検出の基準はブランチに保存され、公式ページの�
   }
   assert.ok(withBaseline > 0, "比較基準を持つURLが1件もない");
 });
+
+
+// ───────── 店舗別対応決済 ─────────
+test("対応決済は109店舗すべてに状態があり、未着手なら未確認", () => {
+  const rows = Object.values(L.acceptance || {});
+  assert.equal(rows.length, 109);
+  for (const r of rows) {
+    assert.ok(["未着手", "調査済み"].includes(r.phase), `${r.storeId} の着手状況=${r.phase}`);
+    if (r.phase === "未着手") assert.equal(r.audit.status, "未確認", r.storeId);
+  }
+  const done = rows.filter((r) => r.phase === "調査済み");
+  for (const r of done) {
+    assert.ok(r.audit.groups && Object.keys(r.audit.groups).length, `${r.storeId} に分類ごとの確認状況がない`);
+    assert.ok((r.audit.officialUrls || []).length, `${r.storeId} に公式URLがない`);
+    // 公式に記載が無いだけの分類を「使えない」と判定していないこと
+    for (const [g, v] of Object.entries(r.audit.groups)) {
+      assert.ok(["確認済み", "相違", "未確認", "記載不足"].includes(v.state), `${r.storeId}/${g} の状態=${v.state}`);
+    }
+  }
+});
 console.log(`\n${passed} tests passed`);

@@ -38,8 +38,15 @@ show("支払い候補", cands);
 show("全体", all);
 console.log("");
 console.log(`  店舗別の対応決済（acceptance）: ${L.meta.counts.acceptanceStores}店舗 / 掲載時点 ${L.meta.acceptanceCheckedAt}`);
-const accT = tally(Object.values(L.acceptance));
+const accRows = Object.values(L.acceptance);
+const accT = tally(accRows);
+const accDone = accRows.filter((r) => r.phase === "調査済み").length;
+console.log(`      調査済み ${accDone} / 未着手 ${accRows.length - accDone}`);
 console.log(`      一致 ${accT["一致"]} / 不一致 ${accT["不一致"]} / 一部確認 ${accT["一部確認"]} / 未確認 ${accT["未確認"]}`);
+for (const r of accRows.filter((x) => x.phase === "調査済み")) {
+  const g = Object.entries(r.audit.groups || {}).map(([k, v]) => `${k}:${v.state}`).join(" / ");
+  console.log(`      ${r.storeName} → ${g}`);
+}
 console.log("");
 console.log(`  本番表示の承認記録（別管理・変更しない）: verification-records ${L.meta.verificationRecords.total}件`);
 console.log(`      status=${JSON.stringify(L.meta.verificationRecords.byStatus)} displayApproval付き=${L.meta.verificationRecords.withDisplayApproval}件`);
