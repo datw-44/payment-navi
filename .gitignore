@@ -39,3 +39,5 @@ next-env.d.ts
 /audit/cache/
 # 週次レポートは生成物。必要なものだけ手で残す。
 /audit/reports/
+# ただし修正一覧は公開前の確認に使う成果物なので保存する。
+!/audit/reports/fixlist.md

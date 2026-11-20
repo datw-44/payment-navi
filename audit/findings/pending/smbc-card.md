@@ -14,17 +14,22 @@
 1. https://www.smbc-card.com/nyukai/merit/proper_p5.jsp
    （検索結果でのページタイトルは「対象のコンビニ・飲食店で最大8％還元！」。開いたページがこの内容か確認してください）
 2. 公式FAQ: https://qa.smbc-card.com/mem/nyukai/detail?category=16&id=1510&site=4H4A00IO
-3. 参考: https://www.smbc-card.com/mem/hitotoki/card_use/touch_payment.jsp
+3. 2026年2月2日 公式ニュースリリースPDF: https://www.smbc-card.com/company/news/25/news0002115.pdf
+4. 参考: https://www.smbc-card.com/mem/hitotoki/card_use/touch_payment.jsp
 
 ## クラウドから取得できなかった記録（2026-11-20）
 
 | 試した方法 | 結果 |
 |---|---|
 | curl（www.smbc-card.com、複数パス） | Akamai が HTTP 403 Access Denied |
-| Chromium（実ブラウザ、複数パス） | 同じく 403 Access Denied |
+| Chromium 実ブラウザ（複数パス） | 同じく 403 Access Denied |
+| 公式ニュースリリースPDF（curl / Chromium とも） | HTTP 403。中身は422バイトの Access Denied ページ |
+| 公式FAQ qa.smbc-card.com（category=16 / 62） | **証明書が `*.syncanswer.jp` 用でホスト名と一致しない**。ホスト名検証を外すのはTLS検証の無効化にあたるため行わない |
 | WebFetch | ドメインの名前解決に失敗 |
-| qa.smbc-card.com（curl / Chromium） | TLS の検証が通らず 502。**検証の無効化はしない** |
 | Web検索 | 第三者の解説記事が中心。**抜粋だけでは確定させない方針のため採用しない** |
+
+公式FAQの証明書不一致は三井住友カード側（FAQ提供事業者）の設定の問題で、
+こちらから正規の方法で解決できるものではありません。
 
 アクセス制限の回避は行っていません。
 

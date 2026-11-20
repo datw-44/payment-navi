@@ -172,31 +172,43 @@
       "officialUrls": [
         "https://www.smbc-card.com/"
       ],
-      "checkedAt": "2026-11-20T09:20:00Z",
+      "checkedAt": "2026-11-20T10:00:00Z",
       "method": "none",
       "evidence": [],
       "notes": "関係する候補93件（うち店舗限定を含むもの56件）。コンビニ・飲食店の最大7%は店舗限定特典なので、カード自体の通常還元（0.5%）とは分けて確認する必要がある。",
       "fetchFailure": {
-        "reason": "smbc-card.com はパスを変えても、curl でも実ブラウザでも Akamai が403を返す。公式FAQのドメインはTLS検証が通らない。アクセス制限の回避は行っていない。",
-        "alternativeRoute": "通常のブラウザでの確認が必要。確認してほしい項目を audit/findings/pending/smbc-card.md に票として用意した。記入後、この issuers.json の smbc を更新すれば93候補の監査が進む。"
+        "reason": "smbc-card.com はHTML・PDFとも、curlでも実ブラウザでも Akamai が403を返す。公式FAQの qa.smbc-card.com は、提示される証明書が *.syncanswer.jp 用でホスト名と一致しないため、TLS検証を通したまま接続できない（FAQ提供側の証明書設定の問題）。いずれもアクセス制限の回避やTLS検証の無効化はしていない。",
+        "alternativeRoute": "正規の取得手段を尽くしたため、通常のブラウザでの確認が必要。確認票 audit/findings/pending/smbc-card.md に、開くページと書き写す項目を用意している。"
       },
       "recheckAfter": null,
       "attemptedRoutes": [
         {
-          "route": "curl（www.smbc-card.com / proper_p5.jsp・hitotoki）",
+          "route": "curl（www.smbc-card.com / nyukai/merit/proper_p5.jsp・mem/hitotoki）",
           "result": "Akamai が HTTP 403 Access Denied"
         },
         {
-          "route": "Chromium（実ブラウザ、同じ複数パス）",
-          "result": "同じく 403 Access Denied。ブラウザ表示でも回避されない"
+          "route": "Chromium 実ブラウザ（同じ複数パス）",
+          "result": "同じく 403。ブラウザ表示でも回避されない"
+        },
+        {
+          "route": "公式ニュースリリースPDF www.smbc-card.com/company/news/25/news0002115.pdf（curl）",
+          "result": "HTTP 403（422バイトのAccess Deniedページ）"
+        },
+        {
+          "route": "同PDF（Chromium 実ブラウザ）",
+          "result": "HTTP 403。本文は Access Denied のHTML"
+        },
+        {
+          "route": "公式FAQ qa.smbc-card.com（category=16 / category=62、curl）",
+          "result": "サーバー証明書が *.syncanswer.jp 用で、qa.smbc-card.com と一致しない（curl 60）。ホスト名検証を外すことはTLS検証の無効化にあたるため行わない"
+        },
+        {
+          "route": "公式FAQ（Chromium 実ブラウザ）",
+          "result": "プロキシが 502 upstream request failed。上と同じ証明書不一致が原因とみられる"
         },
         {
           "route": "WebFetch",
           "result": "ドメインの名前解決に失敗"
-        },
-        {
-          "route": "qa.smbc-card.com（公式FAQ、curl / Chromium）",
-          "result": "TLSの検証が通らずプロキシが502。検証の無効化はしない"
         },
         {
           "route": "Web検索",
@@ -265,21 +277,45 @@
     },
     "jcb": {
       "name": "JCBカード",
-      "status": "未確認",
+      "status": "確認済み",
       "baseRatePercent": null,
-      "pointName": "Oki Dokiポイント",
+      "pointName": "J-POINT",
       "officialUrls": [
-        "https://www.jcb.co.jp/"
+        "https://www.jcb.co.jp/point/",
+        "https://www.jcb.co.jp/ordercard/kojin_card/os_card_w.html"
       ],
-      "checkedAt": "2026-11-20T02:10:00Z",
+      "checkedAt": "2026-11-20T10:15:00Z",
       "method": "html",
-      "evidence": [],
-      "notes": "www.jcb.co.jp のトップは取得できるが、カード別ページは本文が十数行しか取れず、JavaScript描画の可能性が高い。",
-      "fetchFailure": {
-        "reason": "カード別ページ（/ordercard/kojin_card/jcb_cardw.html）は HTTP 200 だが本文14行。/ordercard/point/index.html は404。",
-        "alternativeRoute": "audit/cli.js render でブラウザ描画してから再抽出する。"
-      },
-      "recheckAfter": null
+      "evidence": [
+        "J-POINT 200円（税込）につき1ポイントたまり、1ポイント＝最大1円分で使える",
+        "J-POINT誕生 2026年1月より、もっとためやすく、もっと使いやすいサービスへリニューアル。",
+        "［JCB CARD W］ポイント J-POINT／毎月のご利用合計金額200円（税込）につき2ポイント",
+        "［JCB CARD W］常時ポイント 1.0％還元／還元率最大10.5％（優待店でさらに）",
+        "［JCB CARD W］18～39歳入会限定"
+      ],
+      "notes": "2026年1月に Oki Doki ポイントから J-POINT へリニューアル。1ポイント＝最大1円分で、交換先により1円未満になる。優待店（J-POINTパートナー）の上乗せは店舗ごとに要確認で、カード自体の通常還元とは分けて扱う。",
+      "recheckAfter": null,
+      "products": [
+        {
+          "appliesTo": "^JCB ?カード ?W",
+          "baseRatePercent": 1,
+          "pointName": "J-POINT",
+          "note": "200円（税込）につき2ポイント＝常時1.0%還元。18〜39歳入会限定。優待店では最大10.5%"
+        },
+        {
+          "appliesTo": "^JCB ?(オリジナル|一般|ゴールド)",
+          "baseRatePercent": 0.5,
+          "pointName": "J-POINT",
+          "note": "200円（税込）につき1ポイント＝0.5%"
+        }
+      ],
+      "remaining": {
+        "unconfirmed": [
+          "J-POINTパートナー（優待店）の対象店舗一覧と上乗せ倍率",
+          "ポイント交換レートの一覧"
+        ],
+        "nextStep": "jcb.co.jp 内のJ-POINTパートナー一覧ページを特定して取得する。14候補の対象店舗判定に必要。"
+      }
     }
   },
   "_appliesToNote": "appliesTo は、その発行元の『この商品』の通常還元だけに自動照合を限定するための正規表現。同じ発行元でも別商品（例: au PAY カード と au PAY コード支払い）は還元率が異なるため、これを付けない限り自動照合は行わない。",
